@@ -11,23 +11,34 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: <>Docusaurus was designed from the ground up to be easily installed and used to get your website up and running quickly.</>,
-  },
-  {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Corporis eligendi qui',
+    Svg: require('@site/static/img/pictograms/book.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into the <code>docs</code> directory.
+        Quod quasi ducimus perferendis ut sequi sunt occaecati. Et et et qui iste. Consequatur ut quia praesentium facilis officia molestiae. Sunt
+        ipsam quia hic sed sunt. Sapiente dignissimos harum voluptates iste distinctio doloremque saepe ut.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: <>Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the same header and footer.</>,
+    title: 'Eos voluptates distinctio',
+    Svg: require('@site/static/img/pictograms/paint.svg').default,
+    description: (
+      <>
+        Et repudiandae fugiat sunt ut distinctio natus vel. Sed molestiae delectus eveniet ipsum pariatur aut. Corrupti ex quo iusto. Qui iusto alias
+        est rerum repellat fugiat. Amet minima omnis et commodi necessitatibus.
+      </>
+    ),
+  },
+  {
+    title: 'Maiores fugiat velit',
+    Svg: require('@site/static/img/pictograms/community.svg').default,
+    description: (
+      <>
+        Quia tenetur quia consequatur sed reprehenderit aut id itaque. Impedit nulla reiciendis et tenetur tempore sit quos quibusdam. Molestiae
+        suscipit adipisci quia minima pariatur eum. Rerum modi veritatis.
+      </>
+    ),
   },
 ];
 

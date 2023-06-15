@@ -1,0 +1,12 @@
+# Set default behavior to automatically normalize line endings.
+* text=auto
+
+# Don't allow people to merge changes to these generated files, because the result may be invalid
+package-lock.json merge=binary
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+
+# Set the repository to show as TypeScript rather than JS in GitHub
+*.js linguist-detectable=false

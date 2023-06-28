@@ -13,6 +13,10 @@ const config = {
   url: 'https://sillon.rame.fr',
   baseUrl: '/',
 
+  customFields: {
+    crispWebsiteId: process.env.CRISP_WEBSITE_ID || 'no_crisp_settings',
+  },
+
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
 
@@ -48,7 +52,12 @@ const config = {
           alt: '',
           src: 'assets/logo/marianne.svg',
         },
-        items: [],
+        items: [
+          {
+            type: 'custom-liveChat',
+            position: 'right',
+          },
+        ],
       },
       footer: {
         logo: {

@@ -1,0 +1,66 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+env:
+  NODE_OPTIONS: --max_old_space_size=4096
+  NODE_VERSION: 18.16.0
+  NPM_VERSION: 9.5.1
+concurrency:
+  # Prevent parallel builds of the same branch
+  group: cicd-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  requirements:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Adjust npm version
+        run: npm install -g npm@${{ env.NPM_VERSION }}
+
+      - uses: actions/cache@v3
+        name: Setup npm cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-store-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-store-
+
+      - name: Install dependencies
+        run: make deps
+
+      - name: Lint
+        run: make lint
+
+      - name: Format check
+        run: make format-check
+
+      - name: Build
+        env:
+          CRISP_WEBSITE_ID: ${{ secrets.CRISP_WEBSITE_ID }}
+        run: make build
+
+      - name: Deploy to Netlify
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=dist --prod
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

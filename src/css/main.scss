@@ -1,1 +1,6 @@
 @import '@site/src/css/search.scss';
+
+.button.button--secondary {
+  // Needed... don't know why by default it's a fixed `var(--ifm-color-gray-900);`
+  color: var(--ifm-color-content) !important;
+}

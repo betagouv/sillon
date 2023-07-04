@@ -1,0 +1,14 @@
+{
+  "link.item.label.beta.gouv": {
+    "message": "beta.gouv",
+    "description": "The label of footer link with label=beta.gouv linking to https://beta.gouv.fr"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/sneko/sillon"
+  },
+  "copyright": {
+    "message": "Sauf mention contraire, tous les contenus de ce site sont sous <a href=\"https://raw.githubusercontent.com/inclusion-numerique/mediature/main/LICENSE\">licence AGPL-3.0</a>",
+    "description": "The footer copyright"
+  }
+}

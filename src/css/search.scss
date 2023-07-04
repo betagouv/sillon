@@ -1,0 +1,15 @@
+:root {
+  --search-local-modal-background: var(--ifm-background-color);
+  --search-local-modal-shadow: 0 3px 8px 0 var(--ifm-color-emphasis-100);
+  --search-local-hit-background: var(--ifm-color-emphasis-100);
+  --search-local-hit-shadow: 0 1px 3px 0 var(--ifm-color-emphasis-100);
+  --search-local-hit-color: var(--ifm-font-color-base);
+  --search-local-highlight-color: var(--ifm-color-primary);
+  --search-local-muted-color: var(--ifm-color-primary-contrast-foreground);
+  --search-local-hit-active-color: var(--ifm-color-primary-contrast-background);
+}
+
+.navbar__search-input,
+#searchBar_RVTs-listbox-0 {
+  border-radius: 0 !important;
+}

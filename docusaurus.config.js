@@ -36,7 +36,7 @@ const config = {
         },
         blog: false,
         theme: {
-          customCss: [require.resolve('dsfr-connect/dist/infima-v1/index.css')],
+          customCss: [require.resolve('dsfr-connect/dist/infima-v1/index.css'), require.resolve('./src/css/main.scss')],
         },
       }),
     ],
@@ -80,6 +80,18 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+  plugins: ['docusaurus-plugin-sass'],
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      // /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      {
+        hashed: true,
+        language: ['fr'],
+      },
+    ],
+  ],
 };
 
 module.exports = config;

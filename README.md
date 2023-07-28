@@ -49,11 +49,13 @@ Then go to `Chatbox Security` and enable `Lock the chatbox to website domain (an
 
 ### PDF generation
 
-You need Docker installed and the built website running to execute:
+You need [Prince](https://www.princexml.com/) installed through your package manager and to have the built website running to execute:
 
 ```bash
 make generate-pdf
 ```
+
+_(Ideally we wanted to use a Docker container directly but there is an ongoing issue with it https://github.com/signcl/docusaurus-prince-pdf/issues/34)_
 
 ### IDE
 

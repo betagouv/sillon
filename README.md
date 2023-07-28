@@ -47,6 +47,14 @@ Into the `Chatbox & Email settings` section go to `Chat Appearance` and set:
 
 Then go to `Chatbox Security` and enable `Lock the chatbox to website domain (and subdomains)` (not need to enable it inside the development environment).
 
+### PDF generation
+
+You need Docker installed and the built website running to execute:
+
+```bash
+make generate-pdf
+```
+
 ### IDE
 
 Since the most used IDE as of today is Visual Studio Code we decided to go we it. Using it as well will make you benefit from all the settings we set for this project.

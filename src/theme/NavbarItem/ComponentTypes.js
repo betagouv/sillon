@@ -1,4 +1,5 @@
 import LiveChatNavbarItem from '@site/src/components/LiveChatNavbarItem';
+import PdfVersionNavbarItem from '@site/src/components/PdfVersionNavbarItem';
 import DefaultNavbarItem from '@theme/NavbarItem/DefaultNavbarItem';
 import DocNavbarItem from '@theme/NavbarItem/DocNavbarItem';
 import DocSidebarNavbarItem from '@theme/NavbarItem/DocSidebarNavbarItem';
@@ -14,6 +15,7 @@ import SearchNavbarItem from '@theme/NavbarItem/SearchNavbarItem';
 const ComponentTypes = {
   // Custom
   'custom-liveChat': LiveChatNavbarItem,
+  'custom-pdfVersion': PdfVersionNavbarItem,
   // Defaults
   default: DefaultNavbarItem,
   localeDropdown: LocaleDropdownNavbarItem,

@@ -54,6 +54,10 @@ const config = {
         },
         items: [
           {
+            type: 'custom-pdfVersion',
+            position: 'right',
+          },
+          {
             type: 'custom-liveChat',
             position: 'right',
           },

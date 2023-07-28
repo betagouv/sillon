@@ -56,6 +56,9 @@ jobs:
           CRISP_WEBSITE_ID: ${{ secrets.CRISP_WEBSITE_ID }}
         run: make build
 
+      - name: Generate PDF
+        run: make generate-pdf-in-ci
+
       - name: Deploy to Netlify
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         uses: netlify/actions/cli@master

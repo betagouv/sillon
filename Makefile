@@ -19,6 +19,12 @@ start:
 dev:
 	npm run dev
 
+generate-pdf:
+	npm run pdf:generate
+
+generate-pdf-in-ci:
+	npm run pdf:generate-in-ci
+
 lint:
 	npm run lint
 

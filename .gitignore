@@ -3,6 +3,7 @@
 
 # Production
 /dist
+/dist-pdf
 
 # Generated files
 .docusaurus

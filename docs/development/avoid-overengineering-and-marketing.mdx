@@ -1,3 +1,6 @@
+import AdoptionLifeCycle from '@site/docs/development/adoption-life-cycle.png';
+import { CaptionedImage } from '@site/src/components/CaptionedImage';
+
 # Éviter l'overengineering, et la hype
 
 En parlant d'efficacité… l'[_overengineering_](https://fr.wiktionary.org/wiki/suring%C3%A9nierie) c'est le fait de sur-complexifier le développement technique. Pourquoi faire simple quand on peut faire compliqué ? Parlez-en aux développeurs, ils sauront.
@@ -6,9 +9,7 @@ Loin de nous l'idée de critiquer l'innovation... Le problème c'est qu'il y a �
 
 C'est un phénomène connu :
 
-![](./adoption-life-cycle.png)
-
-[_Source_](https://en.wikipedia.org/wiki/Technology_adoption_life_cycle)
+<CaptionedImage src={AdoptionLifeCycle} alt="" source="https://en.wikipedia.org/wiki/Technology_adoption_life_cycle" />
 
 Le pire dans tout ça c'est que cette innovation devient réellement “productive” si elle est adaptée à votre produit. En fait, une majorité des produits numériques d'aujourd'hui ne demande pas beaucoup plus de complexité que ceux d'il y a 15 ans. Un monolithe (backend + frontend), une base de données, et hop ça fonctionne. _Bien évidemment on a beaucoup automatisé et standardisé le déploiement, les tests… mais l'essentiel des concepts est identique._
 

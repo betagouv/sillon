@@ -1,0 +1,13 @@
+# … Et le framework backend ?
+
+Comme décrit [_plus haut_](#avoir-le-code-dans-un-même-repository), on privilégie un monolithe (à l'ancienne 👵). Nous préconisons [_Next.js_](https://github.com/vercel/next.js/) côté backend afin d'avoir une intégration native avec React. Essayez de partir avec au minimum Next.js v13 en configurant le router avec “appDir”.
+
+Cette version utilise React v18 qui introduit les [_RSC_](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023) (React Server Component), permettant le rendu HTML directement sur le serveur sans recalculer les composants depuis le frontend. Vous connaissez peut-être de longue date le SSR (server-side rendering) avec React, si vous voulez connaître [_la différence exacte avec les RSC, lisez ça_](https://stackoverflow.com/a/76325921).
+
+_Avant, React était surtout connu pour être fourni en [SPA](https://en.wikipedia.org/wiki/Single-page_application) (Single Page Application), mais ça rendait votre [SEO](https://en.wikipedia.org/wiki/Search_engine_optimization) pauvre et votre application n'était pas très bien référencée sur les moteurs de recherche. Là les RSC apportent un nouveau souffle (bien mieux que faire du React SSR), et si vous les codez bien, ils peuvent être compatibles pour être rendus sur serveur tout autant que sur frontend (ce qui facilite la réutilisation entre différents outils)._
+
+Les avantages avec les RSC :
+
+- Meilleur SEO ;
+- Écoconception (il n'y a plus d'hydratation des composants côté frontend) ;
+- Rapidité du rendu de la page avec son chargement (valable aussi en développement)..

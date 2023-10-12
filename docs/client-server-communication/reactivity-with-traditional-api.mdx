@@ -1,0 +1,24 @@
+# Avoir de la réactivité avec une API traditionnelle
+
+Lorsque votre application autorise des interactions entre plusieurs utilisateurs (directement ou indirectement), il peut être envisagé d'avoir des mises à jour de la donnée en temps réel.
+
+## Cas avancé et plus complexe
+
+J'ai une application bancaire et j'aimerais voir en temps réel dans mon application mon solde se mettre à jour si une transaction se produit. Il faut pour cela passer que votre backend notifie votre frontend des données à mettre à jour, ou tout simplement en envoyant un ordre similaire à “rejoue tes requêtes”.
+
+2 solutions s'offrent à vous :
+
+1.  Qu'à son lancement le frontend se manifeste auprès du serveur pour maintenir un canal “de souscriptions en temps réel” (que ce soit une [_WebSocket_](https://en.wikipedia.org/wiki/WebSocket) ou du [_long-polling_](https://en.wiktionary.org/wiki/long_polling)). Cela peut se faire [_directement avec la librairie tRPC_](https://trpc.io/docs/subscriptions) que nous conseillons ;
+2.  Il est aussi envisageable d'utiliser les [_Push notifications_](https://en.wikipedia.org/wiki/Push_technology) qui sont maintenant un standard mobile et web. À noter qu'elles font surtout sens pour permettre de notifier un utilisateur même lorsque l'application numérique n'est pas ouverte. Par exemple, si vous recevez un message dans votre applicatif, vous aurez une notification de votre navigateur web même si vous n'avez pas l'application ouverte. _Pour cette solution précisément, il est recommandé d'utiliser un service connu pour la distribution des Push notifications afin de vous simplifier la gestion des envois (bien que cela rajoute un acteur tiers)._
+
+## Cas standard et simple
+
+Vous pouvez aussi apporter de la réactivité frontend sans avoir de notification de la part du backend. Techniquement cela paraît très “sommaire” mais c'est terriblement ingénieux. Quelques exemples :
+
+- Je soumets un formulaire, les requêtes _(queries)_ sont automatiquement rejouées et la page met à jour ses données sans rechargement visible. Si vous utilisez une [_base de données atomique_](#une-base-de-données-qui-fait-tout-vraiment), les données soumises apparaissent directement sans devoir mettre en place des _patchs_ manuels de l'interface. Cela est possible car c'est le même client qui gère les _queries_ et les _mutations_ ;
+- Je vais sur un autre onglet pendant X minutes, je reviens, et tous les _getters_ sont rejoués ;
+- L'application peut aussi explicitement forcer le rafraîchissement des données sans rechargement.
+
+Cela est possible suivant le client HTTP que vous utilisez. Nous avons fait le choix de [_react-query_](https://github.com/TanStack/query) qui est directement compatible avec [_tRPC_](https://trpc.io/). Sans configuration explicite on bénéficie des exemples cités.
+
+_Si vous n'avez pas d'API tRPC mais un format standard type OpenAPI, vous pouvez générer un client react-query grâce à des librairies comme [openapi-codegen](https://github.com/fabien0102/openapi-codegen) ou encore [orval](https://github.com/anymaniax/orval)._

@@ -13,8 +13,17 @@ Since then we rely on direct text contributions but keep in mind this process ca
 The command:
 
 ```sh
-pandoc -f docx -t gfm-raw_html "$MY_DOCX_FILENAME" --wrap=none
+pandoc -f docx -t gfm-raw_html --extract-media=./static/assets/docs sillon.docx --wrap=none -o "sillon.mdx"
 ```
+
+Then a few hacks to apply in the `.mdx` output:
+
+- Give a size to images to avoid large ones
+- Replace code sections with appropriate Docusaurus blocks
+- Replace information sections with appropriate Docusaurus blocks
+- Split the single output file into multiple ones and manage their sidebar position
+- Adjust the `sidebars.js` file so the sidebar menu matches splitted files
+- Move images next to the files they are displayed into, and rename them meaningfully
 
 ## Technical setup of this repository
 

@@ -45,6 +45,14 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      tableOfContents: {
+        minHeadingLevel: 2,
+        maxHeadingLevel: 3,
+      },
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
       image: 'img/social-card.png',
       navbar: {
         title: 'Sillon',

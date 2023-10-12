@@ -1,0 +1,10 @@
+# Accès restreints et alertes
+
+Les accès à donner pour chaque service, outil ou fichier doivent être préalablement réfléchis. Pour aller droit au but : dites-vous qu'au niveau d'un produit, l'environnement de production ne doit être idéalement accessible que par 1 personne (voire 2 pour un peu de redondance).
+
+Si votre hébergeur le permet, activez les alertes :
+
+- Par email pour toute modification sur les configurations de l'environnement de production ;
+- Par un système de chat (Mattermost, Slack…) pour des modifications sensibles sur les configurations de l'environnement de développement.
+
+Vous pouvez aussi utiliser un outil comme [_GitGuardian_](https://www.gitguardian.com/) pour vous prémunir de secrets qui seraient committés sans faire exprès sur votre repository (promis, ça arrive 😬).

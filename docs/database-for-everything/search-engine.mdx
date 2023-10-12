@@ -1,0 +1,31 @@
+# Moteur de recherche
+
+Certains produits auront peut-être besoin d'un outil lourd comme [_ElasticSearch_](https://www.elastic.co/) pour stocker et optimiser les recherches à effectuer, mais encore une fois, dans la grande majorité des cas [_votre PostgreSQL suffira_](https://www.postgresql.org/docs/current/textsearch.html).
+
+Nous ne vous proposons quand même pas de retourner à l'opérateur SQL “_LIKE %ma recherche%_” ​​👵, mais plutôt d'utiliser [_les types de données_ **tsquery** _et_ **tsvector**](https://www.postgresql.org/docs/current/datatype-textsearch.html). Si comme conseillé vous utilisez l'ORM Prisma, l'utilisation est [_assez facile et quasi transparente sur des colonnes distinctes_](https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search). Par contre cela ne marchera pas si vous cherchez “John Doe” et que “John” est dans la colonne _firstname_ et “Doe” dans la colonne _lastname_.
+
+Pour faire ce type de recherche sur plusieurs colonnes (exemple : le prénom, le nom, l'adresse, la biographie), la stratégie est de [_concaténer_](https://fr.wiktionary.org/wiki/concat%C3%A9ner) chaque colonne voulue [_dans une colonne générée_](https://www.postgresql.org/docs/current/ddl-generated-columns.html) et indexée, représentant un _tsvector_. Cette colonne est donc optimisée pour de la recherche.
+
+[_Prisma ne gère pas encore nativement les colonnes générées_](https://github.com/prisma/prisma/issues/6336), mais rien ne vous empêche de la créer à la main. Différents articles existent sur internet mais pour vous donner une idée cela donnerait quelque chose comme :
+
+\`\`\`sql
+
+ALTER TABLE MyTable
+
+ADD search TSVECTOR
+
+GENERATED ALWAYS AS (
+
+to_tsvector('english',
+
+firstname \|\| ' ' \|\| lastname \|\| ' ' \|\| biography \|\| ' ' \|\| full_address
+
+)
+
+) STORED;
+
+\`\`\`
+
+Plutôt que de juste concaténer bêtement les colonnes, on transforme le tout en _tsvector_ afin qu'il soit déjà optimisé pour la recherche.
+
+_À noter qu'un tsvector est optimisé pour une langue en particulier afin de trier les mots. Par défaut, c'est la configuration \`default_text_search_config\` qui est utilisée. Sachez que même si votre contenu est en français, faites des tests avec \`english\` avant d'utiliser la valeur \`french\`. Cette dernière différencie les mots avec ou sans accent, ce qui peut être problématique… N'hésitez pas à jeter un œil à [toutes les options de langues possibles](https://www.postgresql.org/docs/current/textsearch-psql.html)._

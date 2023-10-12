@@ -1,0 +1,22 @@
+# L'intégration et le déploiement continu (CI/CD)
+
+Nous préconisons d'utiliser une pipeline de [_CI/CD_](https://en.wikipedia.org/wiki/CI/CD) décrite dans votre repository. Si votre repository est par exemple sur GitHub nous ne voyons pas l'utilité d'utiliser un outil tiers comme [_CircleCI_](https://circleci.com/) plutôt que [_GitHub Actions_](https://github.com/features/actions) (comme ça au moins vous avez tout dans un endroit).
+
+Sauf exception, **l'important est de ne surtout pas essayer de gérer vos propres workers (serveurs) de CI/CD**. Pourquoi ? Votre pipeline procède normalement ainsi :
+
+1.  Je récupère le code source ;
+2.  Je télécharge les dépendances ;
+3.  Je “lint” le projet (pour être sûr qu'il est statiquement valide) ;
+4.  Je fais mes tests unitaires avec [_Jest_](https://github.com/jestjs/jest) ;
+5.  Je “build” mon projet ;
+6.  Je fais mes tests d'intégration end-to-end avec [_Cypress_](https://github.com/cypress-io/cypress) _(on ne les recommande pas, ils sont très lourds à maintenir pour un gain limité comparé à [utiliser Storybook pour décrire son applicatif](#_3fcnbnmh2siy))_ ;
+7.  Je déploie mon applicatif sur l'hébergeur ;
+
+Toutes ces phases sont très consommatrices en ressources (CPU, mémoire, stockage, réseau). Sachant que si vous faites plusieurs “push” à la suite vous lancez plusieurs fois la même pipeline, et sachant aussi que vous avez peut-être plusieurs projets sur vos workers :
+
+- Il faut gérer proprement un cache pour les dépendances en fonction de chaque technologie de projet _(dans notre cas ça se limiterait à JavaScript)_ ;
+- Si les CPU saturent tout va lentement, exceptionnellement si vous êtes sur Kubernetes et que vous avez un opérateur, vous allez avoir un nouveau worker qui va être mis sur pied (mais ça va prendre quelques minutes) ;
+- Si la RAM sature, là c'est le worker qui crash car… “[_Out of memory_](https://en.wikipedia.org/wiki/Out_of_memory)”, il faut relancer la pipeline ;
+- Et le pire dans tout ça, c'est que vous pouvez essayer de dimensionner les workers en fonction d'une utilisation intensive, mais finalement vous vous retrouvez avec des machines qui servent réellement que 5% du temps ou moins.
+
+_Si vous disposez d'une messagerie interne comme Mattermost ou Slack nous vous conseillons de brancher la pipeline de votre projet sur un channel type “monprojet-monitoring” afin d'être sûr de ne rien manquer de la vie technique du projet._

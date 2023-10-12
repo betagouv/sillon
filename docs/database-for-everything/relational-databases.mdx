@@ -1,0 +1,19 @@
+# RDBMS… simplement du relationnel
+
+**Il faut utiliser du relationnel.** Les bases relationnelles garantissent un schéma de données ainsi que l'affiliation entre plusieurs items de cette base.
+
+Les plus connues ont d'énormes avantages :
+
+- Elles sont disponibles “out-of-the-box” chez tous les hébergeurs qui proposent du stockage ([_utile pour la portabilité du produit_](#portabilité-du-projet)) ;
+- Elles peuvent être requêtées par un même langage ([_SQL_](https://en.wikipedia.org/wiki/SQL)) ;
+- [_Transactions_](https://en.wikipedia.org/wiki/Database_transaction) possibles à travers plusieurs tables ;
+- Atomicité des opérations ([_lock_](https://en.wikipedia.org/wiki/Record_locking)) ;
+- Table qui peuvent faire jusqu'à 32 TB ;
+- [_Scalabilité_](https://fr.wiktionary.org/wiki/scalabilit%C3%A9) ;
+- …
+
+Plusieurs articles sur internet font un retour d'expérience sur des produits web supportant **des millions d'utilisateurs en étant restés sur une technologie RDBMS**. Nous pensons que le jour où vous serez sur le point de gérer des millions d'utilisateurs, vous aurez une équipe et un budget dimensionnés pour que votre produit tienne la charge. En attendant, si vous avez des pics de charge, augmentez les caractéristiques de votre base de données (CPU, RAM, stockage). Et si votre produit est critique et ne doit jamais avoir de downtime, votre hébergeur propose sûrement de faire des “[_replicas_](<https://en.wikipedia.org/wiki/Replication_(computing)>)” de votre base de données afin de former un [_cluster_](https://en.wikipedia.org/wiki/High-availability_cluster).
+
+Plus récemment il y a eu une mode d'adoption sur les bases de données [**_NoSQL_**](https://en.wikipedia.org/wiki/NoSQL). C'est des bases où la structure des données n'est pas garantie, et où souvent les opérations transactionnelles sont impossibles. **Le NoSQL est adapté à des fonctionnalités de niche (même pas à des produits).** Si vraiment vous pensez devoir utiliser du NoSQL car une RDBMS ne suffit pas, parlez-en à plusieurs personnes autour de vous en exposant le cas d'utilisation qui selon vous nécessite cette technologie.
+
+Pour aller plus loin dans la réflexion, comme votre base de données (NoSQL) n'est pas capable de garantir un schéma de données, cela veut dire qu'à tout instant il peut y avoir n'importe quoi à l'endroit où vous allez chercher votre donnée. Peut-être que le userB possède les champs “prénom + nom + âge” alors qu'historiquement userA possède juste “âge” car il était là bien avant la prise en charge des noms. Vous vous retrouvez du coup à marcher sur des œufs **et finalement votre “schéma de base de données” est implicitement caché dans votre propre code métier puisque vous devez faire des vérifications sur la structuration de la donnée**.

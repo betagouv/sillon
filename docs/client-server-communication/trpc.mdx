@@ -1,0 +1,7 @@
+# tRPC
+
+[_tRPC_](https://github.com/trpc/trpc) veut dire “TypeScript Remote Procedure Call”. Vous l'aurez peut-être deviné mais cela va vous permettre de définir les contrats de vos endpoints d'API avec du TypeScript. Vous pouvez réutiliser vos structures métiers pour l'encodage et le décodage pour les communications API. Cela sera transparent pour vous et vous aurez de bout en bout typé votre backend jusqu'au frontend.
+
+De plus, dès que vous modifierez ce que peut retourner votre serveur, votre [_linter_](<https://en.wikipedia.org/wiki/Lint_(software)>) sera en mesure de vous prévenir si certains appels clients sont dorénavant invalides (car ne respectant pas le contrat).
+
+_Cela marchera que vous fassiez du tRPC depuis le frontend (suite à une action utilisateur), ou du tRPC via les RSC (composants rendus sur le serveur)._

@@ -1,0 +1,15 @@
+# Cache
+
+Il ne sert à rien de chercher à optimiser son applicatif avant même d'avoir atteint les limites de la stack actuelle. Si vraiment vous avez des problèmes de performances essayez d'abord de cibler l'origine du problème :
+
+1.  Si c'est l'applicatif JS qui est trop juste en CPU/RAM, essayez d'augmenter sa gamme chez votre provider ;
+2.  Si c'est de la [_latence_](<https://fr.wikipedia.org/wiki/Latence_(informatique)>) sur le réseau, assurez-vous que l'applicatif et la base de données soient dans la même zone géographique (même [_datacenter_](https://fr.wikipedia.org/wiki/Centre_de_donn%C3%A9es)) ;
+3.  Si c'est la base de données, ajustez aussi sa gamme (CPU/RAM) voire passez sur un stockage [_SSD_](https://fr.wikipedia.org/wiki/SSD) plutôt que [_HDD_](https://en.wikipedia.org/wiki/Hard_disk_drive).
+
+Souvent on met en cache en utilisant des bases “key / value” comme Redis afin de stocker en clef l'URL GET et en valeur le payload HTTP. Le problème est que cela apporte énormément de complexité logique.
+
+- Quand mettre en cache ?
+- Quand invalider le cache ?
+- Quand je débogage, est-ce une donnée à jour ?
+
+Il est bien plus facile dans un premier temps d'augmenter les performances de nos outils car ça se fait en un clic. Vous vous économiserez plutôt que de gérer un outil externe.

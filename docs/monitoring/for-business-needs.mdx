@@ -1,0 +1,44 @@
+# Pour les besoins métiers
+
+## Support utilisateur
+
+Si un utilisateur a une idée ou un problème, il faut que l'utilisateur puisse le partager facilement avec le support. Dans une phase d'investigation nous préférons éviter le fait d'aller chercher l'email du support, écrire la demande, et quelques temps après avoir une réponse… et continuer dans l'asynchronisme car il est possible que l'utilisateur ne se donne même pas la motivation de faire la première étape.
+
+Nous recommandons d'utiliser une messagerie “livechat” comme [_Crisp_](https://crisp.chat/) qui apporte un peu de dynamisme car elle est à portée de clic. Derrière, plusieurs membres de l'équipe peuvent être reliés au compte et choisir quelles discussions ils s'assignent. Sachant que l'application est disponible sur toutes les plateformes (dont mobile), c'est vraiment d'une praticité et expérience utilisateur supérieures.
+
+![](./crisp.png)
+
+Livechat sur ce site
+
+_Pour des questions [RGPD_](#la-protection-des-données) et afin d'éviter de mettre une demande de consentement de cookies (car l'action utilisateur sera volontaire), nous recommandons d'avoir un bouton “Support / Contactez-nous” qui, au moment du clic, va charger le script Crisp et ouvrir le livechat.\*
+
+_L'idée lors de la phase d'investigation est d'avoir le bouton “Support” bien visible pour inciter à faire des retours. Une fois que votre produit est plus stable avec beaucoup d'utilisateurs, vous pouvez le dissimuler un peu plus voire même revenir à un système d'emailing (si vous n'avez pas la bande passante pour prétendre gérer un livechat)._
+
+## Mesure d'impact
+
+Bien que l'on puisse, lors des phases initiales d'investigation, quantifier l'appétence de nos beta-testeurs. Une fois le produit lancé, il faut être en mesure de poursuivre cette analyse pour continuer à remettre en question l'utilité du produit et ajuster la roadmap.
+
+On pourrait très bien tout surveiller, mais il faut surtout adapter la mesure aux problématiques métiers qui font que l'on répond au besoin. Exemples à quantifier :
+
+- Pour un produit pour des demandes de médiation locales :
+  1.  Nombre de dossiers ouverts / résolus / en échec ;
+  2.  Localisation des demandeurs (pour peut-être avoir plus d'effectif dans les collectivités) ;
+- Pour un produit qui aide à la sécurisation d'un service numérique :
+  1.  Combien de projets ont répondu aux questions ;
+  2.  Combien de projets sont allés jusqu'à l'homologation ;
+  3.  Quelle est la note moyenne estimée de tous les projets.
+
+Pour mieux comprendre et contextualiser ces statistiques métiers vous pouvez les corréler par exemple à : nombre de visites (uniques ou non), quelles pages sont visitées, pendant combien de temps, depuis telle page est-ce que l'utilisateur arrête sa visite… L'outil le plus connu et le plus étoffé est sans aucun doute [_Google Analytics_](https://analytics.google.com/), mais **il pose un certain nombre de problèmes concernant la vie privée de vos utilisateurs**. Comme alternative nous préconisons l'utilisation de [_Matomo_](https://matomo.org/) qui répond aux principales fonctionnalités mentionnées.
+
+À vous ensuite d'analyser ces données sur un intervalle de temps, comparer avec les périodes précédentes, construire des graphiques… Plusieurs possibilités :
+
+1.  La plus complexe et complète : utiliser un outil de [_business intelligence_](https://fr.wikipedia.org/wiki/Informatique_d%C3%A9cisionnelle) (BI) comme [_Metabase_](https://www.metabase.com/) pour relier vos différents outils (base de données, Matomo…) ;
+2.  La plus simple et basique : périodiquement exécuter une requête SQL sur votre base de données pour en extraire les données intéressantes (sous format .csv par exemple) et les importer dans un tableur.
+
+_Dans les deux cas, il est recommandé d'utiliser une ou plusieurs VIEW dans votre base de données afin de préformater les données voulues pour qu'elles soient facilement accessibles (notamment par un outil de BI), mais aussi pour restreindre les droits en lecture à ces seules vues afin d'éviter que quelqu'un puisse se balader jusqu'aux mots de passe…_
+
+Quelques points importants :
+
+- Faites toujours vos statistiques sur des données anonymisées. Cela limitera le risque que des données sensibles se propagent dans les outils. Il est d'ailleurs peu probable que comparer des noms ou des numéros de téléphone aient un sens métier pour vous ;
+- Datez les actions métiers sur vos entrées en base. Avoir un _“createdAt”, “closedAt” ou autre_ vous laissera utiliser des comparaisons temporelles. Si cela n'a pas été fait ou n'est pas approprié, vous pouvez toujours définir explicitement un intervalle de temps à laquelle faire [_snapshot_](<https://fr.wikipedia.org/wiki/Instantan%C3%A9_(informatique)>) des vues statistiques, pour les stocker dans une table dédiée. On aurait par exemple en _ligne 1_ “janvier 2023” avec toutes les statistiques compilées, en _ligne 2_ “février 2023”… c'est juste que vous ne pourrez pas modifier cette intervalle sur les données du passé ;
+- N'hésitez pas à partager ces données avec toute votre équipe. Si les statistiques sont positives, c'est toujours gratifiant de voir que l'outil que l'on développe est utilisé. Et si elles ne le sont pas, discutez-en.

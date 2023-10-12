@@ -1,0 +1,14 @@
+# Avoir le code dans un même repository
+
+Sans parler de langage, nous vous conseillons d'avoir un monorepo (un seul repository) pour tout le code produit que vous pourriez avoir. Cela évitera les prises de tête comme :
+
+- Lorsque que vous travaillez sur une fonctionnalité vos commits devraient se suffire pour décrire tout le travail fait. Vous ne devriez pas avoir de commits dupliqués du type _“feat: set up registration form”_ sur chacun de vos repositories de frontend, backend, et déploiement… c'est impossible à tracer, et si vous fonctionnez avec des reviews de pull requests c'est extrêmement compliqué pour la lisibilité mais aussi pour monter le setup localement ;
+- Le frontend et backend restent couplés :
+  - Si vous avez un repository frontend, et un pour le backend, il faut que vous soyez synchronisés pour qu'ils soient déployés en même temps afin de garantir que le frontend n'utilise pas des choses qui n'existent pas encore sur le backend, ou que le backend a besoin dorénavant d'informations spécifiques. _(on peut essayer de se dire que l'on ne produit pas de breaking change dans le contrat de communication entre le frontend et le backend, mais **ça complexifie quelque chose qui devrait être simple**)_ ;
+  - Si vous avez des communs en termes de code, il ferait sens d'avoir un repository “common” puisque ça ne fait pas plus partie du frontend que du backend. Mais à ce moment vous vous lancez dans la guerre de la gestion des dépendances pour être sûr qu'à chaque fois, le frontend ET le backend utilisent la même version du “common”.
+
+On a parlé de monorepo, mais en fait ce qu'il faut retenir : **utilisez un monolithe !** Cela vous permettra d'utiliser un framework unifié (frontend + backend) pour bénéficier sur étagères d'utilitaires testés et approuvés par une communauté : logique de communication, routing, connexion…
+
+_Et cela tombe bien, le fait d'utiliser du JavaScript pour le frontend et le backend simplifie la stack du développeur_ 😀*.*
+
+_Si la notion de microservices vous semble indispensable, dites-vous qu'en organisant bien votre monolithe vous tirerez la plupart des bénéfices sans les désavantages (gestion de dépendances, déploiements différents…). Vous pouvez vous renseigner sur le pattern “modular monolith”._

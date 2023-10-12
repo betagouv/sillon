@@ -1,0 +1,29 @@
+# L'accessibilité est obligatoire
+
+[_L'accessibilité numérique_](https://accessibilite.numerique.gouv.fr/) est le fait de permettre aux personnes en situation de handicap de pleinement utiliser un service numérique. [_Et depuis 2012_ **_elle est obligatoire sur tous les sites publics_**](https://design.numerique.gouv.fr/accessibilite-numerique/cadre-legal/). Malheureusement que ce soit les chefs de projet, développeurs, designers… le constat est que peu s'en soucie dans les prémisses d'un projet alors que rendre son service accessible :
+
+- Peut influer sur votre UI, et donc sur vos maquettes ;
+- Peut influer sur votre code technique (on donne du contexte au code HTML avec [_ARIA_](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)) ;
+- Peut influer sur votre panel de beta-testeurs.
+
+Comme c'est une obligation légale, un projet public peut se retrouver 2 ans après à devoir passer des semaines à adapter son site alors qu'y réfléchir dès le début aurait eu un impact moindre sur la vélocité (sans parler que pendant 2 ans le projet a écarté une obligation légale…).
+
+Rien qu'en s'y intéressant quelques heures, cela permet d'avoir quelques automatismes qui réduit la fraction de l'accessibilité. Le [_DSFR_](#dsfr-quesako) a été pensé avec ces problématiques, et permet d'orienter le designer et le développeur afin de ne pas faire les erreurs les plus basiques (contraste entre les couleurs, espacement…). Aussi, si vous devez choisir un framework UI tiers (ou une simple librairie pour un composant), jetez d'abord un œil s'ils ont une approche accessible, car adapter des composants “packagés” non prévus pour l'accessibilité (“a11y”) peut se révéler impossible.
+
+Nous considérons 3 statuts dans l'accessibilité d'un site public :
+
+- Non conforme : le site n'a pas été audité ;
+- Partiellement conforme : le site a été audité mais le score n'est pas assez élevé ;
+- Conforme : le site a été audité et a obtenu un score exemplaire ;
+
+Pour savoir si votre site est accessible, il faut d'abord avoir conscience que seulement ~25% de l'accessibilité peut être testée automatiquement. Cela donne de vraies bases puisque sans elles il est impossible que les ~75% restant soient valides. Pour se faire vous pouvez utiliser :
+
+- Lighthouse (disponible en extension dans votre navigateur) ;
+- [_axe-core_](https://github.com/dequelabs/axe-core) si vous utilisez un “bundler” pour votre applicatif (type Webpack..) ;
+- [_Storybook_](https://github.com/storybookjs/storybook) avec l'extension [_storybook-addon-a11y_](https://storybook.js.org/addons/@storybook/addon-a11y) (mettre [_Storybook au centre de votre développement_](#_3fcnbnmh2siy) est une très bonne pratique)
+
+Ensuite vous devez passer par un audit d'accessibilité où des vérifications “manuelles” et “en situation” vont être faites sur votre produit. Cet audit complet peut être fait par un organisme tiers et son coût est d'environ 4500 euros.
+
+_Il est préférable de faire cet audit quand votre produit est assez avancé techniquement (mais pas non plus des années après son ouverture_ 🙂*). Il est aussi possible que dans votre entité vous ayez une équipe accessibilité qui s'occupe de faire des “mini-audits”. Vous resterez légalement “non conforme” sans l'audit complet, mais cela vous apportera un premier retour d'experts.*
+
+Parmi [_les obligations légales en accessibilité_](https://design.numerique.gouv.fr/accessibilite-numerique/cadre-legal/), il faut afficher le statut sur la page d'accueil (prévu par le DSFR pour être dans le footer), et avoir publié votre [_déclaration d'accessibilité_](https://design.numerique.gouv.fr/accessibilite-numerique/declaration-accessibilite) (vous pouvez vous aider d'un [_générateur_](https://betagouv.github.io/a11y-generateur-declaration/)).

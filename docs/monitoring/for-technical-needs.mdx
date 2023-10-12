@@ -1,0 +1,5 @@
+# Pour les besoins techniques
+
+Techniquement nous recommandons d'utiliser [_Sentry_](https://github.com/getsentry/sentry) (mentionné dans [_le chapitre sur les outils tiers_](#se-décharger-des-outils-non-sensibles)) pour centraliser vos erreurs frontend et vos erreurs backend. Vous pouvez par défaut activer le “catch all” afin que le client Sentry remonte toute erreur qui n'est pas “catchée”. Cela vous donnera la “[_stack trace_](https://en.wikipedia.org/wiki/Stack_trace)” pour investiguer plus en détails. Mais vous pouvez aussi explicitement formater les erreurs à remonter afin de mettre des règles d'alertes depuis l'interface.
+
+Par exemple durant la consommation d'une “job queue”, au lieu de laisser partir des erreurs lambda vous pourriez formater des “JobQueueError” et dans l'interface dire que si vous avez plus de 3 “JobQueueError” sous 1 minute, alors vous envoyez un email à l'équipe pour investigation.

@@ -1,0 +1,11 @@
+# Suis-je toujours un produit portable avec mon stateful ?
+
+Nous préconisons toujours d'utiliser les produits de votre hébergeur lorsqu'il s'agit du stateful. Car l'hébergeur se chargera à votre place des mises à jour opérationnelles et vous garantira un minimum de disponibilité de service. Pour rappel, ce n'est pas votre métier… Alors que votre hébergeur, lui, doit faire une palanquée de tests pour être sûr que quand il lancera une migration, cela ne mettra pas en défaut sa dizaine de milliers de clients.
+
+Mais si jamais vous complexifiez votre stack stateful et que chez un provider au hasard vous utilisez des buckets S3 et un message broker managé, on se retrouverait dans la situation où :
+
+- Leur message broker pour le queueing est des fois une solution “homemade” et n'est pas compatible si vous migrez sur un autre hébergeur ;
+- Si jamais ils proposent une solution grand public de message broker vous vous retrouveriez sûrement avec du “Redis Pub/Sub” ou du Kafka, et ça implique que vous gériez vous-même la complexité de ces outils ;
+- Tous les hébergeurs ne proposent pas de buckets S3. Pire encore, même ceux qui les proposent n'ont pas les mêmes services à proposer (signature d'URL pour la lecture ou l'upload, planifier l'auto-suppression de fichiers…).
+
+C'est pour cela que nous conseillons de tout faire tenir dans votre PostgreSQL quand c'est adapté à votre produit.

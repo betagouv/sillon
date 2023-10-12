@@ -1,0 +1,5 @@
+# Permettre l'évolutivité
+
+Notre parti pris est de faire du TypeScript de bout en bout, mais sachez qu'en utilisant tRPC vous ne vous bridez pas à simplement générer des clients TypeScript. Vous pouvez très bien faire de votre produit un “produit API” de qualité avec des clients API dans différents langages.
+
+Comme vos endpoints sont typés avec tRPC, vous pouvez utiliser [_trpc-openapi_](https://github.com/jlalmes/trpc-openapi) afin d'exposer votre API sous le standard [_OpenAPI_](https://www.openapis.org/) afin d'avoir une API REST. Ce standard vous permet même ensuite de [_générer des clients dans n'importe quel langage_](https://github.com/OpenAPITools/openapi-generator).

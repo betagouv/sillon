@@ -1,0 +1,57 @@
+# 2FA / Security keys
+
+Le problème d'une authentification avec un simple mot de passe, c'est que si quelqu'un vous voit l'écrire dans le train, ou vous le vole en étant à l'autre bout du monde avec un virus, c'est alors “open bar”, vous n'avez aucun moyen de limiter la casse.
+
+C'est là où **le deuxième facteur d'authentification (2FA) est primordial**, c'est normalement une sécurité additionnelle proche de vous physiquement pour valider des opérations (de connexion dans notre contexte).
+
+Ainsi, si :
+
+- On vous pirate à distance votre mot de passe, il manque au pirate le 2FA ;
+- On vous vole votre 2FA, il manque au pirate le mot de passe.
+
+Si jamais la personne arrive à avoir votre mot de passe et votre 2FA… Soit vous avez utilisé un 2FA basique, soit vous êtes victime d'un coup organisé.
+
+Il existe plusieurs types de 2FA :
+
+1.  Validation par SMS (la moins sécurisée en cas de vol de téléphone puisque souvent aucun besoin de le déverrouiller pour lire les SMS) ;
+2.  Validation par l'application mobile du produit (les banques appellent souvent dans ce cas votre téléphone un “terminal de confiance”) ;
+3.  Validation par [_TOTP_](https://en.wikipedia.org/wiki/Time-based_one-time_password) (suite de chiffres valide 30 secondes) (souvent géré par une application nommée “??? Authenticator”) ;
+4.  Validation par une clé de sécurité ([_WebAuthn_](https://en.wikipedia.org/wiki/WebAuthn) étant le dernier standard).
+
+On va surtout s'intéresser aux (3) et (4) qui sont les standards les plus utilisés pour l'authentification. Tout est basé sur une clé privée unique stockée dans le “TOTP Authenticator”, ou dans votre clé de sécurité. Ce qui permet de chiffrer une séquence d'autorisation durant une authentification.
+
+**Si vous utilisez un gestionnaire de mots de passe, le 2FA est primordial 🔑.**
+
+Utiliser la (3) pour protéger vos comptes **(en plus du gestionnaire)** est déjà très bien, mais assurez-vous juste :
+
+- Que votre TOTP Authenticator soit sauvegardé automatiquement sur des serveurs et que vous ayez récupéré les “clés de backup”. Histoire que si vous perdez votre téléphone vous puissiez réinstaller l'application et retrouver tous les codes (sinon vous serez bloqués sur tous vos comptes, et il est très rare que les supports répondent pour débloquer ce genre de situation) ;
+- Que votre téléphone (si l'Authenticator est dessus) ainsi que l'Authenticator aient un code de verrouillage pour être débloqué (ou par empreinte digitale).
+
+Sinon pour le (4), **nous recommandons à ce que vous ayez quelqu'un autour de vous qui puisse vous montrer un peu comment ça marche au quotidien. C'est un processus plus étoffé que la (3) et qui demande un minimum de rigueur, il vaut donc mieux être bien sensibilisé.** Une clé de sécurité ressemble à une clé USB, sauf que son contenu ne peut pas être lu (celui qui tente de la démonter grille obligatoirement le circuit et la clé privée de chiffrement reste… privée puisque détruite). Il est très risqué d'en avoir qu'une car si vous la perdez (qui n'a jamais perdu de clé ?), vous perdez d'office votre seul moyen de 2FA.
+
+Il est recommandé d'utiliser 3 clés de sécurité minimum (elles ont donc chacune une clé privée différente en leur sein) que vous configurerez sur chacun de vos comptes les plus sensibles (gestionnaire de mots de passe et boîtes emails). Vous vous doutez bien, il ne faut pas garder vos 3 clés ensemble, donc dans l'idéal :
+
+- Une sur vous en permanence quand des vérifications 2FA vous sont demandées (de préférence une clé qui fait USB+NFC afin de pouvoir être utilisé sur téléphone) ;
+- Une cachée chez vous (sous le plancher… comme il vous sied tant que vous puissiez la retrouver) ;
+- Une cachée chez le fils de la cousine de la tante de votre père 😎.
+
+Si jamais vous perdez l'une des clefs, vous vous connectez avec l'une des clés de secours sur tous vos comptes ayant été configuré avec les clés de sécurité, puis vous supprimez l'ancienne et pour ajouter une nouvelle que vous venez d'acheter en remplacement.
+
+Vous l'avez peut-être décelé mais si vous souhaitiez utiliser la méthode “security key” sur chacun de vos comptes il faudrait à chaque inscription avoir accès à toutes vos clés (compliqué quand vous les avez cachées à 50 kilomètres de chez vous). C'est pour cela que nous proposions de surtout configurer le gestionnaire et vos boîtes emails, car ces comptes ne bougeront quasi pas dans le temps.
+
+La technique ensuite pour les autres services “plus basiques” est d'utiliser le 2FA TOTP (méthode (3)). Votre gestionnaire de mots de passe qui va servir cette fois d'Authenticator pour générer les codes qui durent 30 secondes (normalement les gestionnaires ont cette fonctionnalité).
+
+_Vous verrez que de toute façon vous n'aurez des fois pas le choix que d'adopter le (3) en 2FA. Hormis les services spécialisés dans la sécurité, l'option 2FA en clé de sécurité est assez rare comparé au TOTP._
+
+Si on résume dans le cas d'un redémarrage de mon ordinateur :
+
+1.  Je souhaite me connecter sur un site “ABC” qui est protégé avec un 2FA TOTP ;
+2.  Je lance mon gestionnaire, entre mon master password, et utilise ma clé de sécurité pour passer le 2FA du gestionnaire ;
+3.  Je copie/colle le mot de passe du site “ABC” ;
+4.  Le site me demande le 2FA TOTP que je vais chercher dans mon gestionnaire (pour simplifier, souvent le gestionnaire va automatiquement le mettre dans le [_presse-papier_](<https://fr.wikipedia.org/wiki/Presse-papiers_(informatique)>) pour que vous n'ayez plus qu'à le coller après un auto-remplissage des identifiants).
+
+_La marque la plus connue et très appréciée historiquement est [Yubico](https://www.yubico.com/) (suédois) avec ses Yubikeys, mais dorénavant il existe plein de concurrents (que nous n'avons pas testés)._
+
+**Activer le 2FA est bénéfique tout autant dans le cadre privé que dans le cadre professionnel. Nous recommandons que votre équipe utilise le 2FA dans tous vos outils.** Et quand c'est possible, de forcer dans l'outil le 2FA à tous les membres.
+
+_Notez qu'il est difficile de résumer tous les cas d'utilisation de ces méthodes par écrit, nous essayons ici de poser des bases afin de vous aider à vous lancer._

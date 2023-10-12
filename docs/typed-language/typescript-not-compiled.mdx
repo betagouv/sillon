@@ -1,0 +1,21 @@
+# TypeScript… typé mais pas compilé
+
+En vous recommandant d'utiliser du JavaScript tout en prêchant le typage, nous vous préconisons d'utiliser le TypeScript.
+
+Sans rougir, nous allons énumérer les points négatifs de TypeScript en essayant d'y voir le positif. Pour bénéficier de la large prise en charge du JavaScript, le TypeScript est transpilé en JavaScript afin d'être interprété par les navigateurs et serveurs. Ce qui implique :
+
+1.  On se retrouve avec une communauté à ~2 facettes :
+    1.  D'un côté des librairies codées en JavaScript “brut” ;
+    2.  De l'autre celles codées en TypeScript ;
+    3.  Voire certaines qui font un peu des deux ;
+2.  Le typage devient une vue de l'esprit puisqu'au runtime tout est permis (vu que c'est transpilé en JavaScript) :
+    1.  Un code TypeScript peut très bien ne pas respecter les types (il “[_caste_](https://en.wikipedia.org/wiki/Type_conversion)” les variables) ;
+    2.  Même si les codes TypeScript ont bien été faits, notre confiance s'arrête au moment où le typage s'arrête (beaucoup de librairies historiques sont en JavaScript).
+
+Pour vous rassurer :
+
+- La communauté met à disposition des fichiers de typage pour les librairies en JavaScript (ça ne garantit pas le runtime mais ça aide) ;
+- Si vous partez du principe que vous typez tout votre produit sans caster les variables, il y peu de souci à vous faire au niveau de votre code. Encore plus avec une mutualisation des types entre votre frontend/api/backend ;
+- Dans les faits, il est extrêmement rare qu'une librairie connue retourne au runtime un type différent du typage indiqué. Cela peut arriver, mais cela reste largement moins fréquent qu'un développeur qui fera de toute façon ses propres erreurs dans son code. Il faut donc relativiser ;
+- Ce n'est pas propre à l'écosystème JavaScript. Pour n'en citer que quelques-uns, PHP, Python, Ruby sont aussi historiquement des langages non-typés et qui essaient au fil du temps de combler ce manque ;
+- Pour garantir du “totalement typé” il faut se tourner vers des langages compilés comme le C++, Golang, Rust… Ils sont d'une rigueur très appréciables mais apportent aussi leur lot de limitations (facilité d'adoption, flexibilité d'utilisation…). On pourrait imaginer s'en servir pour le backend, mais cela limiterait la réutilisabilité des communs avec le frontend (puisque les frontends web s'interprètent que le JavaScript).

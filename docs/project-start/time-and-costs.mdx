@@ -1,0 +1,37 @@
+# Réfléchir aux coûts liés au temps
+
+## Outils métiers
+
+Cela peut paraître bizarre de commencer le guide par la thématique des coûts, mais c'est une notion essentielle qui vous permettra d'arbitrer de manière lucide les choix à chaque étape de votre projet.
+
+En imaginant que j'ai besoin d'un produit numérique pour faciliter le quotidien d'agents publics qui gèrent des demandes de médiation, et que je me retrouve dans la situation où il existe déjà une solution française sur le marché qui répond à mon besoin. J'ai le choix :
+
+1.  Soit je prends la solution tierce, et elle va me coûter 1000€ par an ;
+2.  Soit je développe mon propre outil en interne et le coût d'hébergement sera de 30€ par an.
+
+Il n'y a pas de réponse parfaite, mais il faut se méfier de la (2). Le fait de prendre l'initiative de faire soi-même induit forcément de mobiliser du temps, il est donc important de définir à grosses mailles quel est le coût de ce temps. Normalement cela va toucher les domaines suivants :
+
+- Idéalement juste pour la phase de développement :
+  - Le légal ;
+  - La gestion de projet ;
+  - Le développement informatique (+ audit de sécurité) ;
+  - Le design ;
+- Sur le long terme :
+  - Le support utilisateur ;
+  - Le support technique (mises à jour des librairies ou des serveurs à cause des failles de sécurité découvertes, correction de bugs…).
+
+Sans même savoir combien de jours ou mois cela me prendrait de développer l'outil, je sais que j'aurai “sur le long terme” du temps à mobiliser en interne (même si ce n'est que ponctuellement). Si on imagine que le coût toutes charges comprises d'un ingénieur informatique (qu'il soit agent public ou prestataire externe) est de 350€ par jour minimum, et de même pour quelqu'un du support utilisateur ; en 3 jours travaillés sur l'année on se retrouve déjà dans l'ordre de grandeur du coût de la solution existante.
+
+Sachant qu'un développement de projet numérique prend rarement moins de plusieurs mois… Le coût de développement peut devenir assez vite important, et vous perdez aussi du temps avant de répondre réellement à votre besoin. Il peut donc être stratégique de partir avec la solution existante si elle répond à votre besoin.
+
+**L'idée n'est pas ici de dire qu'il faut éviter de développer en interne. Au contraire, il faut juste y apporter un regard critique et juger à court, moyen et long terme si cela se justifie.**
+
+## Outils fonctionnels
+
+Dans l'exemple ci-dessus on parle d'un outil “métier”, où il peut être judicieux de le développer en interne puisque c'est notre cœur de métier et nous avons des besoins très spécifiques. Par contre quand il s'agit d'outils “fonctionnels” comme pour :
+
+- Héberger un site internet ;
+- Avoir un outil de design collaboratif ;
+- Utiliser de l'intégration continue (CI/CD).
+
+Il paraît peu légitime de gérer nous-mêmes des serveurs physiques pour déployer ces outils, sachant tous les coûts de maintenance associés, plutôt que de se reposer sur des solutions pour grand public quand elles existent. Sinon vous prenez le risque de concentrer les efforts de votre entité sur des choses qui ne font pas partie de sa mission.

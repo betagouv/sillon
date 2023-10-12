@@ -1,0 +1,27 @@
+# … et rapprocher le frontend du frontend
+
+Certains produits numériques peuvent nécessiter “plusieurs frontend”. L'exemple le plus simple est de souhaiter avoir un applicatif et une [_landing page_](https://en.wikipedia.org/wiki/Landing_page) (site vitrine). Il peut donc être tentant d'en faire 2 applicatifs distincts, dans les mêmes technologies (pour éviter de se disperser), et idéalement de les mettre dans le monorepository mentionné plus haut.
+
+Mais vous devrez alors gérer plusieurs fois la quasi même configuration : même dépendances, même gestion d'URL, même configuration du framework, même gestion de tests, même client pour la base de données…
+
+Il peut être intéressant de les gérer depuis le même applicatif, en jouant simplement sur le préfix du routage des URLs :
+
+- /landing/\*
+- /app/\*
+
+… Comme cela un seul runtime suffit pour 2 frontends (voire même plus).
+
+Bien entendu vous pourriez avoir des besoins spécifiques pour les URLs (SEO, esthétique…) pour par exemple avoir comme URLs :
+
+- https://www.example.com/ (landing)
+- https://app.example.com/ (app)
+
+Plusieurs solutions sont envisageables…
+
+## Par le routage
+
+Vous gardez 1 seule instance pour gérer tous les frontends, par contre il faut que votre hébergeur et/ou votre framework vous autorisent à gérer plusieurs domaines pour le trafic entrant afin de faire la bonne correspondance (tel domaine va utiliser tel préfixe dans le pathname… _Cela peut s'apparenter à de l'[URL rewriting](https://en.wikipedia.org/wiki/Rewrite_engine)_).
+
+## Par le déploiement
+
+Si la solution par routage n'est pas envisageable, vous pouvez vous tourner vers votre pipeline de déploiement. Au lieu d'avoir une seule étape de _build_ après tous vos tests… vous en avez 2 où pour chacune vous pouvez choisir le routage voulu (A ou B plutôt que A+B). Et vous déployez chacun des builds à 2 endroits différents. Évitant ainsi une configuration de routage sur les domaines racines.

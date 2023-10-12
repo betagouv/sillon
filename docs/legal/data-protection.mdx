@@ -1,0 +1,25 @@
+# La protection des données
+
+Le [_règlement général sur le protection des données_](https://www.cnil.fr/fr/rgpd-de-quoi-parle-t-on) (RGPD) encadre le traitement des [_données personnelles_](https://fr.wikipedia.org/wiki/Donn%C3%A9es_personnelles). En suivant nos chapitres vous vous confortez en partie à la plupart des critères RGPD quant à la localisation des données… Pourtant cela va beaucoup plus loin, par exemple :
+
+- Si un utilisateur vous demande quelles informations vous possédez de lui vous devez être en mesure de lui fournir un “export” complet ;
+- Si un utilisateur vous demande un “export” pour transférer les données vers un autre service ([_portabilité_](https://www.cnil.fr/fr/le-droit-la-portabilite-obtenir-et-reutiliser-une-copie-de-vos-donnees)), vous n'y êtes pas contraint car vous menez une mission d'intérêt public ;
+- Si un utilisateur demande la suppression de son compte et de ses données, là encore [_du fait de votre mission d'intérêt public vous n'y êtes pas obligé_](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article17). Si vous décidez de répondre à sa demande, quelques nuances sur la notion “d'effacement” :
+  - Vous pouvez de façon ciblée anonymiser les éléments d'un utilisateur quand la suppression impliquerait le dysfonctionnement du produit (par exemple sur un historique d'échanges) ;
+  - Certains domaines (judiciaire, bancaire…) requièrent une traçabilité sur plusieurs années, vous ne pouvez pas perdre l'identité d'un utilisateur.
+
+**Nous vous conseillons dans tous les cas de vous rapprocher d'une personne compétente** dans ce domaine pour mieux cerner ce que vous pouvez faire ou ne pas faire. Car bien que le RGPD existe depuis quelques années, il y a parfois des incohérences où même les experts ont des doutes :
+
+- l'adresse IP permet d'identifier quelqu'un, je la supprime ou pas ? Si je dois la supprimer de mes logs, déjà c'est compliqué, et en plus je perds la traçabilité en cas d'action malveillante… que faire 🤯…
+- Vous avez des backups, donc vous stockez encore les données utilisateurs de la personne. _(et si vous restaurez le backup en production, il faut aussi ne pas oublier de renettoyer la donnée…)_
+
+_Cet interlocuteur peut être le [délégué à la protection de données](https://www.cnil.fr/fr/le-delegue-la-protection-des-donnees-dpo) de votre entité (DPO), la [direction des affaires juridiques](https://www.economie.gouv.fr/daj) (DAJ), ou encore la [CNIL](https://www.cnil.fr/)._
+
+En tout cas vous l'aurez sûrement compris, les décisions techniques que vous prenez peuvent vous rendre la vie infernale :
+
+- Si vous utilisez un pattern type “event sourcing” et que vous devez garder la pile d'événements pour recréer l'état du système… Dans la logique vous aurez un “_createUser(123, “Jean”, …)_” puis plus tard vous aurez un “_deleteUser(123)_”. Le problème c'est qu'à jamais vous aurez stocké les informations personnelles de Jean (_il est possible de faire des “snapshots” d'une pile d'événements pour supprimer une partie de l'historique, mais ça complexifie encore plus le pattern)_ ;
+- Si vous envoyez un email avec des données sensibles via un provider d'emailing, il faut vous assurer que celui-ci ne garde pas des copies du contenu des emails. Et si c'est le cas, il faut qu'il ait une vraie raison de le faire et que vous puissiez les supprimer. _(Sur ce point et si vous avez un applicatif avec un espace “mon compte”, nous recommandons de se limiter aux prénom et nom dans le contenu de l'email et de mettre des liens vers les pages contenant la donnée sensible)_
+
+Veillez à bien vous renseigner sur les outils tiers anodins que vous embarquez dans votre produit. Rien que d'utiliser des polices _(fonts)_ directement depuis des serveurs tiers donnent certaines informations quant à vos utilisateurs. C'est la même chose quand vous utilisez des outils d'analytics en SaaS.
+
+_Nous essaierons de clarifier les points les plus complexes quand nous aurons des certitudes légales sur ceux-ci…_

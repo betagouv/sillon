@@ -1,0 +1,26 @@
+# Se prémunir des fichiers infectés
+
+C'est malheureux mais il faut toujours se méfier des données qui entrent dans votre applicatif, encore plus quand il s'agit de fichiers. Quelques exemples :
+
+- On peut utiliser une extension d'image sur un fichier exécutable pour qu'il passe des vérifications trop sommaires ;
+- Même si vous utilisez un hébergeur de fichiers S3, celui-ci ne s'occupe en général pas de vous prémunir des virus ;
+- On peut injecter du code malicieux au sein de fichiers comme des PDF, alors qu'à première vue un fichier PDF semble inoffensif. Cela va dépendre du logiciel qui ouvre ce fichier ;
+- Un fichier infecté qui se retrouve dans votre applicatif sera peut-être récupéré par un agent public, et peut contaminer son ordinateur voire tout le réseau de son travail. Et dans ce cas… on ne peut pas le blâmer, **c'est l'applicatif qui est censé apporter de la sécurité à ses utilisateurs** !
+
+Voici quelques pistes pour essayer de contrer ce type d'attaque :
+
+1.  Comme mentionné dans le chapitre [_sur le stockage de fichiers_](#stockage-de-fichiers-au-revoir-buckets-s3), l'upload de fichiers ne se fait pas en 1 temps. Il vaut mieux faire d'abord l'upload sur un endpoint dédié pour récupérer l'identifiant du fichier, et dans un second temps transmettre cet identifiant dans le formulaire métier. Le “temps 1” est une bonne occasion pour effectuer les vérifications listées plus bas. Si jamais vos fichiers sont trop gros et que vous ne voulez pas bloquer de manière synchrone l'utilisateur le temps de l'analyse, vous pouvez les effectuer en asynchrone, en choisissant que tant qu'elles ne sont pas terminées l'API refusera de servir l'URL du fichier. À vous de déterminer ce qui est le plus approprié ;
+2.  Ne pas faire confiance aux [_metadatas_](https://fr.wikipedia.org/wiki/M%C3%A9tadonn%C3%A9e) que le frontend vous joint en même temps que le fichier. Une fois le fichier dans votre zone tampon vous pouvez vérifier son vrai type en analysant le marqueur au sein du fichier (cela peut se faire avec [_magic-bytes_](https://github.com/LarsKoelpin/magic-bytes)). L'idée est que certains types de fichier (hors simple fichier texte par exemple) ont une suite de premiers [_bytes_](https://fr.wikipedia.org/wiki/Byte) connue, donc sans analyser la totalité du fichier on peut savoir déjà s'il correspond au type que l'on attendait. **C'est une première vérification “rapide”** ;
+3.  Et comme n'importe quel fichier peut potentiellement contenir du code malicieux, il est utile d'utiliser un antivirus pour scanner l'intégralité du fichier. **C'est une vérification “lente” mais complète**. Nous préconisons d'utiliser l'outil [_ClamAV_](https://github.com/Cisco-Talos/clamav) via la librairie JavaScript [_clamscan_](https://github.com/kylefarris/clamscan). Comme c'est un exécutable, il faut soit :
+    1.  L'avoir en local dans le même container que votre applicatif :
+        1.  Pour des buildpacks : [_https://github.com/Scalingo/clamav-buildpack_](https://github.com/Scalingo/clamav-buildpack) ;
+        2.  Pour des environnements où vous avez la main (via Dockerfile par exemple), l'installer en un gestionnaire de packages ;
+    2.  L'avoir accessible sur le réseau et interagir avec par TCP (par exemple en déployant [_l'image Docker officielle_](https://hub.docker.com/r/clamav/clamav/)). Ce cas est à privilégier si :
+        1.  Vous n'avez pas la possibilité de l'embarquer avec votre applicatif ;
+        2.  Vous êtes limités en ressources pour votre applicatif, et ne voulez pas le pénaliser ;
+        3.  Vous voulez mutualiser l'instance pour plusieurs applicatifs.
+
+Il est important de garder en tête qu'**un antivirus aura toujours un temps de retard sur les failles**. Vos fichiers hébergés peuvent être “propres”, mais en scannant de nouveau vos fichiers 3 semaines plus tard vous avez quelques indésirables car vous aurez mis à jour la base de connaissance de votre antivirus. La récurrence des scans dépend de votre contexte :
+
+- Si vous n'hébergez que des images (type _.jpg_, _.png_…), il est probable que seul le scan initial soit suffisant puisque les utilisateurs sont censés ouvrir ce fichier dans un logiciel approprié (qui ne va pas exécuter le fichier). Vous pourriez vous passer de la complexité et du coût de tout rescanner ;
+- Si vous hébergez des documents plus complexes (tableurs, fichiers exécutables…), il faut malheureusement être très vigilant, et scanner périodiquement fait sens (avec le prérequis d'avoir mis à jour votre antivirus entre chaque occurrence).

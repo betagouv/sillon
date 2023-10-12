@@ -1,0 +1,16 @@
+# Les tests et la limite du mock
+
+Nous ne sommes pas pour imposer des tests à tous les niveaux et sur tout votre code applicatif. Il est beaucoup plus important selon nous de :
+
+- Démontrer que votre produit sert réellement en répondant aux besoins utilisateurs (et donc en développant des fonctionnalités) ;
+- D'avoir un maximum de flexibilité dans la maintenance de votre outil, car même en testant, il vous arrivera des pépins auxquels vous n'auriez jamais pensés.
+
+Essayez de focaliser vos tests unitaires sur des briques critiques qui gèrent de la donnée métier (validation d'un numéro de téléphone, génération d'une URL signée pour un fichier…). Après si vous êtes à l'aise et efficace avec le [_TDD_](https://fr.wikipedia.org/wiki/Test_driven_development) ou le [_BDD_](https://en.wikipedia.org/wiki/Behavior-driven_development), bien entendu il faut continuer les pratiques qui marchent 😉.
+
+_De toute façon avec le temps votre pourcentage de couverture en tests va progresser, il est probable qu'à chaque bug remonté il soit plus facile de le tester de manière isolée de l'applicatif (impliquant de faire des tests unitaires pour facilement débugger)._
+
+Par contre, quand on veut tester à un niveau plus abstrait on se retrouve souvent à faire des mocks qui ne veulent plus rien dire puisqu'on les a fait spécifiquement pour que le test concerné passe. Par exemple, si l'on veut tester un code qui a des interactions avec la base de données, on peut essayer de mocker la base, mais ça ne nous dira jamais si finalement la requête de jointure ou les _SELECT_ imbriqués auraient marché dans une vraie situation. Il existe pourtant bien quelques librairies qui essaient de faire “database in memory” mais ça ne reste qu'une pseudo-copie où vous n'aurez pas les vraies problématiques de l'outil.
+
+Si vous souhaitez faire des tests d'intégration, nous préconisons de faire des tests en restant local à votre code, avec toute la logique dans votre test (comme pour des tests unitaires). Pour cela nous utilisons [_test-containers_](https://github.com/testcontainers/testcontainers-node) qui va communiquer avec votre Docker local pour peupler de façon éphémère par exemple une PostgreSQL, un [_mailcatcher_](https://hub.docker.com/r/aerzas/mailcatcher)… afin de faire des tests qui reproduisent un minimum l'environnement de production. Comme l'image d'un container est en cache après le premier test, peupler un container prend à peine quelques secondes et cela devient totalement transparent.
+
+_Le processus marche aussi dans les CI/CD (en tout cas sur GitHub Actions) puisque le runner Docker est disponible via son API HTTP, donc vos tests sont en mesure de dire à la pipeline “peuple un container, puis éteins-le”. Plus besoin de spécifier en dur dans la pipeline les potentielles dépendances de services_ 🙌*.*

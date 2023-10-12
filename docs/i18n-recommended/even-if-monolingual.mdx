@@ -1,0 +1,11 @@
+# Même si votre produit est monolingue
+
+Le cas de figure le plus évident étant bien sûr si vous devez proposer votre site en plusieurs langues (exemple [_refugies.info_](https://refugies.info)). Mais même dans le cas contraire, il peut vous permettre de pallier à plusieurs problèmes.
+
+Il vous permet de facilement gérer le singulier et le pluriel d'une phrase (cas très commun), voire d'afficher une phrase en fonction du genre (cas moins utilisé en général). Sans un tel module vous seriez en train de faire des “_if / else_” dans votre code métier et votre template.
+
+Ensuite, il vous permet aussi de centraliser le formatage des dates. Plutôt que d'écrire à différents endroits “dd/MM/yyyy” ou encore “dd/MM/yyyy _HH:mm:ss_”, vous pouvez les définir dans des traductions nommées “_date.default_” et “_date.defaultWithTime_”. Ensuite utilisez l'interpolation de votre module i18n pour dire “_quand la variable en entrée est une date, alors j'applique le formatage de ma librairie de dates dessus_”. Dans le cas où votre applicatif doit gérer d'autres langues, vous n'aurez qu'à créer les fichiers de traductions sans toucher au code qui s'occupe d'afficher des dates !
+
+_Nous recommandons d'utiliser “[date-fns](https://date-fns.org/)” pour le formatage des dates et des intervalles. Ils permettent quelques raccourcis comme “PPPP” ou encore “PPPPpp” ([voir leurs exemples](https://date-fns.org/v2.29.3/docs/format))._
+
+**Notez que si vous êtes monolingue, il ne faut pas perdre votre temps à mettre tous vos textes dans le module de traduction.** L'idée est surtout de se limiter aux phrases “dynamiques”. Quand on souhaite traduire tout l'applicatif (hors contenu stocké en base de données), on se retrouve à un moment donné confronté à des imbrications multiples de textes traduits avec variables, où l'on voudrait mettre seulement une partie en gras… sauf que, comment passer du HTML sachant qu'il faut aussi en même temps l'encoder afin d'être sûr qu'il n'y ait pas d'injections… bref, gardez votre énergie pour autre chose !

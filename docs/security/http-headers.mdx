@@ -1,0 +1,9 @@
+# Configurer les headers HTTP
+
+Les headers HTTP venant de votre serveur vont dicter aux navigateurs internet comment ils peuvent agir (ou non). Certains doivent être réglés pour limiter les risques liés à la sécurité. Le plus simple est d'utiliser un outil comme [_Helmet.js_](https://github.com/helmetjs/helmet) pour définir par défaut la meilleure configuration à appliquer.
+
+Comme avec Next.js vous n'interagissez pas directement avec le serveur Express afin de garder l'optimisation native du serveur web, et qu'Helmet.js ne propose pas de plugin Next.js, notre solution est pour l'instant de configurer dans votre _next.config.js_ la propriété _headers_ afin de renseigner [_toutes les valeurs par défaut de Helmet.js_](https://github.com/helmetjs/helmet#reference).
+
+_Pour chaque nouvelle ressource utilisée et hébergée sur un autre domaine vous devrez ajuster les propriétés du header “Content-Security-Policy” (type “default-src”, “img-src” “script-src”...). La console de votre navigateur vous préviendra que le header du serveur n'est pas assez permissif._
+
+Concernant les headers entrants vous ne devriez pas être à risque puisqu'en suivant [_nos recommandations d'hébergement_](#un-hébergeur-simple-et-souverain) vous ne gérez pas vous-même la partie routage (qui se fait habituellement avec du Nginx, HAProxy, Istio…). Portez toutefois une attention particulière si vous vous basez sur l'IP du client pour authentifier une action (cela est parfois vrai pour les webhooks qui n'utilisent pas encore la signature du payload). Le formatage du header transmettant la chaîne d'IPs n'est pas la même en fonction des contextes (à cause des outils). Nous conseillons la lecture de [_cet article_](https://adam-p.ca/blog/2022/03/x-forwarded-for/) (l'auteur a réalisé [_une librairie en Golang_](https://github.com/realclientip/realclientip-go) mais nous ne sommes pas au fait d'un équivalent en JavaScript).

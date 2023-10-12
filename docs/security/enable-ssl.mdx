@@ -1,0 +1,5 @@
+# Chiffrement SSL par défaut
+
+Si vous avez choisi [_notre stratégie d'hébergement_](#présentation-de-quelques-acteurs) votre hébergeur vous permet en un clic d'activer la génération d'un certificat SSL afin de disposer d'une utilisation HTTPS sur votre nom de domaine. Cela permet au navigateur de vos utilisateurs de chiffrer leurs communications jusqu'à l'hébergeur, évitant ainsi qu'ils subissent des attaques de type [_man-in-the-middle_](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
+
+Selon l'hébergeur vous pouvez aussi désactiver l'accès via du simple HTTP en demandant une redirection systématique vers le protocole HTTPS. Si l'hébergeur ne le propose pas, vous pouvez le faire dans votre frontend directement en vérifiant la variable _window.location.scheme,_ et aussi sur votre backend en regardant les headers HTTP (pour savoir quelle a été l'adresse appelée).

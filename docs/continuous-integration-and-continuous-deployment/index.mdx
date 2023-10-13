@@ -6,9 +6,9 @@ Sauf exception, **l'important est de ne surtout pas essayer de gérer vos propre
 
 1.  Je récupère le code source ;
 2.  Je télécharge les dépendances ;
-3.  Je “lint” le projet (pour être sûr qu'il est statiquement valide) ;
+3.  Je "lint" le projet (pour être sûr qu'il est statiquement valide) ;
 4.  Je fais mes tests unitaires avec [Jest](https://github.com/jestjs/jest) ;
-5.  Je “build” mon projet ;
+5.  Je "build" mon projet ;
 6.  Je fais mes tests d'intégration end-to-end avec [Cypress](https://github.com/cypress-io/cypress) _(on ne les recommande pas, ils sont très lourds à maintenir pour un gain limité comparé à [utiliser Storybook pour décrire son applicatif](https://docs.google.com/document/d/1jOwMgouNtsnaqlQB139jzoA5synRfIjhtuUFrHK65-U))_ ;
 7.  Je déploie mon applicatif sur l'hébergeur ;
 
@@ -16,7 +16,7 @@ Toutes ces phases sont très consommatrices en ressources (CPU, mémoire, stocka
 
 - Il faut gérer proprement un cache pour les dépendances en fonction de chaque technologie de projet _(dans notre cas ça se limiterait à JavaScript)_ ;
 - Si les CPU saturent tout va lentement, exceptionnellement si vous êtes sur Kubernetes et que vous avez un opérateur, vous allez avoir un nouveau worker qui va être mis sur pied (mais ça va prendre quelques minutes) ;
-- Si la RAM sature, là c'est le worker qui crash car… “[Out of memory](https://en.wikipedia.org/wiki/Out_of_memory)”, il faut relancer la pipeline ;
+- Si la RAM sature, là c'est le worker qui crash car… "[Out of memory](https://en.wikipedia.org/wiki/Out_of_memory)", il faut relancer la pipeline ;
 - Et le pire dans tout ça, c'est que vous pouvez essayer de dimensionner les workers en fonction d'une utilisation intensive, mais finalement vous vous retrouvez avec des machines qui servent réellement que 5% du temps ou moins.
 
 :::tip

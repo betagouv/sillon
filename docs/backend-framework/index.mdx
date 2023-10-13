@@ -1,6 +1,6 @@
 # … Et le framework backend ?
 
-Comme décrit [plus haut](frontend-backend-close/monorepository.mdx), on privilégie un monolithe (à l'ancienne 👵). Nous préconisons [Next.js](https://github.com/vercel/next.js/) côté backend afin d'avoir une intégration native avec React. Essayez de partir avec au minimum Next.js v13 en configurant le router avec “appDir”.
+Comme décrit [plus haut](frontend-backend-close/monorepository.mdx), on privilégie un monolithe (à l'ancienne 👵). Nous préconisons [Next.js](https://github.com/vercel/next.js/) côté backend afin d'avoir une intégration native avec React. Essayez de partir avec au minimum Next.js v13 en configurant le router avec "appDir".
 
 Cette version utilise React v18 qui introduit les [RSC](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023) (React Server Component), permettant le rendu HTML directement sur le serveur sans recalculer les composants depuis le frontend. Vous connaissez peut-être de longue date le SSR (server-side rendering) avec React, si vous voulez connaître [la différence exacte avec les RSC, lisez ça](https://stackoverflow.com/a/76325921).
 

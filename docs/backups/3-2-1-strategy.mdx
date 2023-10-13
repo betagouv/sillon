@@ -6,25 +6,25 @@ Nous préconisons le pattern [3-2-1](<https://fr.wikipedia.org/wiki/Sauvegarde_(
 
 - 3 copies de la même donnée (l'original et 2 copies) ;
 - 2 types de stockage différents ;
-- 1 copie “hors site” ;
+- 1 copie "hors site" ;
 
 :::note
-Dans le cas où votre “stateful” est seulement dans PostgreSQL cela va vous simplifier la vie car vous n'aurez besoin que de faire un dump de la base de données. Si par contre vous avez un outil comme S3, vous pouvez utiliser des outils comme [rclone](https://rclone.org/) pour synchroniser votre S3 original avec un S3 de backup (en désactivant les synchronisations immédiates de suppression).
+Dans le cas où votre "stateful" est seulement dans PostgreSQL cela va vous simplifier la vie car vous n'aurez besoin que de faire un dump de la base de données. Si par contre vous avez un outil comme S3, vous pouvez utiliser des outils comme [rclone](https://rclone.org/) pour synchroniser votre S3 original avec un S3 de backup (en désactivant les synchronisations immédiates de suppression).
 :::
 
 Si l'on transpose ce pattern à notre cas :
 
 - La donnée originale est dans PostgreSQL ;
 - L'hébergeur fait automatiquement des backups de la PostgreSQL et les garde quelques jours ou quelques semaines (✅ pour les 2 types de stockage) ;
-- On fait régulièrement tourner un dump via un “cron job” pour faire un backup de la donnée originale et la mettre en sûreté dans un S3 chez un autre hébergeur sur une région différente (✅ pour les 3 copies distinctes et ✅ pour avoir 1 copie sur une localisation différente).
+- On fait régulièrement tourner un dump via un "cron job" pour faire un backup de la donnée originale et la mettre en sûreté dans un S3 chez un autre hébergeur sur une région différente (✅ pour les 3 copies distinctes et ✅ pour avoir 1 copie sur une localisation différente).
 
 :::tip
-Idéalement pour la copie n°3 on fait une copie du backup de l'hébergeur afin de ne pas surcharger la production, mais certains hébergeurs font des backups “point-in-time recovery” qui ne sont pas récupérables.
+Idéalement pour la copie n°3 on fait une copie du backup de l'hébergeur afin de ne pas surcharger la production, mais certains hébergeurs font des backups "point-in-time recovery" qui ne sont pas récupérables.
 :::
 
 :::caution Sécurité
-Pour la copie hors site il est préférable que le “job” tourne à l'extérieur de l'hébergeur de la production. Pour illustrer :
+Pour la copie hors site il est préférable que le "job" tourne à l'extérieur de l'hébergeur de la production. Pour illustrer :
 
 - Le job a accès en lecture sur la production ;
-- Le job a accès en lecture et écriture sur le S3 “hors site” ;
-- Si l'environnement de production est compromis par un piratage, on est sûrs qu'ils n'ont pas accès à l'environnement “hors site”. Et s'ils ont accès au job, ils n'ont pas les droits pour détruire la production.
+- Le job a accès en lecture et écriture sur le S3 "hors site" ;
+- Si l'environnement de production est compromis par un piratage, on est sûrs qu'ils n'ont pas accès à l'environnement "hors site". Et s'ils ont accès au job, ils n'ont pas les droits pour détruire la production.

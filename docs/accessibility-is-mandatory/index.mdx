@@ -8,7 +8,7 @@
 
 Comme c'est une obligation légale, un projet public peut se retrouver 2 ans après à devoir passer des semaines à adapter son site alors qu'y réfléchir dès le début aurait eu un impact moindre sur la vélocité (sans parler que pendant 2 ans le projet a écarté une obligation légale…).
 
-Rien qu'en s'y intéressant quelques heures, cela permet d'avoir quelques automatismes qui réduit la fraction de l'accessibilité. Le [DSFR](state-identity/dsfr.mdx) a été pensé avec ces problématiques, et permet d'orienter le designer et le développeur afin de ne pas faire les erreurs les plus basiques (contraste entre les couleurs, espacement…). Aussi, si vous devez choisir un framework UI tiers (ou une simple librairie pour un composant), jetez d'abord un œil s'ils ont une approche accessible, car adapter des composants “packagés” non prévus pour l'accessibilité (“a11y”) peut se révéler impossible.
+Rien qu'en s'y intéressant quelques heures, cela permet d'avoir quelques automatismes qui réduit la fraction de l'accessibilité. Le [DSFR](state-identity/dsfr.mdx) a été pensé avec ces problématiques, et permet d'orienter le designer et le développeur afin de ne pas faire les erreurs les plus basiques (contraste entre les couleurs, espacement…). Aussi, si vous devez choisir un framework UI tiers (ou une simple librairie pour un composant), jetez d'abord un œil s'ils ont une approche accessible, car adapter des composants "packagés" non prévus pour l'accessibilité ("a11y") peut se révéler impossible.
 
 Nous considérons 3 statuts dans l'accessibilité d'un site public :
 
@@ -19,17 +19,17 @@ Nous considérons 3 statuts dans l'accessibilité d'un site public :
 Pour savoir si votre site est accessible, il faut d'abord avoir conscience que seulement ~25% de l'accessibilité peut être testée automatiquement. Cela donne de vraies bases puisque sans elles il est impossible que les ~75% restant soient valides. Pour se faire vous pouvez utiliser :
 
 - Lighthouse (disponible en extension dans votre navigateur) ;
-- [`axe-core`](https://github.com/dequelabs/axe-core) si vous utilisez un “bundler” pour votre applicatif (type Webpack..) ;
+- [`axe-core`](https://github.com/dequelabs/axe-core) si vous utilisez un "bundler" pour votre applicatif (type Webpack..) ;
 - [Storybook](https://github.com/storybookjs/storybook) avec l'extension [`storybook-addon-a11y`](https://storybook.js.org/addons/@storybook/addon-a11y) (mettre [Storybook au centre de votre développement](https://docs.google.com/document/d/1jOwMgouNtsnaqlQB139jzoA5synRfIjhtuUFrHK65-U) est une pratique qui peut se révéler efficace).
 
-Ensuite vous devez passer par un audit d'accessibilité où des vérifications “manuelles” et “en situation” vont être faites sur votre produit. Cet audit complet peut être fait par un organisme tiers et son coût est d'environ 4500 euros.
+Ensuite vous devez passer par un audit d'accessibilité où des vérifications "manuelles" et "en situation" vont être faites sur votre produit. Cet audit complet peut être fait par un organisme tiers et son coût est d'environ 4500 euros.
 
 :::tip Conseil
 Il est préférable de faire cet audit quand votre produit est assez avancé techniquement (mais pas non plus des années après son ouverture 🙂).
 :::
 
 :::note
-Il est aussi possible que dans votre entité vous ayez une équipe accessibilité qui s'occupe de faire des “mini-audits”. Vous resterez légalement “non conforme” sans l'audit complet, mais cela vous apportera un premier retour d'experts.
+Il est aussi possible que dans votre entité vous ayez une équipe accessibilité qui s'occupe de faire des "mini-audits". Vous resterez légalement "non conforme" sans l'audit complet, mais cela vous apportera un premier retour d'experts.
 :::
 
 Parmi [les obligations légales en accessibilité](https://design.numerique.gouv.fr/accessibilite-numerique/cadre-legal/), il faut afficher le statut sur la page d'accueil (prévu par le DSFR pour être dans le footer), et avoir publié votre [déclaration d'accessibilité](https://design.numerique.gouv.fr/accessibilite-numerique/declaration-accessibilite) (vous pouvez vous aider d'un [générateur](https://betagouv.github.io/a11y-generateur-declaration/)).

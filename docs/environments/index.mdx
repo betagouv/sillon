@@ -4,13 +4,13 @@
 
 ### Production
 
-Cela va dépendre de votre produit et de vos préférences. Par exemple, quand vous rédigez un article sur un blog, il est fort probable que vous fassiez vos modifications directement sur ce qu'on pourrait appeler “environnement de **production**”. Et cela s'y porte très bien, car l'outil reste peu complexe et la prise de risque est donc faible.
+Cela va dépendre de votre produit et de vos préférences. Par exemple, quand vous rédigez un article sur un blog, il est fort probable que vous fassiez vos modifications directement sur ce qu'on pourrait appeler "environnement de **production**". Et cela s'y porte très bien, car l'outil reste peu complexe et la prise de risque est donc faible.
 
 ### Development
 
 Quand vous faites du développement informatique (avec une équipe de plus d'1 personne), il y a un moment où vous voulez normalement montrer ce qui a été développé à des personnes associées au projet, aussi pour qu'elles testent avec des vérifications manuelles. Il est peu probable que des personnes non-techniques téléchargent le code technique, installent ce qu'il faut (base de données…), pour enfin lancer le produit localement et pouvoir le tester. Le plus simple est donc de leur mettre à disposition un environnement de **développement** (ou de **test**, suivant votre nommage).
 
-Il peut être intéressant de le différencier de la production via un bandeau dans le header pour éviter de malencontreuses actions. Et aussi de sensibiliser les testeurs sur le fait d'utiliser des données “fake” non-sensibles car cet environnement peut être manipulé par plus de monde que la production.
+Il peut être intéressant de le différencier de la production via un bandeau dans le header pour éviter de malencontreuses actions. Et aussi de sensibiliser les testeurs sur le fait d'utiliser des données "fake" non-sensibles car cet environnement peut être manipulé par plus de monde que la production.
 
 Aussi, si le code est open source et que personne n'utilise ses données personnelles, il n'est pas nécessaire de vous embêter à le mettre derrière un proxy type [`oauth2-proxy`](https://github.com/oauth2-proxy/oauth2-proxy). Pour la sécurité :
 
@@ -18,7 +18,7 @@ Aussi, si le code est open source et que personne n'utilise ses données personn
 - Pour mitiger le risque de données sensibles oubliées dedans vous pourriez tous les X mois faire un reset avec [un jeu de données de test](https://en.wikipedia.org/wiki/Database_seeding).
 
 :::note
-L'environnement de développement peut cohabiter avec des environnements éphémères (par fonctionnalité développée, souvent appelés “review apps”), voire même être remplacé par ceux-ci.
+L'environnement de développement peut cohabiter avec des environnements éphémères (par fonctionnalité développée, souvent appelés "review apps"), voire même être remplacé par ceux-ci.
 :::
 
 ### Staging

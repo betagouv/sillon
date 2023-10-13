@@ -1,8 +1,8 @@
 # Réduire au maximum les intermédiaires
 
-Plus vous ajoutez de couches intermédiaires et plus vous faites de “mappers” (et donc du boilerplate code). Bien entendu, ne pas réutiliser les mêmes structures de données entre votre base de données et votre couche métier fait sens, mais à quoi bon passer par des états intermédiaires au moment de passer sur le réseau ?
+Plus vous ajoutez de couches intermédiaires et plus vous faites de "mappers" (et donc du boilerplate code). Bien entendu, ne pas réutiliser les mêmes structures de données entre votre base de données et votre couche métier fait sens, mais à quoi bon passer par des états intermédiaires au moment de passer sur le réseau ?
 
-Si vous prenez l'exemple de GraphQL qui est très utilisé et permet d'avoir un contrat strict entre le serveur et le client, vous vous retrouvez à décrire un schéma dans un fichier `.gql` qui n'a rien à voir avec votre code (peu importe le langage). Vous devrez donc faire des mappers `métier ⇔ GQL`, et sur votre frontend, et sur votre backend. **Et vous perdez l'efficacité de “typer” de bout en bout votre application** (puisque GraphQL n'est pas un concept propre à JS/TS).
+Si vous prenez l'exemple de GraphQL qui est très utilisé et permet d'avoir un contrat strict entre le serveur et le client, vous vous retrouvez à décrire un schéma dans un fichier `.gql` qui n'a rien à voir avec votre code (peu importe le langage). Vous devrez donc faire des mappers `métier ⇔ GQL`, et sur votre frontend, et sur votre backend. **Et vous perdez l'efficacité de "typer" de bout en bout votre application** (puisque GraphQL n'est pas un concept propre à JS/TS).
 
 :::info Contexte
 Nous recommandons d'utiliser un monolithe où les concepts sont très rapprochés, nous avons peu de raisons de nous ajouter une telle complexité.

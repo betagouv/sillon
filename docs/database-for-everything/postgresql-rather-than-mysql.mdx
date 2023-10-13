@@ -8,6 +8,6 @@
 - La gestion d'une colonne en [`uuid`](https://en.wikipedia.org/wiki/Universally_unique_identifier) n'est pas native :
   - Si vous voulez que ce soit lisible n'importe quand pour un humain il faut forcer le type à `string`… mais du coup ce n'est pas optimisé en stockage et pour les jointures ;
   - Si vous voulez optimiser la taille vous devez définir le type `BINARY(16)` mais au moment de faire vos `SELECT` vous ne verrez rien de lisible. Pour ça il faut préciser le helper `BIN_TO_UUID()` à chaque endroit où il y a vos UUIDs, et `UUID_TO_BIN()` au moment de vos `INSERT`. **Économisez votre temps… utilisez PostgreSQL** ;
-- Vous ne pouvez pas créer de “custom type” [où vous définiriez vous-même la structure de données attendue](https://www.postgresql.org/docs/current/rowtypes.html#ROWTYPES-DECLARING).
+- Vous ne pouvez pas créer de "custom type" [où vous définiriez vous-même la structure de données attendue](https://www.postgresql.org/docs/current/rowtypes.html#ROWTYPES-DECLARING).
 
 Cela peut vous paraître exagéré mais quand vous faites des migrations de données (car oui cela arrive), avoir une base qui sait un minimum ce qui peut ou ne peut pas être fait aide grandement. Surtout quand vous travaillez sur des Go de données.

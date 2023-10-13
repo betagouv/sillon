@@ -62,7 +62,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         slug: 'document',
-        description: `Au même titre que les spécifications, les aspects techniques doivent être décrits et historisés. Cela facilite l'embarquement de nouvelles recrues, et cela vous sauvera quand dans 1 an vous vous direz “mince, c'est organisé comment ? Et pourquoi ?”.`,
+        description: `Au même titre que les spécifications, les aspects techniques doivent être décrits et historisés. Cela facilite l'embarquement de nouvelles recrues, et cela vous sauvera quand dans 1 an vous vous direz "mince, c'est organisé comment ? Et pourquoi ?".`,
       },
       items: ['document/code', 'document/macro', 'document/database-schema', 'document/commit-naming'],
     },

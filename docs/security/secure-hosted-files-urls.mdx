@@ -30,7 +30,7 @@ Quelques points importants (que ce soit en base ou via S3 directement) :
 - La validité du JWT n'a pas besoin d'être très longue puisque aussitôt le frontend récupère les données, aussitôt il va charger le fichier (le fichier peut être gardé en cache) ;
 - En l'état actuel des choses, la mise en cache ne va pas marcher car le JWT est différent à chaque affichage de page. La technique est de rendre fixe l'URL sur un intervalle donné (ce n'est pas parfait, mais ça fait le travail) :
   - Au moment de générer le JWT on spécifie la date d'expiration en utilisant un modulo (de 10 minutes par exemple) ;
-  - Les expirations se font donc à des “heures fixes” (1h10, 1h20, 1h30…) ;
+  - Les expirations se font donc à des "heures fixes" (1h10, 1h20, 1h30…) ;
 - Assurez-vous quand même sur votre endpoint de renvoyer le header HTTP `Cache-Control` afin d'adapter le contexte et de ne pas garder localement des images dont la validité a expiré :
   - Pour un fichier public avec la valeur : `public, immutable, no-transform, max-age=0`
   - Pour un fichier privé avec la valeur : `private, max-age=${minutesToSeconds(15)}`.

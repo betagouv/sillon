@@ -7,7 +7,7 @@ Pour chaque entreprise privée que vous choisissez, il faut que la fonctionnalit
 Par exemple :
 
 - Envoi d'email : utiliser le protocole SMTP plutôt que l'API interne du provider permet d'interchanger facilement les acteurs ;
-- Hébergement applicatif : avoir le produit final disponible dans un “container” (type image Docker ou Buildpack) permet une compatibilité très large avec les hébergeurs ;
+- Hébergement applicatif : avoir le produit final disponible dans un "container" (type image Docker ou Buildpack) permet une compatibilité très large avec les hébergeurs ;
 - …
 
 Sans parler des problématiques de services tiers utilisés, il se peut aussi que votre produit soit transféré dans une autre entité interne, où l'hébergeur et les outils sont différents… C'est là qu'avoir une certaine portabilité aide. Après il faut rester lucide, toute migration demande un investissement. Il faut juste essayer de limiter les ajustements à ce qui est environnant et non à ce qui est relatif au code applicatif.

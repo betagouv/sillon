@@ -18,7 +18,7 @@ Il ne faut pas essayer de tout garantir avec asynchronisme, vous risqueriez de c
   1.  Si vous avez une erreur temporaire, de pouvoir rejouer le webhook (très souvent les partenaires n'ont pas de logique de “retry” poussée donc il serait risqué de se reposer sur eux) ;
   2.  Si jamais votre partenaire change de format de données dans son payload, on sait d'avance que cela ne passerait pas de votre côté [car vous validez la donnée en entrée](client-server-communication/input-validation.mdx), il vaut mieux avoir le payload complet utilisé pour investiguer et savoir ce qu'il faut ajuster.
 
-Nous préconisons d'utiliser la librairie [`pg-boss`](https://github.com/timgit/pg-boss) en lieu de place d'outils dédiés comme “Redis Pub/Sub”, Kafka (...). Elle va savoir reproduire toute la logique des “job queues” en ayant quelques tables dans votre base de données. De plus :
+Nous préconisons d'utiliser la librairie [`pg-boss`](https://github.com/timgit/pg-boss) en lieu de place d'outils dédiés comme “Redis Pub/Sub”, Kafka (…). Elle va savoir reproduire toute la logique des “job queues” en ayant quelques tables dans votre base de données. De plus :
 
 - Elle fait très bien le travail pour un usage normal ;
 - Cela vous évitera de devoir le maintenir un outil stateful supplémentaire ;

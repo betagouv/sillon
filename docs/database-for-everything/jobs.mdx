@@ -6,7 +6,9 @@ Une “[job queue](https://en.wikipedia.org/wiki/Job_queue)” est utile :
 - Répartir la charge : les tâches en attente peuvent être exécutées 1 par 1 ;
 - En cas d'échec on peut automatiquement rejouer le “job” jusqu'à temps que ça passe ;
 
-_Dans cette partie nous allons omettre le pattern d'[event sourcing](https://en.wikipedia.org/wiki/Event-driven_architecture) et de [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation) car nous estimons que les appliquer à tout son applicatif apporte une certaine complexité dans le développement. Étant dans un monolithe avec un seul stockage, et pouvant bénéficier de transactions SQL, vous devriez pouvoir passer outre (et donc nous ne parlerons dans la suite de “job queue”, pas de “message broker”)._
+:::note Omission
+Dans cette partie nous allons omettre le pattern d'[event sourcing](https://en.wikipedia.org/wiki/Event-driven_architecture) et de [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation) car nous estimons que les appliquer à tout son applicatif apporte une certaine complexité dans le développement. Étant dans un monolithe avec un seul stockage, et pouvant bénéficier de transactions SQL, vous devriez pouvoir passer outre (et donc nous ne parlerons dans la suite de “job queue”, pas de “message broker”).
+:::
 
 Il ne faut pas essayer de tout garantir avec asynchronisme, vous risqueriez de complexifier votre outil (et donc sa phase de débogage). Voici quelques cas concrets :
 
@@ -23,10 +25,11 @@ Nous préconisons d'utiliser la librairie [`pg-boss`](https://github.com/timgit/
 - Cela vous évitera de devoir déboguer via plusieurs outils à la fois ;
 - Quand vous ferez un [backup](https://en.wikipedia.org/wiki/Backup) ou un “restore” de votre base de données, les événements seront synchronisés avec l'état global des données de votre produit.
 
-_Informations annexes :_
+:::info Informations annexes
 
 - `pg-boss` sait gérer les cron jobs, donc plutôt que d'utiliser une fonctionnalité propre à votre provider (qui ne garantit souvent pas l'unicité de l'opération), vous pouvez vous en servir ;
 - Next.js ne permet _pour l'instant_ pas de lancer directement des processus asynchrones (il faudrait modifier le serveur web mais on perdrait l'optimisation qu'ils ont fait). Notre approche est d'utiliser un endpoint `/init` qui sera appelé au lancement du serveur ;
 - À vous de choisir votre stratégie de rejeu en fonction de la criticité du job :
   - N'oubliez pas de spécifier un maximum de rejeux pour d'un job car certains ne passeront jamais et il serait dommage de flooder votre système ou vos partenaires (sans jamais traîter les jobs suivants qui eux, peuvent peut-être passer) ;
   - Vous pouvez vous reposer sur [Sentry](/docs/monitoring) pour être notifié d'un job qui est abandonné afin que vous puissiez investiguer et tenter de le rejouer manuellement.
+    :::

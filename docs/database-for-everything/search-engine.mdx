@@ -20,4 +20,6 @@ GENERATED ALWAYS AS (
 
 Plutôt que de juste concaténer bêtement les colonnes, on transforme le tout en `tsvector` afin qu'il soit déjà optimisé pour la recherche.
 
-_À noter qu'un `tsvector` est optimisé pour une langue en particulier afin de trier les mots. Par défaut, c'est la configuration `default_text_search_config` qui est utilisée. Sachez que même si votre contenu est en français, faites des tests avec `english` avant d'utiliser la valeur `french`. Cette dernière différencie les mots avec ou sans accent, ce qui peut être problématique… N'hésitez pas à jeter un œil à [toutes les options de langues possibles](https://www.postgresql.org/docs/current/textsearch-psql.html)._
+:::tip À savoir
+Un `tsvector` est optimisé pour une langue en particulier afin de trier les mots. Par défaut, c'est la configuration `default_text_search_config` qui est utilisée. Sachez que même si votre contenu est en français, faites des tests avec `english` avant d'utiliser la valeur `french`. Cette dernière différencie les mots avec ou sans accent, ce qui peut être problématique… N'hésitez pas à jeter un œil à [toutes les options de langues possibles](https://www.postgresql.org/docs/current/textsearch-psql.html).
+:::

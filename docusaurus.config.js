@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Sillon',
-  tagline: `Propositions pour réaliser un projet technique`,
+  tagline: `Propositions pour réaliser un produit numérique`,
   favicon: 'img/favicon.svg',
 
   url: 'https://sillon.rame.fr',

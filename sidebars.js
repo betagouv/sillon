@@ -107,7 +107,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         slug: 'technical-recommandations',
-        description: `Les recommandations qui vont suivre permettent d'allier robustesse et efficacité lors du développement logiciel pour réaliser votre produit numérique.`,
+        description: `Les recommandations qui vont suivre permettent selon nous d'allier robustesse et efficacité lors du développement logiciel pour un produit numérique.`,
       },
       items: [
         {
@@ -242,7 +242,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         slug: 'monitoring',
-        description: `Pour maintenir un service de qualité dans la bonne direction il faut avoir des capteurs qui vous signalent quand quelque chose se passe mal. Rappelez-vous de ne pas échanger d'informations sensibles sur ces outils.`,
+        description: `Pour maintenir un service de qualité dans la bonne direction il faut avoir des capteurs qui vous signalent quand quelque chose se passe mal. Mais rappelez-vous de ne pas fournir d'informations sensibles à ces outils.`,
       },
       items: ['monitoring/for-technical-needs', 'monitoring/for-business-needs'],
     },

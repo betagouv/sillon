@@ -9,7 +9,9 @@ Comme framework web nous préconisons [React](https://github.com/facebook/react)
 
 Dans notre continuité de vouloir “typer” de bout en bout notre code, il est important de faire le lien entre le code métier et le template HTML afin de savoir durant le développement si nous faisons une erreur de type ou de syntaxe. C'est exactement en ça que sert le JSX.
 
-_Notez que l'on parle souvent de JSX quand on fait du JavaScript, et de TSX quand on fait du TypeScript._
+:::note Note
+On parle souvent de JSX quand on fait du JavaScript, et de TSX quand on fait du TypeScript.
+:::
 
 ```tsx title="MyComponent.tsx | Exemple de composant React avec un templating TSX" showLineNumbers
 import React from 'react';
@@ -25,4 +27,6 @@ function MyComponent({ name }: MyComponentProps) {
 export default MyComponent;
 ```
 
-_[Vue.js](https://vuejs.org/) aurait pu être une alternative mais son principal problème est de proposer son propre templating par défaut, ne faisant pas le lien avec le code métier. Il y a toujours la possibilité d'utiliser du JSX mais le fait que ce ne soit qu'optionnel ne nous plaît pas. De plus, avec la version “Vue 3” leur syntaxe a complètement changé et on se rapproche de plus en plus vers ce que fait depuis longtemps React._
+:::note Quid des autres ?
+[Vue.js](https://vuejs.org/) aurait pu être une alternative mais son principal problème est de proposer son propre templating par défaut, ne faisant pas le lien avec le code métier. Il y a toujours la possibilité d'utiliser du JSX mais le fait que ce ne soit qu'optionnel ne nous plaît pas. De plus, avec la version “Vue 3” leur syntaxe a complètement changé et on se rapproche de plus en plus vers ce que fait depuis longtemps React.
+:::

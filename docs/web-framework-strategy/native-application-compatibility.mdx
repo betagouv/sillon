@@ -9,8 +9,13 @@ C'est une bonne stratégie pour gagner en coût de développement :
 3.  Vous écrivez le même code JavaScript/TypeScript pour gérer une version web, Android, iOS, [Electron](<https://en.wikipedia.org/wiki/Electron_(software_framework)>)… Alors que si vous partiez en plus du web sur du natif Android (Java, Kotlin) et iOS (Objective-C, Swift), vous devriez trouver des librairies dans chaque langage, donc décliner votre fonctionnalité en 3 codes différents, et espérer avoir trouvé des librairies avec des rendus graphiques similaires. **Une perte de temps considérable !** _(à noter qu'avec une application hybride il est possible que vous touchiez un peu au code natif pour configurer la webview ou des plugins, mais ça reste rare et à la portée de tous car énormément de plugins tout faits existent)_
 4.  Une fois les bases natives pour l'hybridation mises en place, à partir du moment où vous ne touchez plus qu'à l'application web vous pouvez même vous permettre de ne développer que localement sur le navigateur de votre ordinateur. Vous êtes quasiment garantis que cela marchera sur mobile une fois compilé dans l'application hybride.
 
-[Apache Cordova](https://cordova.apache.org/) a longtemps été une référence mais masquait trop la couche native, ce qui limitait la personnalisation. Son petit frère [Capacitor](https://capacitorjs.com/) corrige tous ses défauts.
+Nous recommandons pour cela l'utilisation de [Capacitor](https://capacitorjs.com/).
 
+:::note
+[Apache Cordova](https://cordova.apache.org/) a longtemps été une référence mais il masquait trop la couche native, ce qui limitait la personnalisation. Son petit frère [Capacitor](https://capacitorjs.com/) corrige tous ses défauts.
+:::
+
+:::danger Mise en garde
 **Il est important de justifier votre besoin d'avoir une application mobile.** C'est un chemin semé d'embûches alors que certains produits pourraient démarrer avec une simple version “web” :
 
 - Pour compiler l'application hybride, vous avez besoin de faire pareil que pour une application “native”, il faut utiliser des outils comme [Android Studio](https://developer.android.com/studio) ou [Xcode](https://developer.apple.com/xcode/) (pour iOS) ;
@@ -22,3 +27,4 @@ C'est une bonne stratégie pour gagner en coût de développement :
 - Aussi, comme les validations des stores sont tantôt automatiques, tantôt manuelles, vous avez pu passer 10 fois le processus et malheureusement le jour où vous avez ABSOLUMENT besoin d'un déploiement, ils vous bloquent en vous reprochant quelque chose d'arbitraire. Et par malchance cela prendra 10 jours ou plus. Il faut alors avoir un contact privilégié dans son sac pour espérer accélérer le processus. Cela s'est déjà vu avec certaines applications de grandes banques françaises…
 
 Le but n'est pas de vous faire fuir, mais plutôt de vous “préparer” à la dure réalité du déploiement mobile. Mais ce n'est en rien insurmontable 📱🚀.
+:::

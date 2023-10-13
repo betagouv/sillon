@@ -1,3 +1,6 @@
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
 # Stockage de fichiers (au revoir buckets S3)
 
 Bien que le bucket S3 soit devenu une référence voire même le choix par défaut quand on commence un projet, **on aimerait vous mettre en garde** en redétaillant l'intégration d'un bucket S3 au sein d'un applicatif.
@@ -6,7 +9,9 @@ Si vous utilisez du S3 vous allez normalement stocker vos fichiers dans un espac
 
 Sachez qu'une PostgreSQL est capable de gérer au sein d'une colonne des fichiers faisant maximum 1 Go chacun, il faut pour cela utiliser le type `BYTEA` (qui utilise le [TOAST](https://www.postgresql.org/docs/current/storage-toast.html)).
 
-_Il existe aussi la possibilité de stocker des “[large objects](https://www.postgresql.org/docs/current/largeobjects.html)” qui peuvent faire jusqu'à 4 To chacun, il faut une étape supplémentaire pour les ajouter avant de les référencer dans une table traditionnelle. Et cela pose des questions de volumétrie qui seront abordés plus loin._
+:::note Information
+Il existe aussi la possibilité de stocker des “[large objects](https://www.postgresql.org/docs/current/largeobjects.html)” qui peuvent faire jusqu'à 4 To chacun, il faut une étape supplémentaire pour les ajouter avant de les référencer dans une table traditionnelle. Et cela pose des questions de volumétrie qui seront abordés plus loin.
+:::
 
 **Vous devez spécifier et quantifier ce que vous allez héberger pour dire oui ou non aux buckets S3.**
 
@@ -32,4 +37,33 @@ Points importants (hors problématiques de stockage) :
 
 Notez que **les technologies comme `tus` ou S3 ne gèrent pas les règles de sécurité propres à votre métier** (qui peut uploader ? qui peut lire ce fichier ?). C'est à vous de gérer cette partie. Nous abordons cela plus en détail dans [le chapitre sur la sécurité](security/secure-hosted-files-urls.mdx).
 
-_Écrire et lire des fichiers dans votre base de données va forcément utiliser un peu plus de ressources (notamment la bande passante). N'hésitez pas à “augmenter” les performances de votre base si besoin._
+:::info
+Écrire et lire des fichiers dans votre base de données va forcément utiliser un peu plus de ressources (notamment la bande passante). N'hésitez pas à “augmenter” les performances de votre base si besoin, et à dimensionner le tuyau d'entrée pour faire passer les fichiers :
+
+<Tabs>
+  <TabItem value="nextjs" label="Next.js">
+    Il faudrait augmenter la configuration dans le fichier du endpoint en exportant par exemple :
+
+```tsx title="my-endpoint.tsx"
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+```
+
+  </TabItem>
+  <TabItem value="nginx" label="Nginx">
+    Il faudrait augmenter la configuration :
+
+```conf title="/etc/nginx/http.d/default.conf"
+server {
+  listen 80;
+  client_max_body_size 20M;
+}
+```
+
+  </TabItem>
+</Tabs>

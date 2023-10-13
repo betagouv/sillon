@@ -4,6 +4,8 @@ Plus vous ajoutez de couches intermédiaires et plus vous faites de “mappers�
 
 Si vous prenez l'exemple de GraphQL qui est très utilisé et permet d'avoir un contrat strict entre le serveur et le client, vous vous retrouvez à décrire un schéma dans un fichier `.gql` qui n'a rien à voir avec votre code (peu importe le langage). Vous devrez donc faire des mappers `métier ⇔ GQL`, et sur votre frontend, et sur votre backend. **Et vous perdez l'efficacité de “typer” de bout en bout votre application** (puisque GraphQL n'est pas un concept propre à JS/TS).
 
-_Rappelons aussi que l'on utilise un monolithe où les concepts sont très rapprochés, nous avons peu de raisons de nous ajouter une telle complexité._
+:::info Contexte
+Nous recommandons d'utiliser un monolithe où les concepts sont très rapprochés, nous avons peu de raisons de nous ajouter une telle complexité.
+:::
 
 _Petite nuance nécessaire : GraphQL permet aussi de définir son schéma en code brut, ce qui à première vue règlerait le souci si c'est fait dans un même langage client-serveur. Mais l'architecture même de GraphQL apporte une (trop) grande complexité ([resolvers imbriqués](https://graphql.org/learn/execution/), et donc [dataloaders](https://github.com/graphql/dataloader), et donc [query complexity](https://typegraphql.com/docs/complexity.html)…). C'est pour cela que le prochain chapitre mentionne une alternative._

@@ -12,7 +12,7 @@ Quand vous faites du développement informatique (avec une équipe de plus d'1 p
 
 Il peut être intéressant de le différencier de la production via un bandeau dans le header pour éviter de malencontreuses actions. Et aussi de sensibiliser les testeurs sur le fait d'utiliser des données “fake” non-sensibles car cet environnement peut être manipulé par plus de monde que la production.
 
-Aussi, si le code est open source et que personne n'utilise ses données personnelles, il n'est pas nécessaire de vous embêter à le mettre derrière un proxy type [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy). Pour la sécurité :
+Aussi, si le code est open source et que personne n'utilise ses données personnelles, il n'est pas nécessaire de vous embêter à le mettre derrière un proxy type [`oauth2-proxy`](https://github.com/oauth2-proxy/oauth2-proxy). Pour la sécurité :
 
 - Il est surtout important de ne pas utiliser les mêmes instances (applicatif et stockage) que la production en cas d'infiltration ;
 - Pour mitiger le risque de données sensibles oubliées dedans vous pourriez tous les X mois faire un reset avec [un jeu de données de test](https://en.wikipedia.org/wiki/Database_seeding).
@@ -21,12 +21,12 @@ _À noter que l'environnement de développement peut cohabiter avec des environn
 
 ### Staging
 
-Certains projets ont un environnement de **recette** intermédiaire entre “development” et “production”, qui est censé représenter la production sans pourtant l'être, avec des jeux de données de production anonymisés par exemple. Ce qui veut dire qu'une modification doit passer “development -\> staging -\> production” rajoutant une étape de test qui n'est pas forcément soutenable pour une équipe.
+Certains projets ont un environnement de **recette** intermédiaire entre `development` et `production`, qui est censé représenter la production sans pourtant l'être, avec des jeux de données de production anonymisés par exemple. Ce qui veut dire qu'une modification doit passer `development → staging → production` rajoutant une étape de test qui n'est pas forcément soutenable pour une équipe.
 
-L'utilité du “staging” va surtout dépendre de la criticité de votre projet. Mais si vous pouvez vous permettre de parfois pousser des erreurs en ayant l'agilité de les corriger rapidement, n'avoir que “development + production” permet de rester simple.
+L'utilité du `staging` va surtout dépendre de la criticité de votre projet. Mais si vous pouvez vous permettre de parfois pousser des erreurs en ayant l'agilité de les corriger rapidement, n'avoir que `development + production` permet de rester simple.
 
 ## Comment ça s'organise ?
 
 Les environnements sont souvent différenciés par des branches Git différentes, qui, à chaque commit, seront déployées.
 
-Il y a pas mal de standards pour prendre à la fois les environnements qui tournent, ainsi que les branches correctives ou de fonctionnalités ([Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow), [Gitlab flow](https://about.gitlab.com/topics/version-control/what-is-gitlab-flow/)…). Nous choisissons [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) comme base en l'adaptant en fonction des phases d'avancement du projet (peut-être pas besoin des branches “release”, peut-être pas besoin de branches de “feature” si qu'un seul développeur…). **L'important est d'être à l'aise pour éviter de perdre du temps, conciliez-vous au début du projet.**
+Il y a pas mal de standards pour prendre à la fois les environnements qui tournent, ainsi que les branches correctives ou de fonctionnalités ([Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow), [Gitlab flow](https://about.gitlab.com/topics/version-control/what-is-gitlab-flow/)…). Nous choisissons [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) comme base en l'adaptant en fonction des phases d'avancement du projet (peut-être pas besoin des branches `release`, peut-être pas besoin de branches de `feature` si qu'un seul développeur…). **L'important est d'être à l'aise pour éviter de perdre du temps, conciliez-vous au début du projet.**

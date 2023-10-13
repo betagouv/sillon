@@ -6,15 +6,15 @@ Mais vous devrez alors gérer plusieurs fois la quasi même configuration : mêm
 
 Il peut être intéressant de les gérer depuis le même applicatif, en jouant simplement sur le préfix du routage des URLs :
 
-- /landing/\*
-- /app/\*
+- `/landing/*`
+- `/app/*`
 
 … Comme cela un seul runtime suffit pour 2 frontends (voire même plus).
 
 Bien entendu vous pourriez avoir des besoins spécifiques pour les URLs (SEO, esthétique…) pour par exemple avoir comme URLs :
 
-- https://www.example.com/ (landing)
-- https://app.example.com/ (app)
+- `https://www.example.com/` (landing)
+- `https://app.example.com/` (app)
 
 Plusieurs solutions sont envisageables…
 
@@ -24,4 +24,4 @@ Vous gardez 1 seule instance pour gérer tous les frontends, par contre il faut 
 
 ## Par le déploiement
 
-Si la solution par routage n'est pas envisageable, vous pouvez vous tourner vers votre pipeline de déploiement. Au lieu d'avoir une seule étape de _build_ après tous vos tests… vous en avez 2 où pour chacune vous pouvez choisir le routage voulu (A ou B plutôt que A+B). Et vous déployez chacun des builds à 2 endroits différents. Évitant ainsi une configuration de routage sur les domaines racines.
+Si la solution par routage n'est pas envisageable, vous pouvez vous tourner vers votre pipeline de déploiement. Au lieu d'avoir une seule étape de _build_ après tous vos tests… vous en avez 2 où pour chacune vous pouvez choisir le routage voulu (`A` ou `B` plutôt que `A+B`). Et vous déployez chacun des builds à 2 endroits différents. Évitant ainsi une configuration de routage sur les domaines racines.

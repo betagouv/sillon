@@ -10,15 +10,15 @@ En ajoutant une durée de validité à l'URL du fichier vous garantissez que le 
 
 L'idée est de donner une validité à notre URL en y ajoutant en paramètre une signature (générée par chiffrement). Imaginons que nous sommes dans une SPA (les appels API se font en asynchrone du chargement de page) :
 
-1.  L'utilisateur va sur _monsite.com/compte_ ;
+1.  L'utilisateur va sur `monsite.com/compte` ;
 2.  Le frontend demande à l'API de récupérer l'objet utilisateur ;
 3.  L'API :
-    1.  Récupère l'utilisateur en base de données et voit que “private_photo” est une pièce jointe qui a l'identifiant 123 ;
-    2.  Passe l'identifiant dans un petit helper qui va d'abord générer l'url finale “_monsite.com/fichier?id=123_” ;
-    3.  Puis générer un JWT avec comme payload “urn:claim:file*id = 123” et une validité de 10 minutes pour ensuite l'ajouter en paramètre pour donner “\_monsite.com/fichier?id=123?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cm46Y2xhaW06ZmlsZV9pZCI6IjEyMyIsImlhdCI6MTUxNjIzOTAyMn0.xpP88WITmYZ-F0l1iL_VbAcc-PBU53xeE4Dnm-M9Pj4*” ;
-    4.  Renvoie l'objet utilisateur avec pour “private_photo” l'URL finale.
+    1.  Récupère l'utilisateur en base de données et voit que la propriété `private_photo` est une pièce jointe qui a l'identifiant 123 ;
+    2.  Passe l'identifiant dans un petit helper qui va d'abord générer l'url finale `monsite.com/fichier?id=123` ;
+    3.  Puis générer un JWT avec comme payload `urn:claim:file_id = 123` et une validité de 10 minutes pour ensuite l'ajouter en paramètre pour donner `monsite.com/fichier?id=123?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cm46Y2xhaW06ZmlsZV9pZCI6IjEyMyIsImlhdCI6MTUxNjIzOTAyMn0.xpP88WITmYZ-F0l1iL_VbAcc-PBU53xeE4Dnm-M9Pj4` ;
+    4.  Renvoie l'objet utilisateur avec pour `private_photo` l'URL finale.
 
-C'est très schématisé mais c'est l'idée. Ainsi le endpoint _/fichier_ a juste à vérifier la validité du JWT avec n'importe quelle librairie JWT classique.
+C'est très schématisé mais c'est l'idée. Ainsi le endpoint `/fichier` a juste à vérifier la validité du JWT avec n'importe quelle librairie JWT classique.
 
 - Si vous utilisez les buckets S3 : certains providers de buckets S3 ont cette fonctionnalité de signature d'URL, il faut donc que votre backend se charge de signer l'URL avec la librairie cliente du provider ;
 - Sinon si vous êtes en base de données il faut créer vous-même ce petit helper.
@@ -31,8 +31,8 @@ Quelques points importants (que ce soit en base ou via S3 directement) :
 - En l'état actuel des choses, la mise en cache ne va pas marcher car le JWT est différent à chaque affichage de page. La technique est de rendre fixe l'URL sur un intervalle donné (ce n'est pas parfait, mais ça fait le travail) :
   - Au moment de générer le JWT on spécifie la date d'expiration en utilisant un modulo (de 10 minutes par exemple) ;
   - Les expirations se font donc à des “heures fixes” (1h10, 1h20, 1h30…) ;
-- Assurez-vous quand même sur votre endpoint de renvoyer le header HTTP “_Cache-Control_” afin d'adapter le contexte et de ne pas garder localement des images dont la validité a expiré :
-  - Pour un fichier public avec la valeur : “_public, immutable, no-transform, max-age=0_”
-  - Pour un fichier privé avec la valeur : “_private, max-age=\${minutesToSeconds(15)}_”.
+- Assurez-vous quand même sur votre endpoint de renvoyer le header HTTP `Cache-Control` afin d'adapter le contexte et de ne pas garder localement des images dont la validité a expiré :
+  - Pour un fichier public avec la valeur : `public, immutable, no-transform, max-age=0`
+  - Pour un fichier privé avec la valeur : `private, max-age=${minutesToSeconds(15)}`.
 
 _Désolés si l'ensemble paraît être un peu de travail, mais c'est le nécessaire pour sécuriser proprement les fichiers (l'utilisation d'un S3 prend en charge quelques étapes mais laisse reposer sur vous l'architecture de sécurisation ainsi que sa mise en place)._

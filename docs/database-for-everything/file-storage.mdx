@@ -4,7 +4,7 @@ Bien que le bucket S3 soit devenu une référence voire même le choix par défa
 
 Si vous utilisez du S3 vous allez normalement stocker vos fichiers dans un espace distinct de votre base de données. Chaque fichier aura une URL unique, et dans votre base de données vous garderez en référence cette URL. Vous vous retrouvez dans la situation où les deux peuvent ne plus être synchronisés, avoir l'URL dans votre base de données ne veut pas dire que le fichier existe sur votre bucket S3.
 
-Sachez qu'une PostgreSQL est capable de gérer au sein d'une colonne des fichiers faisant maximum 1 Go chacun, il faut pour cela utiliser le type _BYTEA_ (qui utilise le [TOAST](https://www.postgresql.org/docs/current/storage-toast.html)).
+Sachez qu'une PostgreSQL est capable de gérer au sein d'une colonne des fichiers faisant maximum 1 Go chacun, il faut pour cela utiliser le type `BYTEA` (qui utilise le [TOAST](https://www.postgresql.org/docs/current/storage-toast.html)).
 
 _Il existe aussi la possibilité de stocker des “[large objects](https://www.postgresql.org/docs/current/largeobjects.html)” qui peuvent faire jusqu'à 4 To chacun, il faut une étape supplémentaire pour les ajouter avant de les référencer dans une table traditionnelle. Et cela pose des questions de volumétrie qui seront abordés plus loin._
 
@@ -21,15 +21,15 @@ Cas concrets :
 Points importants (hors problématiques de stockage) :
 
 - Nous devons rester sur des tailles de fichiers acceptables quand on passe via PostgreSQL car c'est notre propre API qui sera sollicitée pour servir le flux ;
-- En utilisant la PostgreSQL pour le stockage **il ne faut jamais essayer de produire vous-même la logique d'upload d'un fichier**. Cela implique beaucoup de technique : headers HTTP, le “resumable upload” (fait de reprendre une upload si la connexion internet est perdue durant quelques secondes)... **Nous préconisons plutôt d'utiliser [tus](https://github.com/tus)** ([client](https://github.com/tus/tus-js-client) et [serveur](https://github.com/tus/tus-node-server)) sachant qu'ils proposent [une intégration dans l'API Next.js](https://github.com/tus/tus-node-server/tree/main/packages/server#example-integrate-tus-into-nextjs) ;
+- En utilisant la PostgreSQL pour le stockage **il ne faut jamais essayer de produire vous-même la logique d'upload d'un fichier**. Cela implique beaucoup de technique : headers HTTP, le “resumable upload” (fait de reprendre une upload si la connexion internet est perdue durant quelques secondes)... **Nous préconisons plutôt d'utiliser [`tus`](https://github.com/tus)** ([client](https://github.com/tus/tus-js-client) et [serveur](https://github.com/tus/tus-node-server)) sachant qu'ils proposent [une intégration dans l'API Next.js](https://github.com/tus/tus-node-server/tree/main/packages/server#example-integrate-tus-into-nextjs) ;
 - **Si vous utilisez des buckets S3, ne faites pas transiter les fichiers par votre API.** Vous avez sûrement choisi S3 car il est question de volumétrie importante. Le fait d'utiliser votre API en intermédiaire met un point de congestion et fait reposer sur vous le fait de bien dimensionner votre API alors qu'une upload/lecture peut être anecdotique (**sachant que ça peut en plus perturber vos opérations sensibles sur l'API**). Nous recommandons dans ce cas de choisir un fournisseur S3 qui permet de “signer des URLs” que ce soit en lecture ou en upload. Avec cette architecture aucun fichier ne transite via votre API :
 
 1.  Votre frontend demande à l'API “je veux uploader un fichier” ;
 2.  L'API renvoie une nouvelle URL signée du provider S3 ;
-3.  Le frontend peut uploader son fichier directement sur l'URL signée (en utilisant une librairie cliente compatible comme [tus](https://github.com/tus/tus-js-client)) et obtient l'URL finale du fichier uploadé ;
+3.  Le frontend peut uploader son fichier directement sur l'URL signée (en utilisant une librairie cliente compatible comme [`tus`](https://github.com/tus/tus-js-client)) et obtient l'URL finale du fichier uploadé ;
 4.  Le frontend peut transmettre l'URL du fichier uploadé à l'API ;
 5.  L'API est en mesure de valider le fichier de façon synchrone (ou non), et d'enregister l'URL en base de données.
 
-Notez que **les technologies comme tus ou S3 ne gèrent pas les règles de sécurité propres à votre métier** (qui peut uploader ? qui peut lire ce fichier ?). C'est à vous de gérer cette partie. Nous abordons cela plus en détail dans [le chapitre sur la sécurité](#sécuriser-les-urls-des-fichiers-hébergés).
+Notez que **les technologies comme `tus` ou S3 ne gèrent pas les règles de sécurité propres à votre métier** (qui peut uploader ? qui peut lire ce fichier ?). C'est à vous de gérer cette partie. Nous abordons cela plus en détail dans [le chapitre sur la sécurité](#sécuriser-les-urls-des-fichiers-hébergés).
 
 _Écrire et lire des fichiers dans votre base de données va forcément utiliser un peu plus de ressources (notamment la bande passante). N'hésitez pas à “augmenter” les performances de votre base si besoin._

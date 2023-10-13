@@ -15,10 +15,10 @@ Il existe plusieurs types de 2FA :
 
 1.  Validation par SMS (la moins sécurisée en cas de vol de téléphone puisque souvent aucun besoin de le déverrouiller pour lire les SMS) ;
 2.  Validation par l'application mobile du produit (les banques appellent souvent dans ce cas votre téléphone un “terminal de confiance”) ;
-3.  Validation par [TOTP](https://en.wikipedia.org/wiki/Time-based_one-time_password) (suite de chiffres valide 30 secondes) (souvent géré par une application nommée “??? Authenticator”) ;
+3.  Validation par [TOTP](https://en.wikipedia.org/wiki/Time-based_one-time_password) (suite de chiffres valide 30 secondes) (souvent géré par une application nommée `??? Authenticator`) ;
 4.  Validation par une clé de sécurité ([WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) étant le dernier standard).
 
-On va surtout s'intéresser aux (3) et (4) qui sont les standards les plus utilisés pour l'authentification. Tout est basé sur une clé privée unique stockée dans le “TOTP Authenticator”, ou dans votre clé de sécurité. Ce qui permet de chiffrer une séquence d'autorisation durant une authentification.
+On va surtout s'intéresser aux (3) et (4) qui sont les standards les plus utilisés pour l'authentification. Tout est basé sur une clé privée unique stockée dans l'application `TOTP Authenticator`, ou dans votre clé de sécurité. Ce qui permet de chiffrer une séquence d'autorisation durant une authentification.
 
 **Si vous utilisez un gestionnaire de mots de passe, le 2FA est primordial 🔑.**
 
@@ -45,9 +45,9 @@ _Vous verrez que de toute façon vous n'aurez des fois pas le choix que d'adopte
 
 Si on résume dans le cas d'un redémarrage de mon ordinateur :
 
-1.  Je souhaite me connecter sur un site “ABC” qui est protégé avec un 2FA TOTP ;
+1.  Je souhaite me connecter sur un site `ABC` qui est protégé avec un 2FA TOTP ;
 2.  Je lance mon gestionnaire, entre mon master password, et utilise ma clé de sécurité pour passer le 2FA du gestionnaire ;
-3.  Je copie/colle le mot de passe du site “ABC” ;
+3.  Je copie/colle le mot de passe du site `ABC` ;
 4.  Le site me demande le 2FA TOTP que je vais chercher dans mon gestionnaire (pour simplifier, souvent le gestionnaire va automatiquement le mettre dans le [presse-papier](<https://fr.wikipedia.org/wiki/Presse-papiers_(informatique)>) pour que vous n'ayez plus qu'à le coller après un auto-remplissage des identifiants).
 
 _La marque la plus connue et très appréciée historiquement est [Yubico](https://www.yubico.com/) (suédois) avec ses Yubikeys, mais dorénavant il existe plein de concurrents (que nous n'avons pas testés)._

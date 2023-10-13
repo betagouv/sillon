@@ -94,7 +94,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Utiliser la charte graphique de l’État',
+      label: `Utiliser la charte graphique de l'État`,
       link: {
         type: 'generated-index',
         slug: 'state-identity',
@@ -249,7 +249,7 @@ const sidebars = {
     'accessibility-is-mandatory/index',
     {
       type: 'category',
-      label: 'L’écriture inclusive',
+      label: `L'écriture inclusive`,
       link: {
         type: 'generated-index',
         slug: 'inclusive-writing',

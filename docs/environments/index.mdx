@@ -12,10 +12,10 @@ Quand vous faites du développement informatique (avec une équipe de plus d'1 p
 
 Il peut être intéressant de le différencier de la production via un bandeau dans le header pour éviter de malencontreuses actions. Et aussi de sensibiliser les testeurs sur le fait d'utiliser des données “fake” non-sensibles car cet environnement peut être manipulé par plus de monde que la production.
 
-Aussi, si le code est open source et que personne n'utilise ses données personnelles, il n'est pas nécessaire de vous embêter à le mettre derrière un proxy type [_oauth2-proxy_](https://github.com/oauth2-proxy/oauth2-proxy). Pour la sécurité :
+Aussi, si le code est open source et que personne n'utilise ses données personnelles, il n'est pas nécessaire de vous embêter à le mettre derrière un proxy type [oauth2-proxy](https://github.com/oauth2-proxy/oauth2-proxy). Pour la sécurité :
 
 - Il est surtout important de ne pas utiliser les mêmes instances (applicatif et stockage) que la production en cas d'infiltration ;
-- Pour mitiger le risque de données sensibles oubliées dedans vous pourriez tous les X mois faire un reset avec [_un jeu de données de test_](https://en.wikipedia.org/wiki/Database_seeding).
+- Pour mitiger le risque de données sensibles oubliées dedans vous pourriez tous les X mois faire un reset avec [un jeu de données de test](https://en.wikipedia.org/wiki/Database_seeding).
 
 _À noter que l'environnement de développement peut cohabiter avec des environnements éphémères (par fonctionnalité développée, souvent appelés “review apps”), voire même être remplacé par ceux-ci._
 
@@ -29,4 +29,4 @@ L'utilité du “staging” va surtout dépendre de la criticité de votre proje
 
 Les environnements sont souvent différenciés par des branches Git différentes, qui, à chaque commit, seront déployées.
 
-Il y a pas mal de standards pour prendre à la fois les environnements qui tournent, ainsi que les branches correctives ou de fonctionnalités ([_Gitflow_](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), [_GitHub flow_](https://docs.github.com/en/get-started/quickstart/github-flow), [_Gitlab flow_](https://about.gitlab.com/topics/version-control/what-is-gitlab-flow/)…). Nous choisissons [_Gitflow_](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) comme base en l'adaptant en fonction des phases d'avancement du projet (peut-être pas besoin des branches “release”, peut-être pas besoin de branches de “feature” si qu'un seul développeur…). **L'important est d'être à l'aise pour éviter de perdre du temps, conciliez-vous au début du projet.**
+Il y a pas mal de standards pour prendre à la fois les environnements qui tournent, ainsi que les branches correctives ou de fonctionnalités ([Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow), [Gitlab flow](https://about.gitlab.com/topics/version-control/what-is-gitlab-flow/)…). Nous choisissons [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) comme base en l'adaptant en fonction des phases d'avancement du projet (peut-être pas besoin des branches “release”, peut-être pas besoin de branches de “feature” si qu'un seul développeur…). **L'important est d'être à l'aise pour éviter de perdre du temps, conciliez-vous au début du projet.**

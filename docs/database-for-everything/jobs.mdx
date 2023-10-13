@@ -1,6 +1,6 @@
 # Job queues / message broker
 
-Une “[_job queue_](https://en.wikipedia.org/wiki/Job_queue)” est utile :
+Une “[job queue](https://en.wikipedia.org/wiki/Job_queue)” est utile :
 
 - Pour faire un travail en asynchrone (et ne pas bloquer la requête courante qui est synchrone) ;
 - Répartir la charge : les tâches en attente peuvent être exécutées 1 par 1 ;
@@ -15,14 +15,14 @@ Il ne faut pas essayer de tout garantir avec asynchronisme, vous risqueriez de c
 - Si mes partenaires peuvent me notifier d'événements métiers indispensables à mon produit, il vaut mieux mettre le payload HTTP reçu (souvent du JSON) directement dans une “job queue” même si vous le traitez immédiatement. Cela permettra :
 
 1.  Si vous avez une erreur temporaire, de pouvoir rejouer le webhook (très souvent les partenaires n'ont pas de logique de “retry” poussée donc il serait risqué de se reposer sur eux) ;
-2.  Si jamais votre partenaire change de format de données dans son payload, on sait d'avance que cela ne passerait pas de votre côté [_car vous validez la donnée en entrée_](#validation-des-données-entrantes), il vaut mieux avoir le payload complet utilisé pour investiguer et savoir ce qu'il faut ajuster.
+2.  Si jamais votre partenaire change de format de données dans son payload, on sait d'avance que cela ne passerait pas de votre côté [car vous validez la donnée en entrée](#validation-des-données-entrantes), il vaut mieux avoir le payload complet utilisé pour investiguer et savoir ce qu'il faut ajuster.
 
-Nous préconisons d'utiliser la librairie [_pg-boss_](https://github.com/timgit/pg-boss) en lieu de place d'outils dédiés comme “Redis Pub/Sub”, Kafka (...). Elle va savoir reproduire toute la logique des “job queues” en ayant quelques tables dans votre base de données. De plus :
+Nous préconisons d'utiliser la librairie [pg-boss](https://github.com/timgit/pg-boss) en lieu de place d'outils dédiés comme “Redis Pub/Sub”, Kafka (...). Elle va savoir reproduire toute la logique des “job queues” en ayant quelques tables dans votre base de données. De plus :
 
 - Elle fait très bien le travail pour un usage normal ;
 - Cela vous évitera de devoir le maintenir un outil stateful supplémentaire ;
 - Cela vous évitera de devoir déboguer via plusieurs outils à la fois ;
-- Quand vous ferez un [_backup_](https://en.wikipedia.org/wiki/Backup) ou un “restore” de votre base de données, les événements seront synchronisés avec l'état global des données de votre produit.
+- Quand vous ferez un [backup](https://en.wikipedia.org/wiki/Backup) ou un “restore” de votre base de données, les événements seront synchronisés avec l'état global des données de votre produit.
 
 _Informations annexes :_
 
@@ -30,4 +30,4 @@ _Informations annexes :_
 - Next.js ne permet _pour l'instant_ pas de lancer directement des processus asynchrones (il faudrait modifier le serveur web mais on perdrait l'optimisation qu'ils ont fait). Notre approche est d'utiliser un endpoint _/init_ qui sera appelé au lancement du serveur ;
 - À vous de choisir votre stratégie de rejeu en fonction de la criticité du job :
   - N'oubliez pas de spécifier un maximum de rejeux pour d'un job car certains ne passeront jamais et il serait dommage de flooder votre système ou vos partenaires (sans jamais traîter les jobs suivants qui eux, peuvent peut-être passer) ;
-  - Vous pouvez vous reposer sur [_Sentry_](#faire-la-vigie-en-étant-outillé) pour être notifié d'un job qui est abandonné afin que vous puissiez investiguer et tenter de le rejouer manuellement.
+  - Vous pouvez vous reposer sur [Sentry](#faire-la-vigie-en-étant-outillé) pour être notifié d'un job qui est abandonné afin que vous puissiez investiguer et tenter de le rejouer manuellement.

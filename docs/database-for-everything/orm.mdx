@@ -1,6 +1,6 @@
 # ORM
 
-Nous faisons le choix d'utiliser [_Prisma_](https://github.com/prisma/prisma) pour interagir avec notre base de données RDBMS. Comme nous souhaitons versionner le plus de choses, avoir un [_ORM_](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) permet de garder cette rigueur.
+Nous faisons le choix d'utiliser [Prisma](https://github.com/prisma/prisma) pour interagir avec notre base de données RDBMS. Comme nous souhaitons versionner le plus de choses, avoir un [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) permet de garder cette rigueur.
 
 Sachez que Prisma a été développé avec TypeScript en tête. Le type des données retourné par les requêtes est dynamique en fonction de la requête. Par exemple si vous faites l'équivalent d'un “SELECT \* FROM users” toutes les propriétés seront proposées par le linter TS, alors que si vous faites un “SELECT age FROM users” seul l'âge sera proposé comme propriété pour chaque utilisateur.
 

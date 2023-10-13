@@ -1,13 +1,13 @@
 # Un seul espace de stockage, ça serait le rêve ?
 
-Ce qui est le plus compliqué quand on gère de l'opérationnel ce n'est pas le stateless (normalement équivalent à votre code JS qui tourne), mais le [_stateful_](<https://en.wikipedia.org/wiki/State_(computer_science)>) (partout où vous avez de la donnée stockée).
+Ce qui est le plus compliqué quand on gère de l'opérationnel ce n'est pas le stateless (normalement équivalent à votre code JS qui tourne), mais le [stateful](<https://en.wikipedia.org/wiki/State_(computer_science)>) (partout où vous avez de la donnée stockée).
 
-- Si votre stateless est bien conçu (gestion du [_SIGTERM_](https://fr.wikipedia.org/wiki/SIGTERM), transactions de base de données…), qu'il y ait 1, 2, 3 instances voire même 0 cela ne perturbe en rien ce qui est vital : les données utilisateurs ;
+- Si votre stateless est bien conçu (gestion du [SIGTERM](https://fr.wikipedia.org/wiki/SIGTERM), transactions de base de données…), qu'il y ait 1, 2, 3 instances voire même 0 cela ne perturbe en rien ce qui est vital : les données utilisateurs ;
 - Si votre stateless est supprimé par mégarde, vous pouvez le repeupler et il remplira toujours sa fonction primaire ;
 
 Par contre… si votre stateful est instable il y a un risque qu'il y ait une corruption de données (risque limité avec l'usage des transactions, mais ça peut arriver dans un fil d'exécution qui appelle différent outils stateful). Et si par mégarde vous le supprimez, il faut rentrer dans une longue investigation.
 
-Par chance vous aurez [_mis en place des backups_](#backups) mais entre le dernier backup et la perte des données il va être très dur de reconstituer ce qui manque (voire impossible).
+Par chance vous aurez [mis en place des backups](#backups) mais entre le dernier backup et la perte des données il va être très dur de reconstituer ce qui manque (voire impossible).
 
 **Tout ça pour dire quoi ?** C'est déjà assez compliqué et stressant de gérer un outil stateful, alors il va de soi que si vous les multipliez vous ne faites pas un cadeau à l'opérationnel de l'équipe.
 

@@ -1,6 +1,6 @@
 ## Préférez l'API à la mise en cache frontend
 
-Qu'est-ce que ça veut dire ? Dans React un outil comme [_Redux_](https://github.com/reduxjs/redux) permet de gérer des “[_stores_](https://redux.js.org/api/store)” pour gérer l'état global de votre frontend au fil des pages. Comme entre les pages vous allez probablement récupérer certaines mêmes données il peut vite être tentant de chercher à économiser les requêtes réseaux en réutilisant ce qui a déjà été récupéré.
+Qu'est-ce que ça veut dire ? Dans React un outil comme [Redux](https://github.com/reduxjs/redux) permet de gérer des “[stores](https://redux.js.org/api/store)” pour gérer l'état global de votre frontend au fil des pages. Comme entre les pages vous allez probablement récupérer certaines mêmes données il peut vite être tentant de chercher à économiser les requêtes réseaux en réutilisant ce qui a déjà été récupéré.
 
 _Vous verrez dans le chapitre sur [le framework backend](#et-le-framework-backend) que nous n'utilisons même pas besoin de librairie tierce pour gérer l'état de nos composants frontends._
 
@@ -9,4 +9,4 @@ Sauf qu'en faisant cela vous vous lancez d'office dans plusieurs complications :
 1.  Vous ne garantissez plus du tout que la donnée que vous affichez est à jour au moment de l'affichage de la nouvelle page (puisque vous l'avez mise en cache pour une certaine durée). Faisant courir le risque que l'utilisateur fasse des actions sur des valeurs périmées ;
 2.  Vous répliquez la notion de cycle de vie de la donnée dans le frontend. Ce qui apporte une complexité dans l'implémentation.
 
-Comme expliqué pour la [_mise en cache backend des données_](#cache), il ne sert à rien d'essayer d'optimiser avant de rencontrer certaines limites. Et ce qui est sûr, c'est qu'un simple backend avec une base de données simple devrait largement supporter vos quelques premiers milliers d'utilisateurs sans essayer d'optimiser le frontend.
+Comme expliqué pour la [mise en cache backend des données](#cache), il ne sert à rien d'essayer d'optimiser avant de rencontrer certaines limites. Et ce qui est sûr, c'est qu'un simple backend avec une base de données simple devrait largement supporter vos quelques premiers milliers d'utilisateurs sans essayer d'optimiser le frontend.

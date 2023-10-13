@@ -9,7 +9,7 @@ Vous pouvez adopter plusieurs stratégies en fonction de votre produit (ce choix
 2.  Utiliser un système de connexion connu comme FranceConnect ;
 3.  Utiliser les 2.
 
-Nous préconisons d'utiliser [_next-auth_](https://github.com/nextauthjs/next-auth) au sein de Next.js pour répondre à n'importe lequel de ces cas de figure.
+Nous préconisons d'utiliser [next-auth](https://github.com/nextauthjs/next-auth) au sein de Next.js pour répondre à n'importe lequel de ces cas de figure.
 
 La (1) vous permet :
 
@@ -20,16 +20,16 @@ La (1) vous permet :
 La (2) :
 
 - Faciliter la connexion à vos utilisateurs ;
-- Reposer sur le standard sécurisé [_OpenID Connect_](https://fr.wikipedia.org/wiki/OpenID_Connect) (OIDC).
+- Reposer sur le standard sécurisé [OpenID Connect](https://fr.wikipedia.org/wiki/OpenID_Connect) (OIDC).
 
-Pour la (1) si vous ne voulez pas alourdir le développement et votre expérience utilisateur, utilisez la plus basique des connexions directement depuis votre applicatif (cela marche depuis des années et ça n'en est pas “moins sécurisé”). Assurez-vous juste d'avoir dans votre base de données des mots de passes [_hashés_](https://en.wikipedia.org/wiki/Hash_function) avec l'algorithme [_bcrypt_](https://github.com/kelektiv/node.bcrypt.js/) (10 itérations minimum). _Les raisons de déployer vous-même un outil lourd compatible OIDC comme [Keycloak](https://www.keycloak.org/) ou [Hydra](https://www.ory.sh/hydra/) peut être approprié si vous gérez une multitude de frontends distincts et que vous voulez avoir un seul compte commun pour les gouverner tous…_
+Pour la (1) si vous ne voulez pas alourdir le développement et votre expérience utilisateur, utilisez la plus basique des connexions directement depuis votre applicatif (cela marche depuis des années et ça n'en est pas “moins sécurisé”). Assurez-vous juste d'avoir dans votre base de données des mots de passes [hashés](https://en.wikipedia.org/wiki/Hash_function) avec l'algorithme [bcrypt](https://github.com/kelektiv/node.bcrypt.js/) (10 itérations minimum). _Les raisons de déployer vous-même un outil lourd compatible OIDC comme [Keycloak](https://www.keycloak.org/) ou [Hydra](https://www.ory.sh/hydra/) peut être approprié si vous gérez une multitude de frontends distincts et que vous voulez avoir un seul compte commun pour les gouverner tous…_
 
 Pour la (2) c'est directement des initiatives du service public, pour détailler les principaux :
 
-- [_FranceConnect_](https://franceconnect.gouv.fr/) ;
-- [_AgentConnect_](https://agentconnect.gouv.fr/) ;
-- [_ProSantéConnect_](https://esante.gouv.fr/) ;
-- [_MonComptePro_](https://moncomptepro.beta.gouv.fr/) ;
-- [_Aidants Connect_](https://aidantsconnect.beta.gouv.fr/) (pas listé dans la comparatif, mais à titre informatif).
+- [FranceConnect](https://franceconnect.gouv.fr/) ;
+- [AgentConnect](https://agentconnect.gouv.fr/) ;
+- [ProSantéConnect](https://esante.gouv.fr/) ;
+- [MonComptePro](https://moncomptepro.beta.gouv.fr/) ;
+- [Aidants Connect](https://aidantsconnect.beta.gouv.fr/) (pas listé dans la comparatif, mais à titre informatif).
 
 <CaptionedImage src={SolutionsComparison} alt="" caption="Comparatif fait par MonComptePro" source="https://moncomptepro.beta.gouv.fr/partenaire" />

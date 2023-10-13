@@ -1,11 +1,11 @@
 # Se décharger des outils non sensibles
 
-Les hébergeurs applicatifs vont vous faciliter la vie pour voir les logs de votre application, gérer les ressources… Pourtant il y a certains outils annexes qui sont très demandés comme [_Sentry pour du monitoring d'erreurs_](#faire-la-vigie-en-étant-outillé). Cet outil propose une offre SaaS mais celle-ci dépend d'un hébergeur étranger. Vous pourriez tenter de l'héberger vous-même mais ça revient à complexifier votre stack (surtout qu'il faut que votre hébergeur accepte une image Docker/Buildpack sinon cela risque d'être compliqué).
+Les hébergeurs applicatifs vont vous faciliter la vie pour voir les logs de votre application, gérer les ressources… Pourtant il y a certains outils annexes qui sont très demandés comme [Sentry pour du monitoring d'erreurs](#faire-la-vigie-en-étant-outillé). Cet outil propose une offre SaaS mais celle-ci dépend d'un hébergeur étranger. Vous pourriez tenter de l'héberger vous-même mais ça revient à complexifier votre stack (surtout qu'il faut que votre hébergeur accepte une image Docker/Buildpack sinon cela risque d'être compliqué).
 
 Comme c'est un outil “non vital” pour votre produit nous recommandons de mutualiser la gestion d'un tel outil :
 
 1.  Soit dans votre entité quelqu'un l'a déjà mis en place, demandez à ce qu'ils créent un sous-projet pour que vous ayez un identifiant ;
-2.  Soit vous pouvez vous adresser à une entreprise qui fait du pseudo-SaaS de cet outil comme [_Empreinte Digitale_](https://empreintedigitale.fr/) (mais il existe sûrement d'autres acteurs) ;
+2.  Soit vous pouvez vous adresser à une entreprise qui fait du pseudo-SaaS de cet outil comme [Empreinte Digitale](https://empreintedigitale.fr/) (mais il existe sûrement d'autres acteurs) ;
 3.  … Ou vous jugez que vous pouvez complètement vous en passer.
 
 Dans la situation (1) et (2), comme vous propagez de la donnée à l'extérieur d'outils que vous gérez, il est important de la nettoyer au maximum. À vous de faire en sorte qu'aucune donnée utilisateur ne soit remontée, ni prénom/nom, ni email…

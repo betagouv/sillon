@@ -1,13 +1,13 @@
 # PostgreSQL plutôt que MySQL
 
-**Nous préconisons [_PostgreSQL_](https://www.postgresql.org/)** pour du RDBMS. Cette base de données est orientée objets, ce qui permet de pousser un peu plus loin les contraintes sur les formats de données contrairement à une [_MySQL_](https://en.wikipedia.org/wiki/MySQL)/[_MariaDB_](https://en.wikipedia.org/wiki/MariaDB).
+**Nous préconisons [PostgreSQL](https://www.postgresql.org/)** pour du RDBMS. Cette base de données est orientée objets, ce qui permet de pousser un peu plus loin les contraintes sur les formats de données contrairement à une [MySQL](https://en.wikipedia.org/wiki/MySQL)/[MariaDB](https://en.wikipedia.org/wiki/MariaDB).
 
 À titre d'exemples comme MySQL n'est pas nativement orienté objets :
 
 - Il a fallu attendre MySQL v8 en 2018 pour enfin supporter les ENUM (sachant que MySQL est sorti en 1995) ;
-- La gestion d'une colonne de [_UUIDs_](https://en.wikipedia.org/wiki/Universally_unique_identifier) n'est pas native :
+- La gestion d'une colonne de [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier) n'est pas native :
   - Si vous voulez que ce soit lisible n'importe quand pour un humain il faut forcer le type à “string”... mais du coup ce n'est pas optimisé en stockage et pour les jointures ;
   - Si vous voulez optimiser la taille vous devez définir le type _BINARY(16)_ mais au moment de faire vos _SELECT_ vous ne verrez rien de lisible. Pour ça il faut préciser le helper _​BIN_TO_UUID_ à chaque endroit où il y a vos UUIDs, et le _UUID_TO_BIN_ au moment de vos _INSERT_. **Économisez votre temps… utilisez PostgreSQL** ;
-- Vous ne pouvez pas créer de “custom type” [_où vous définiriez vous-même la structure de données attendue_](https://www.postgresql.org/docs/current/rowtypes.html#ROWTYPES-DECLARING).
+- Vous ne pouvez pas créer de “custom type” [où vous définiriez vous-même la structure de données attendue](https://www.postgresql.org/docs/current/rowtypes.html#ROWTYPES-DECLARING).
 
 Cela peut vous paraître exagéré mais quand vous faites des migrations de données (car oui cela arrive), avoir une base qui sait un minimum ce qui peut ou ne peut pas être fait aide grandement. Surtout quand vous travaillez sur des Go de données.

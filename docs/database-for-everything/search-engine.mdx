@@ -1,12 +1,12 @@
 # Moteur de recherche
 
-Certains produits auront peut-être besoin d'un outil lourd comme [_ElasticSearch_](https://www.elastic.co/) pour stocker et optimiser les recherches à effectuer, mais encore une fois, dans la grande majorité des cas [_votre PostgreSQL suffira_](https://www.postgresql.org/docs/current/textsearch.html).
+Certains produits auront peut-être besoin d'un outil lourd comme [ElasticSearch](https://www.elastic.co/) pour stocker et optimiser les recherches à effectuer, mais encore une fois, dans la grande majorité des cas [votre PostgreSQL suffira](https://www.postgresql.org/docs/current/textsearch.html).
 
-Nous ne vous proposons quand même pas de retourner à l'opérateur SQL “_LIKE %ma recherche%_” ​​👵, mais plutôt d'utiliser [_les types de données_ **tsquery** _et_ **tsvector**](https://www.postgresql.org/docs/current/datatype-textsearch.html). Si comme conseillé vous utilisez l'ORM Prisma, l'utilisation est [_assez facile et quasi transparente sur des colonnes distinctes_](https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search). Par contre cela ne marchera pas si vous cherchez “John Doe” et que “John” est dans la colonne _firstname_ et “Doe” dans la colonne _lastname_.
+Nous ne vous proposons quand même pas de retourner à l'opérateur SQL “_LIKE %ma recherche%_” ​​👵, mais plutôt d'utiliser [les types de données **tsquery** _et_ **tsvector**](https://www.postgresql.org/docs/current/datatype-textsearch.html). Si comme conseillé vous utilisez l'ORM Prisma, l'utilisation est [assez facile et quasi transparente sur des colonnes distinctes](https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search). Par contre cela ne marchera pas si vous cherchez “John Doe” et que “John” est dans la colonne _firstname_ et “Doe” dans la colonne _lastname_.
 
-Pour faire ce type de recherche sur plusieurs colonnes (exemple : le prénom, le nom, l'adresse, la biographie), la stratégie est de [_concaténer_](https://fr.wiktionary.org/wiki/concat%C3%A9ner) chaque colonne voulue [_dans une colonne générée_](https://www.postgresql.org/docs/current/ddl-generated-columns.html) et indexée, représentant un _tsvector_. Cette colonne est donc optimisée pour de la recherche.
+Pour faire ce type de recherche sur plusieurs colonnes (exemple : le prénom, le nom, l'adresse, la biographie), la stratégie est de [concaténer](https://fr.wiktionary.org/wiki/concat%C3%A9ner) chaque colonne voulue [dans une colonne générée](https://www.postgresql.org/docs/current/ddl-generated-columns.html) et indexée, représentant un _tsvector_. Cette colonne est donc optimisée pour de la recherche.
 
-[_Prisma ne gère pas encore nativement les colonnes générées_](https://github.com/prisma/prisma/issues/6336), mais rien ne vous empêche de la créer à la main. Différents articles existent sur internet mais pour vous donner une idée cela donnerait quelque chose comme :
+[Prisma ne gère pas encore nativement les colonnes générées](https://github.com/prisma/prisma/issues/6336), mais rien ne vous empêche de la créer à la main. Différents articles existent sur internet mais pour vous donner une idée cela donnerait quelque chose comme :
 
 \`\`\`sql
 

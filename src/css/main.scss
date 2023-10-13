@@ -4,3 +4,15 @@
   // Needed... don't know why by default it's a fixed `var(--ifm-color-gray-900);`
   color: var(--ifm-color-content) !important;
 }
+
+// To distinguish links from text for accessibility
+// TODO: to implement into dsfr-connect
+main a {
+  text-decoration: var(--ifm-link-hover-decoration);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+
+  &:hover {
+    text-decoration-thickness: 2px !important;
+  }
+}

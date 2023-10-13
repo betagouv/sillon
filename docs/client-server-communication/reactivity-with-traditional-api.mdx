@@ -15,7 +15,7 @@ J'ai une application bancaire et j'aimerais voir en temps réel dans mon applica
 
 Vous pouvez aussi apporter de la réactivité frontend sans avoir de notification de la part du backend. Techniquement cela paraît très “sommaire” mais c'est terriblement ingénieux. Quelques exemples :
 
-- Je soumets un formulaire, les requêtes _(queries)_ sont automatiquement rejouées et la page met à jour ses données sans rechargement visible. Si vous utilisez une [base de données atomique](#une-base-de-données-qui-fait-tout-vraiment), les données soumises apparaissent directement sans devoir mettre en place des _patchs_ manuels de l'interface. Cela est possible car c'est le même client qui gère les _queries_ et les _mutations_ ;
+- Je soumets un formulaire, les requêtes _(queries)_ sont automatiquement rejouées et la page met à jour ses données sans rechargement visible. Si vous utilisez une [base de données atomique](/docs/database-for-everything), les données soumises apparaissent directement sans devoir mettre en place des _patchs_ manuels de l'interface. Cela est possible car c'est le même client qui gère les _queries_ et les _mutations_ ;
 - Je vais sur un autre onglet pendant X minutes, je reviens, et tous les _getters_ sont rejoués ;
 - L'application peut aussi explicitement forcer le rafraîchissement des données sans rechargement.
 

@@ -14,7 +14,7 @@ Il ne faut pas essayer de tout garantir avec asynchronisme, vous risqueriez de c
 - Si vous devez faire une action métier sensible comme créer une transaction financière chez un partenaire, en faire un “job” permettra de vous garantir que si votre partenaire est hors service, la transaction sera quand même créée une fois que le partenaire sera de nouveau sur pieds ;
 - Si mes partenaires peuvent me notifier d'événements métiers indispensables à mon produit, il vaut mieux mettre le payload HTTP reçu (souvent du JSON) directement dans une “job queue” même si vous le traitez immédiatement. Cela permettra :
   1.  Si vous avez une erreur temporaire, de pouvoir rejouer le webhook (très souvent les partenaires n'ont pas de logique de “retry” poussée donc il serait risqué de se reposer sur eux) ;
-  2.  Si jamais votre partenaire change de format de données dans son payload, on sait d'avance que cela ne passerait pas de votre côté [car vous validez la donnée en entrée](#validation-des-données-entrantes), il vaut mieux avoir le payload complet utilisé pour investiguer et savoir ce qu'il faut ajuster.
+  2.  Si jamais votre partenaire change de format de données dans son payload, on sait d'avance que cela ne passerait pas de votre côté [car vous validez la donnée en entrée](client-server-communication/input-validation.mdx), il vaut mieux avoir le payload complet utilisé pour investiguer et savoir ce qu'il faut ajuster.
 
 Nous préconisons d'utiliser la librairie [`pg-boss`](https://github.com/timgit/pg-boss) en lieu de place d'outils dédiés comme “Redis Pub/Sub”, Kafka (...). Elle va savoir reproduire toute la logique des “job queues” en ayant quelques tables dans votre base de données. De plus :
 
@@ -29,4 +29,4 @@ _Informations annexes :_
 - Next.js ne permet _pour l'instant_ pas de lancer directement des processus asynchrones (il faudrait modifier le serveur web mais on perdrait l'optimisation qu'ils ont fait). Notre approche est d'utiliser un endpoint `/init` qui sera appelé au lancement du serveur ;
 - À vous de choisir votre stratégie de rejeu en fonction de la criticité du job :
   - N'oubliez pas de spécifier un maximum de rejeux pour d'un job car certains ne passeront jamais et il serait dommage de flooder votre système ou vos partenaires (sans jamais traîter les jobs suivants qui eux, peuvent peut-être passer) ;
-  - Vous pouvez vous reposer sur [Sentry](#faire-la-vigie-en-étant-outillé) pour être notifié d'un job qui est abandonné afin que vous puissiez investiguer et tenter de le rejouer manuellement.
+  - Vous pouvez vous reposer sur [Sentry](/docs/monitoring) pour être notifié d'un job qui est abandonné afin que vous puissiez investiguer et tenter de le rejouer manuellement.

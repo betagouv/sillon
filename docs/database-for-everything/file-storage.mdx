@@ -10,7 +10,7 @@ _Il existe aussi la possibilité de stocker des “[large objects](https://www.p
 
 **Vous devez spécifier et quantifier ce que vous allez héberger pour dire oui ou non aux buckets S3.**
 
-Un élément important qui est mentionné dans [le chapitre légal](#le-légal) et qui doit être pris en compte dans votre calcul : **la CNIL recommande de ne pas conserver les données utilisateurs plus de 2 ans**.
+Un élément important qui est mentionné dans [le chapitre légal](legal/data-lifecycle.mdx) et qui doit être pris en compte dans votre calcul : **la CNIL recommande de ne pas conserver les données utilisateurs plus de 2 ans**.
 
 Cas concrets :
 
@@ -30,6 +30,6 @@ Points importants (hors problématiques de stockage) :
 4.  Le frontend peut transmettre l'URL du fichier uploadé à l'API ;
 5.  L'API est en mesure de valider le fichier de façon synchrone (ou non), et d'enregister l'URL en base de données.
 
-Notez que **les technologies comme `tus` ou S3 ne gèrent pas les règles de sécurité propres à votre métier** (qui peut uploader ? qui peut lire ce fichier ?). C'est à vous de gérer cette partie. Nous abordons cela plus en détail dans [le chapitre sur la sécurité](#sécuriser-les-urls-des-fichiers-hébergés).
+Notez que **les technologies comme `tus` ou S3 ne gèrent pas les règles de sécurité propres à votre métier** (qui peut uploader ? qui peut lire ce fichier ?). C'est à vous de gérer cette partie. Nous abordons cela plus en détail dans [le chapitre sur la sécurité](security/secure-hosted-files-urls.mdx).
 
 _Écrire et lire des fichiers dans votre base de données va forcément utiliser un peu plus de ressources (notamment la bande passante). N'hésitez pas à “augmenter” les performances de votre base si besoin._

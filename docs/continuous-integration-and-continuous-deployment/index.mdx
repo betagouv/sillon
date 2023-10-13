@@ -9,7 +9,7 @@ Sauf exception, **l'important est de ne surtout pas essayer de gérer vos propre
 3.  Je “lint” le projet (pour être sûr qu'il est statiquement valide) ;
 4.  Je fais mes tests unitaires avec [Jest](https://github.com/jestjs/jest) ;
 5.  Je “build” mon projet ;
-6.  Je fais mes tests d'intégration end-to-end avec [Cypress](https://github.com/cypress-io/cypress) _(on ne les recommande pas, ils sont très lourds à maintenir pour un gain limité comparé à [utiliser Storybook pour décrire son applicatif](#_3fcnbnmh2siy))_ ;
+6.  Je fais mes tests d'intégration end-to-end avec [Cypress](https://github.com/cypress-io/cypress) _(on ne les recommande pas, ils sont très lourds à maintenir pour un gain limité comparé à [utiliser Storybook pour décrire son applicatif](https://docs.google.com/document/d/1jOwMgouNtsnaqlQB139jzoA5synRfIjhtuUFrHK65-U))_ ;
 7.  Je déploie mon applicatif sur l'hébergeur ;
 
 Toutes ces phases sont très consommatrices en ressources (CPU, mémoire, stockage, réseau). Sachant que si vous faites plusieurs `push` à la suite vous lancez plusieurs fois la même pipeline, et sachant aussi que vous avez peut-être plusieurs projets sur vos workers :

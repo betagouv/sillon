@@ -24,6 +24,7 @@ Then a few hacks to apply in the `.mdx` output:
 - Split the single output file into multiple ones and manage their sidebar position
 - Adjust the `sidebars.js` file so the sidebar menu matches splitted files
 - Move images next to the files they are displayed into, and rename them meaningfully
+- Adapt relative links to target splitted files
 
 ## Technical setup of this repository
 

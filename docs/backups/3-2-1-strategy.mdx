@@ -13,7 +13,7 @@ _Dans le cas où votre “stateful” est seulement dans PostgreSQL cela va vous
 Si l'on transpose ce pattern à notre cas :
 
 - La donnée originale est dans PostgreSQL ;
-- L'hébergeur fait automatiquement des backups de la PostgreSQL et les garde quelques jours ou quelques semaines (​​✅ pour les 2 types de stockage) ;
+- L'hébergeur fait automatiquement des backups de la PostgreSQL et les garde quelques jours ou quelques semaines (✅ pour les 2 types de stockage) ;
 - On fait régulièrement tourner un dump via un “cron job” pour faire un backup de la donnée originale et la mettre en sûreté dans un S3 chez un autre hébergeur sur une région différente (✅ pour les 3 copies distinctes et ✅pour avoir 1 copie sur une localisation différente).
 
 _Idéalement pour la copie n°3 on fait une copie du backup de l'hébergeur afin de ne pas surcharger la production, mais certains hébergeurs font des backups “point-in-time recovery” qui ne sont pas récupérables._

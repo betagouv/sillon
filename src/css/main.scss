@@ -7,7 +7,7 @@
 
 // To distinguish links from text for accessibility
 // TODO: to implement into dsfr-connect
-main a {
+main a:not(.pagination-nav__link):not(.theme-edit-this-page) {
   text-decoration: var(--ifm-link-hover-decoration);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;

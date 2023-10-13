@@ -8,6 +8,41 @@ Nous utilisons [`zod`](https://github.com/colinhacks/zod) pour faire la validati
 - zod est nativement supporté par tRPC, donc vous n'avez qu'à mettre votre structure `input` au niveau du endpoint ;
 - zod peut s'utiliser côté frontend avec [`react-hook-form`](https://github.com/react-hook-form/react-hook-form) afin de faire des validations sans même contacter le serveur. Ce qui est pratique dans notre cas c'est que la même structure de validation est utilisée dans les 2 mondes (avec ces textes d'erreurs qui peuvent être personnalisés).
 
-![](./zod-entity-sample.png)
+```tsx title="entities/agent.tsx | Déclaration d'une structure d'entité" showLineNumbers
+import z from 'zod';
 
-![](./zod-action-sample.png)
+import { UserSchema } from './user';
+
+export const AgentSchema = z
+  .object({
+    id: z.string().uuid(),
+    userId: z.string().uuid(),
+    authorityId: z.string().uuid(),
+    firstname: UserSchema.shape.firstname,
+    lastname: UserSchema.shape.lastname,
+    email: UserSchema.shape.email,
+    profilePicture: UserSchema.shape.profilePicture,
+    isMainAgent: z.boolean(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+    deletedAt: z.date().nullable(),
+  })
+  .strict();
+export type AgentSchemaType = z.infer<typeof AgentSchema>;
+```
+
+```tsx title="actions/agent.tsx | Validation d'une mutation avec les propriétés d'entités existantes" showLineNumbers
+import { AgentSchema } from '@mediature/main/src/models/entities/agent';
+import { AuthoritySchema } from '@mediature/main/src/models/entities/authority';
+import { UserSchema } from '@mediature/main/src/models/entities/user';
+import z from 'zod';
+
+export const AddAgentSchema = z
+  .object({
+    userId: UserSchema.shape.id,
+    authorityId: AgentSchema.shape.authorityId,
+    grantMainAgent: z.boolean(),
+  })
+  .strict();
+export type AddAgentSchemaType = z.infer<typeof AddAgentSchema>;
+```

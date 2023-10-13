@@ -8,23 +8,15 @@ Pour faire ce type de recherche sur plusieurs colonnes (exemple : le prénom, le
 
 [Prisma ne gère pas encore nativement les colonnes générées](https://github.com/prisma/prisma/issues/6336), mais rien ne vous empêche de la créer à la main. Différents articles existent sur internet mais pour vous donner une idée cela donnerait quelque chose comme :
 
-\`\`\`sql
-
+```sql showLineNumbers
 ALTER TABLE MyTable
-
 ADD search TSVECTOR
-
 GENERATED ALWAYS AS (
-
-to_tsvector('english',
-
-firstname \|\| ' ' \|\| lastname \|\| ' ' \|\| biography \|\| ' ' \|\| full_address
-
-)
-
+  to_tsvector('english',
+    firstname || ' ' || lastname || ' ' || biography || ' ' || full_address
+  )
 ) STORED;
-
-\`\`\`
+```
 
 Plutôt que de juste concaténer bêtement les colonnes, on transforme le tout en `tsvector` afin qu'il soit déjà optimisé pour la recherche.
 

@@ -1,3 +1,9 @@
+//
+// [WORKAROUND] We set a slug to each category to be able to use links despite the labels
+// ... the only drawback is Docusaurus won't check for their existence whereas when pointing
+// to `.mdx` it will. We did not find a find to create fake category to replicate indexation of items
+//
+
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
   docs: [
@@ -7,6 +13,7 @@ const sidebars = {
       label: 'Préambule',
       link: {
         type: 'generated-index',
+        slug: 'preamble',
       },
       items: ['preamble/expertise', 'preamble/glossary', 'preamble/no-stack', 'preamble/validity'],
     },
@@ -15,6 +22,7 @@ const sidebars = {
       label: 'Amorce du projet',
       link: {
         type: 'generated-index',
+        slug: 'project-start',
       },
       items: [
         'project-start/time-and-costs',
@@ -29,6 +37,7 @@ const sidebars = {
       label: 'Prototypage',
       link: {
         type: 'generated-index',
+        slug: 'prototyping',
       },
       items: ['prototyping/modeling', 'prototyping/scope', 'prototyping/team-skills', 'prototyping/technical-prototype-or-not'],
     },
@@ -37,6 +46,7 @@ const sidebars = {
       label: 'Développement du produit',
       link: {
         type: 'generated-index',
+        slug: 'development',
       },
       items: [
         'development/avoid-overengineering-and-marketing',
@@ -51,6 +61,7 @@ const sidebars = {
       label: 'Documenter votre projet',
       link: {
         type: 'generated-index',
+        slug: 'document',
         description: `Au même titre que les spécifications, les aspects techniques doivent être décrits et historisés. Cela facilite l'embarquement de nouvelles recrues, et cela vous sauvera quand dans 1 an vous vous direz “mince, c'est organisé comment ? Et pourquoi ?”.`,
       },
       items: ['document/code', 'document/macro', 'document/database-schema', 'document/commit-naming'],
@@ -60,6 +71,7 @@ const sidebars = {
       label: 'Communauté & open source',
       link: {
         type: 'generated-index',
+        slug: 'community-and-open-source',
       },
       items: [
         'community-and-open-source/internet-base',
@@ -76,6 +88,7 @@ const sidebars = {
       label: 'Souveraineté du projet',
       link: {
         type: 'generated-index',
+        slug: 'sovereignty',
       },
       items: ['sovereignty/national-issue', 'sovereignty/portability'],
     },
@@ -84,6 +97,7 @@ const sidebars = {
       label: 'Utiliser la charte graphique de l’État',
       link: {
         type: 'generated-index',
+        slug: 'state-identity',
       },
       items: ['state-identity/dsfr', 'state-identity/implementations', 'state-identity/usage-constraints', 'state-identity/get-help'],
     },
@@ -92,6 +106,7 @@ const sidebars = {
       label: 'Recommandations techniques argumentées',
       link: {
         type: 'generated-index',
+        slug: 'technical-recommandations',
         description: `Les recommandations qui vont suivre permettent d'allier robustesse et efficacité lors du développement logiciel pour réaliser votre produit numérique.`,
       },
       items: [
@@ -100,6 +115,7 @@ const sidebars = {
           label: 'Rapprocher le frontend du backend',
           link: {
             type: 'generated-index',
+            slug: 'frontend-backend-close',
           },
           items: ['frontend-backend-close/same-language', 'frontend-backend-close/monorepository', 'frontend-backend-close/unique-frontend'],
         },
@@ -108,6 +124,7 @@ const sidebars = {
           label: 'Un langage typé',
           link: {
             type: 'generated-index',
+            slug: 'typed-language',
           },
           items: ['typed-language/no-more-stupid-bugs', 'typed-language/avoid-extra-documentation', 'typed-language/typescript-not-compiled'],
         },
@@ -116,6 +133,7 @@ const sidebars = {
           label: 'Une même stratégie : un framework web',
           link: {
             type: 'generated-index',
+            slug: 'web-framework-strategy',
           },
           items: ['web-framework-strategy/components', 'web-framework-strategy/react', 'web-framework-strategy/native-application-compatibility'],
         },
@@ -124,6 +142,7 @@ const sidebars = {
           label: 'Toujours utiliser un module i18n',
           link: {
             type: 'generated-index',
+            slug: 'i18n-recommended',
           },
           items: ['i18n-recommended/even-if-monolingual', 'i18n-recommended/i18next'],
         },
@@ -133,6 +152,7 @@ const sidebars = {
           label: 'Communications client-serveur',
           link: {
             type: 'generated-index',
+            slug: 'client-server-communication',
           },
           items: [
             'client-server-communication/reduce-intermediaries',
@@ -148,6 +168,7 @@ const sidebars = {
           label: 'Une base de données qui fait tout (vraiment)',
           link: {
             type: 'generated-index',
+            slug: 'database-for-everything',
           },
           items: [
             'database-for-everything/relational-databases',
@@ -167,6 +188,7 @@ const sidebars = {
           label: 'Un hébergeur simple et souverain',
           link: {
             type: 'generated-index',
+            slug: 'simple-and-sovereign-cloud-provider',
           },
           items: [
             'simple-and-sovereign-cloud-provider/what-is-simple',
@@ -184,6 +206,7 @@ const sidebars = {
           label: 'Backups',
           link: {
             type: 'generated-index',
+            slug: 'backups',
           },
           items: ['backups/source-code', 'backups/3-2-1-strategy', 'backups/incident-plan'],
         },
@@ -195,6 +218,7 @@ const sidebars = {
       label: 'Sécurité primaire',
       link: {
         type: 'generated-index',
+        slug: 'security',
       },
       items: [
         'security/raise-awareness',
@@ -217,6 +241,7 @@ const sidebars = {
       label: 'Faire la vigie en étant outillé',
       link: {
         type: 'generated-index',
+        slug: 'monitoring',
         description: `Pour maintenir un service de qualité dans la bonne direction il faut avoir des capteurs qui vous signalent quand quelque chose se passe mal. Rappelez-vous de ne pas échanger d'informations sensibles sur ces outils.`,
       },
       items: ['monitoring/for-technical-needs', 'monitoring/for-business-needs'],
@@ -227,6 +252,7 @@ const sidebars = {
       label: 'L’écriture inclusive',
       link: {
         type: 'generated-index',
+        slug: 'inclusive-writing',
       },
       items: ['inclusive-writing/falc', 'inclusive-writing/gender-inclusion'],
     },
@@ -235,6 +261,7 @@ const sidebars = {
       label: 'Le légal',
       link: {
         type: 'generated-index',
+        slug: 'legal',
       },
       items: [
         'legal/license',
@@ -250,6 +277,7 @@ const sidebars = {
       label: 'Aller plus loin',
       link: {
         type: 'generated-index',
+        slug: 'go-further',
       },
       items: ['go-further/multiple-products-stategy', 'go-further/contribute-this-knowledge-base', 'go-further/decline-this-knowledge-base'],
     },

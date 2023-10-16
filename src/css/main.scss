@@ -31,3 +31,13 @@ a.button {
     margin-left: 0;
   }
 }
+
+@media (max-width: 996px) {
+  .navbar__search-input {
+    width: 12rem; // Override the default 9rem not large enough for french placeholder
+  }
+
+  .navbar__items .hide-on-small {
+    display: none;
+  }
+}

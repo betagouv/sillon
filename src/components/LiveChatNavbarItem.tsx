@@ -41,7 +41,7 @@ export default function LiveChatNavbarItem(props: LiveChatNavbarItemProps): JSX.
 
   return (
     <button
-      className="button button--secondary margin-horiz--sm"
+      className="button button--secondary margin-horiz--sm hide-on-small"
       onClick={() => {
         Crisp.chat.open();
       }}

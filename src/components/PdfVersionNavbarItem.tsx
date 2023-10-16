@@ -9,7 +9,7 @@ export interface PdfVersionNavbarItemProps extends DefaultNavbarItemProps {
 }
 
 export default function PdfVersionNavbarItem(props: PdfVersionNavbarItemProps): JSX.Element {
-  const className = 'button button--secondary margin-horiz--sm';
+  const className = 'button button--secondary margin-horiz--sm hide-on-small';
   const buttonContent = (
     <>
       <FontAwesomeIcon icon={faFileLines} className="margin-right--sm" />

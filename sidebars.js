@@ -15,7 +15,7 @@ const sidebars = {
         type: 'generated-index',
         slug: 'preamble',
       },
-      items: ['preamble/expertise', 'preamble/glossary', 'preamble/no-stack', 'preamble/validity'],
+      items: ['preamble/validity', 'preamble/expertise', 'preamble/no-stack', 'preamble/glossary'],
     },
     {
       type: 'category',
@@ -39,7 +39,7 @@ const sidebars = {
         type: 'generated-index',
         slug: 'prototyping',
       },
-      items: ['prototyping/modeling', 'prototyping/scope', 'prototyping/team-skills', 'prototyping/technical-prototype-or-not'],
+      items: ['prototyping/team-skills', 'prototyping/scope', 'prototyping/modeling', 'prototyping/technical-prototype-or-not'],
     },
     {
       type: 'category',

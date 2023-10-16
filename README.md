@@ -1,8 +1,8 @@
 # sillon
 
-Work in progress, stay tuned :) !
+This project can serve as a knowledge base and a guide in making decisions for the implementation of a digital product within a French administration (and beyond). It is neither sponsored by an administration nor by a beta.gouv incubator. It is currently an initiative aimed at addressing a perceived gap.
 
-<!-- TODO: description -->
+_Only the technical part of Sillon is in English, while the rest is in French to facilitate adoption by the initial target audience. If you are looking for an English version, an automated translation through a plugin should generate something comprehensible._
 
 ## How it has been written
 

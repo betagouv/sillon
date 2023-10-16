@@ -16,3 +16,8 @@ main a:not(.pagination-nav__link):not(.theme-edit-this-page) {
     text-decoration-thickness: 2px !important;
   }
 }
+
+// For the home page main button at first since cut on mobile, but could help for others too
+a.button {
+  white-space: normal;
+}

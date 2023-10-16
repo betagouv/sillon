@@ -29,7 +29,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`Accueil`}
-      description="Le projet Sillon peut être une base de connaissances et de recommandations dans les choix de mise en place technique d'un projet au sein d'une administration française (mais pas que)."
+      description="Le projet Sillon peut être une base de connaissances et de recommandations dans les choix de mise en place d'un projet au sein d'une administration française (mais pas que)."
     >
       <HomepageHeader />
       <main>

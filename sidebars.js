@@ -279,7 +279,12 @@ const sidebars = {
         type: 'generated-index',
         slug: 'go-further',
       },
-      items: ['go-further/multiple-products-stategy', 'go-further/contribute-this-knowledge-base', 'go-further/decline-this-knowledge-base'],
+      items: [
+        'go-further/multiple-products-stategy',
+        'go-further/contribute-this-knowledge-base',
+        'go-further/decline-this-knowledge-base',
+        'go-further/work-in-progress',
+      ],
     },
   ],
 };

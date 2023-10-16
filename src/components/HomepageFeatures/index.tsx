@@ -11,32 +11,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Corporis eligendi qui',
+    title: 'Axé pour les services publics',
+    Svg: require('@site/static/img/pictograms/city-hall.svg').default,
+    description: (
+      <>
+        Les aspects abordés sont applicables à tout produit numérique. Mais nous les raccrochons au contexte d'une structure publique peu importe sa
+        taille.
+      </>
+    ),
+  },
+  {
+    title: 'Approche holistique',
     Svg: require('@site/static/img/pictograms/book.svg').default,
     description: (
       <>
-        Quod quasi ducimus perferendis ut sequi sunt occaecati. Et et et qui iste. Consequatur ut quia praesentium facilis officia molestiae. Sunt
-        ipsam quia hic sed sunt. Sapiente dignissimos harum voluptates iste distinctio doloremque saepe ut.
+        L'étendue des thématiques est large, et des connexions entre les différents chapitres sont faites pour penser la réalisation du produit dans
+        son ensemble.
       </>
     ),
   },
   {
-    title: 'Eos voluptates distinctio',
-    Svg: require('@site/static/img/pictograms/paint.svg').default,
+    title: `Un fil conducteur à adapter`,
+    Svg: require('@site/static/img/pictograms/map.svg').default,
     description: (
       <>
-        Et repudiandae fugiat sunt ut distinctio natus vel. Sed molestiae delectus eveniet ipsum pariatur aut. Corrupti ex quo iusto. Qui iusto alias
-        est rerum repellat fugiat. Amet minima omnis et commodi necessitatibus.
-      </>
-    ),
-  },
-  {
-    title: 'Maiores fugiat velit',
-    Svg: require('@site/static/img/pictograms/community.svg').default,
-    description: (
-      <>
-        Quia tenetur quia consequatur sed reprehenderit aut id itaque. Impedit nulla reiciendis et tenetur tempore sit quos quibusdam. Molestiae
-        suscipit adipisci quia minima pariatur eum. Rerum modi veritatis.
+        Tel un sillon agricole, ce "guide" est une voie préparatoire parmi tant d'autres pour vos projets numériques ! Vous êtes libre de faire une
+        sélection ciblée de nos recommandations.
       </>
     ),
   },

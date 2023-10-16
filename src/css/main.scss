@@ -21,3 +21,13 @@ main a:not(.pagination-nav__link):not(.theme-edit-this-page) {
 a.button {
   white-space: normal;
 }
+
+.navbar__items > div[class^='searchBox_'] {
+  // Prevent it to be absolute since overlaying other menu buttons
+  position: relative;
+  right: 0;
+
+  .navbar__search {
+    margin-left: 0;
+  }
+}

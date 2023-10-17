@@ -28,12 +28,11 @@ Points importants (hors problématiques de stockage) :
 - Nous devons rester sur des tailles de fichiers acceptables quand on passe via PostgreSQL car c'est notre propre API qui sera sollicitée pour servir le flux ;
 - En utilisant une base PostgreSQL pour le stockage **il ne faut jamais essayer de produire vous-même la logique d'upload d'un fichier**. Cela implique beaucoup de technique : headers HTTP, le "resumable upload" (fait de reprendre une upload si la connexion internet est perdue durant quelques secondes)… **Nous préconisons plutôt d'utiliser [`tus`](https://github.com/tus)** ([client](https://github.com/tus/tus-js-client) et [serveur](https://github.com/tus/tus-node-server)) sachant qu'ils proposent [une intégration dans l'API Next.js](https://github.com/tus/tus-node-server/tree/main/packages/server#example-integrate-tus-into-nextjs) ;
 - **Si vous utilisez des buckets S3, ne faites pas transiter les fichiers par votre API.** Vous avez sûrement choisi S3 car il est question de volumétrie importante. Le fait d'utiliser votre API en intermédiaire met un point de congestion et fait reposer sur vous le fait de bien dimensionner votre API alors qu'une upload/lecture peut être anecdotique (**sachant que ça peut en plus perturber vos opérations sensibles sur l'API**). Nous recommandons dans ce cas de choisir un fournisseur S3 qui permet de "signer des URLs" que ce soit en lecture ou en upload. Avec cette architecture aucun fichier ne transite via votre API :
-
-1.  Votre frontend demande à l'API "je veux uploader un fichier" ;
-2.  L'API renvoie une nouvelle URL signée du provider S3 ;
-3.  Le frontend peut uploader son fichier directement sur l'URL signée (en utilisant une librairie cliente compatible comme [`tus`](https://github.com/tus/tus-js-client)) et obtient l'URL finale du fichier uploadé ;
-4.  Le frontend peut transmettre l'URL du fichier uploadé à l'API ;
-5.  L'API est en mesure de valider le fichier de façon synchrone (ou non), et d'enregister l'URL en base de données.
+  1.  Votre frontend demande à l'API "je veux uploader un fichier" ;
+  2.  L'API renvoie une nouvelle URL signée du provider S3 ;
+  3.  Le frontend peut uploader son fichier directement sur l'URL signée (en utilisant une librairie cliente compatible comme [`tus`](https://github.com/tus/tus-js-client)) et obtient l'URL finale du fichier uploadé ;
+  4.  Le frontend peut transmettre l'URL du fichier uploadé à l'API ;
+  5.  L'API est en mesure de valider le fichier de façon synchrone (ou non), et d'enregister l'URL en base de données.
 
 Notez que **les technologies comme `tus` ou S3 ne gèrent pas les règles de sécurité propres à votre métier** (qui peut uploader ? qui peut lire ce fichier ?). C'est à vous de gérer cette partie. Nous abordons cela plus en détail dans [le chapitre sur la sécurité](security/secure-hosted-files-urls.mdx).
 
@@ -42,7 +41,7 @@ Notez que **les technologies comme `tus` ou S3 ne gèrent pas les règles de sé
 
 <Tabs>
   <TabItem value="nextjs" label="Next.js">
-    Il faudrait augmenter la configuration dans le fichier du endpoint en exportant par exemple :
+    Il faudrait augmenter la configuration dans le fichier du endpoint d'upload en exportant par exemple :
 
 ```tsx title="my-endpoint.tsx"
 export const config = {
@@ -61,7 +60,7 @@ export const config = {
 ```conf title="/etc/nginx/http.d/default.conf"
 server {
   listen 80;
-  client_max_body_size 20M;
+  client_max_body_size 10M;
 }
 ```
 

@@ -14,13 +14,13 @@ Voici quelques pistes pour essayer de contrer ce type d'attaque :
 3.  Et comme n'importe quel fichier peut potentiellement contenir du code malicieux, il est utile d'utiliser un antivirus pour scanner l'intégralité du fichier. **C'est une vérification "lente" mais complète**. Nous préconisons d'utiliser l'outil [ClamAV](https://github.com/Cisco-Talos/clamav) via la librairie JavaScript [clamscan](https://github.com/kylefarris/clamscan). Comme c'est un exécutable, il faut soit :
     1.  L'avoir en local dans le même container que votre applicatif :
         1.  Pour des buildpacks : [https://github.com/Scalingo/clamav-buildpack](https://github.com/Scalingo/clamav-buildpack) ;
-        2.  Pour des environnements où vous avez la main (via Dockerfile par exemple), l'installer en un gestionnaire de packages ;
+        2.  Pour des environnements où vous avez la main (via Dockerfile par exemple), l'installer avec un gestionnaire de packages ;
     2.  L'avoir accessible sur le réseau et interagir avec par TCP (par exemple en déployant [l'image Docker officielle](https://hub.docker.com/r/clamav/clamav/)). Ce cas est à privilégier si :
         1.  Vous n'avez pas la possibilité de l'embarquer avec votre applicatif ;
         2.  Vous êtes limités en ressources pour votre applicatif, et ne voulez pas le pénaliser ;
         3.  Vous voulez mutualiser l'instance pour plusieurs applicatifs.
 
-Il est important de garder en tête qu'**un antivirus aura toujours un temps de retard sur les failles**. Vos fichiers hébergés peuvent être "propres", mais en scannant de nouveau vos fichiers 3 semaines plus tard vous avez quelques indésirables car vous aurez mis à jour la base de connaissance de votre antivirus. La récurrence des scans dépend de votre contexte :
+Il est important de garder en tête qu'**un antivirus aura toujours un temps de retard sur les failles**. Vos fichiers hébergés peuvent être détectés "inoffensifs" à l'instant T, mais corrompus en les scannant de nouveau 3 semaines plus tard (car vous aurez mis à jour la base de connaissance de votre antivirus). La récurrence des scans dépend de votre contexte :
 
 - Si vous n'hébergez que des images (type `.jpg`, `.png`…), il est probable que seul le scan initial soit suffisant puisque les utilisateurs sont censés ouvrir ce fichier dans un logiciel approprié (qui ne va pas exécuter le fichier). Vous pourriez vous passer de la complexité et du coût de tout rescanner ;
 - Si vous hébergez des documents plus complexes (tableurs, fichiers exécutables…), il faut malheureusement être très vigilant, et scanner périodiquement fait sens (avec le prérequis d'avoir mis à jour votre antivirus entre chaque occurrence).

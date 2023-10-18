@@ -22,8 +22,13 @@
   }
 }
 
-@media (min-width: 1440px) {
-  .docs-wrapper {
+.docs-wrapper {
+  footer {
+    // Hide the footer on the readings since just adding scroll (no meaningful things inside)
+    display: none !important;
+  }
+
+  @media (min-width: 1440px) {
     .container {
       // Since disabling table of contents of all pages
       // Note: disabling is done manually with `hide_table_of_contents: true` due to https://github.com/facebook/docusaurus/issues/9126#issuecomment-1768509709

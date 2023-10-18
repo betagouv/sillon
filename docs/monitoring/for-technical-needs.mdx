@@ -1,3 +1,7 @@
+---
+hide_table_of_contents: true
+---
+
 # Pour les besoins techniques
 
 Techniquement nous recommandons d'utiliser [Sentry](https://github.com/getsentry/sentry) (mentionné dans [le chapitre sur les outils tiers](simple-and-sovereign-cloud-provider/offload-non-sensitive-tools.mdx)) pour centraliser vos erreurs frontend et vos erreurs backend. Vous pouvez par défaut activer le "catch all" afin que le client Sentry remonte toute erreur qui n'est pas "catchée". Cela vous donnera la "[stack trace](https://en.wikipedia.org/wiki/Stack_trace)" pour investiguer plus en détails. Mais vous pouvez aussi explicitement formater les erreurs à remonter afin de mettre des règles d'alertes depuis l'interface.

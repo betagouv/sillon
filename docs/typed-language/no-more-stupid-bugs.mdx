@@ -1,3 +1,7 @@
+---
+hide_table_of_contents: true
+---
+
 # Éviter les bugs bêtes au runtime
 
 Nous vous conseillons quand c'est possible d'avoir tout votre code typé, et de privilégier des librairies qui ont été typées. Car définir des variables où vous admettez qu'il peut y avoir tout et n'importe quoi dedans complique la compréhension du code et est prompt à des erreurs au moment du runtime. Imaginons que dans un commit vous transformiez une variable qui était un _integer_ en un _string_, sans typage vous n'avez aucun moyen de savoir où cela a pu créer des incohérences et incompatibilités dans le code.

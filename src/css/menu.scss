@@ -28,6 +28,12 @@
     display: none !important;
   }
 
+  .container {
+    & > div[class*='generatedIndexPage_'] {
+      max-width: 100% !important;
+    }
+  }
+
   @media (min-width: 1440px) {
     .container {
       // Since disabling table of contents of all pages

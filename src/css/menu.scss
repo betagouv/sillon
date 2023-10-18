@@ -1,0 +1,33 @@
+// Due to nested menu items on 3 levels we enlarge it
+:root {
+  --doc-sidebar-width: min(30vw, 600px) !important; // This is the desktop variable in opposite to `--ifm-navbar-sidebar-width: 83vw;`
+}
+
+.menu__list:not(.theme-doc-sidebar-menu) {
+  // Override `--ifm-menu-link-padding-horizontal` but with direct property to not override children elements (except on the root level)
+  padding-left: 2rem !important;
+
+  .menu__link {
+    // Differenciate from main categories
+    font-weight: normal !important;
+  }
+
+  .theme-doc-sidebar-item-category-level-3,
+  .theme-doc-sidebar-item-link-level-3 {
+    // Level 3+ are thinner
+    font-size: 14px !important;
+
+    border-left: solid 1px var(--ifm-color-emphasis-300);
+    padding-left: 0.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .docs-wrapper {
+    .container {
+      // Since disabling table of contents of all pages
+      // Note: disabling is done manually with `hide_table_of_contents: true` due to https://github.com/facebook/docusaurus/issues/9126#issuecomment-1768509709
+      max-width: 990px;
+    }
+  }
+}

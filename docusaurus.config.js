@@ -10,7 +10,7 @@ const config = {
   tagline: `Propositions pour réaliser un produit numérique`,
   favicon: 'img/favicon.svg',
 
-  url: 'https://sillon.rame.fr',
+  url: 'https://sillon.incubateur.net/',
   baseUrl: '/',
 
   customFields: {

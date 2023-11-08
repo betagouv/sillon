@@ -32,7 +32,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/sneko/sillon/tree/main/',
+          editUrl: 'https://github.com/betagouv/sillon/tree/main/',
         },
         blog: false,
         theme: {
@@ -82,7 +82,7 @@ const config = {
           },
           {
             label: 'GitHub',
-            href: 'https://github.com/sneko/sillon',
+            href: 'https://github.com/betagouv/sillon',
           },
         ],
         copyright: `Sauf mention contraire, tous les contenus de ce site sont sous <a href="https://raw.githubusercontent.com/inclusion-numerique/mediature/main/LICENSE">licence AGPL-3.0</a>`,

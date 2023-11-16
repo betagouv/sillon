@@ -91,21 +91,13 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      matomo: {
+        matomoUrl: 'https://stats.beta.gouv.fr/',
+        siteId: '52',
+      },
     }),
 
-  plugins: [
-    'docusaurus-plugin-sass',
-    [
-      require.resolve('@gabrielcsapo/docusaurus-plugin-matomo'),
-      {
-        matomoUrl: 'https://stats.beta.gouv.fr',
-        siteId: '52',
-        siteUrl: 'https://sillon.incubateur.net',
-        matomoPhpScript: 'matomo.php',
-        matomoJsScript: 'matomo.js',
-      },
-    ],
-  ],
+  plugins: ['docusaurus-plugin-sass', 'docusaurus-plugin-matomo'],
   themes: [
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),

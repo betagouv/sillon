@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.4.3",
+    "@gabrielcsapo/docusaurus-plugin-matomo": "^0.1.2",
     "@gouvfr/dsfr": "^1.9.3",
     "@trivago/prettier-plugin-sort-imports": "^4.0.0",
     "@tsconfig/docusaurus": "^1.0.5",

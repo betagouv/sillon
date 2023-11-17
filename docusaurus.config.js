@@ -77,12 +77,16 @@ const config = {
         },
         links: [
           {
-            label: 'beta.gouv',
-            href: 'https://beta.gouv.fr',
+            label: 'Mentions légales',
+            to: 'legal-notice',
           },
           {
-            label: 'GitHub',
+            label: 'Code source',
             href: 'https://github.com/betagouv/sillon',
+          },
+          {
+            label: 'beta.gouv',
+            href: 'https://beta.gouv.fr',
           },
         ],
         copyright: `Sauf mention contraire, tous les contenus de ce site sont sous <a href="https://raw.githubusercontent.com/inclusion-numerique/mediature/main/LICENSE">licence AGPL-3.0</a>`,

@@ -1,4 +1,5 @@
 /.cache-loader/
 /.docusaurus/
 /dist/
+/src/pages/**/*.docx
 /package-lock.json

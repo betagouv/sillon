@@ -71,6 +71,15 @@ _(Ideally we wanted to use a Docker container directly but there is an ongoing i
 
 Since the most used IDE as of today is Visual Studio Code we decided to go we it. Using it as well will make you benefit from all the settings we set for this project.
 
+#### Formatting documents for compliance
+
+Legal documents are mainly written out of technical scope in a basic text editor, and they may be updated quite often. For each change you have to maintain some transformations and you probably don't want to scan in detail the documents again. Ideally you just want to redo all at once to be sure there will be no missing patch.
+
+To do so you can use `./format-legal-documents.sh` to transform the initial `.docx` files located within `./src/pages/**/*` into `index.md` files that Docusaurus will handle as pages:
+
+- No matter the name of the file it will convert it (though 1 per folder)
+- It allows to collaborate on Word-like software (mainly used by legal people)
+
 ## Contribute
 
 As explained this guide is a suggestion but lot of point of views exist. We are definitely open to discussions to improve it, just post an issue or contact us through the livechat module on the website.

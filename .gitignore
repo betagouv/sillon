@@ -22,3 +22,6 @@ yarn-error.log*
 
 /sillon.docx
 /sillon.mdx
+
+# Legal documents to transform to Markdown (with `format-legal-documents.sh`)
+/src/pages/**/*.docx

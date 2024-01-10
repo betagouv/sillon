@@ -15,7 +15,7 @@ const sidebars = {
         type: 'generated-index',
         slug: 'preamble',
       },
-      items: ['preamble/validity', 'preamble/expertise', 'preamble/no-stack', 'preamble/glossary'],
+      items: ['preamble/validity', 'preamble/expertise', 'preamble/no-stack'],
     },
     {
       type: 'category',

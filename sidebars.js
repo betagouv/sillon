@@ -319,52 +319,6 @@ const sidebars = {
         'go-further/work-in-progress',
       ],
     },
-
-    {
-      type: 'category',
-      label: 'Standards',
-      link: {
-        type: 'generated-index',
-        slug: 'go-further',
-      },
-      items: [
-        {
-          type: 'category',
-          label: 'Accessibilité',
-          items: [{ type: 'link', label: 'xx', href: 'dd' }],
-        },
-        {
-          type: 'category',
-          label: 'Open-source',
-          items: [{ type: 'link', label: 'xx', href: 'dd' }],
-        },
-        {
-          type: 'category',
-          label: "Système de design de l'état",
-          items: [{ type: 'link', label: 'xx', href: 'dd' }],
-        },
-        {
-          type: 'category',
-          label: 'Documentation',
-          items: [{ type: 'link', label: 'xx', href: 'dd' }],
-        },
-        {
-          type: 'category',
-          label: 'Qualité et testing',
-          items: [{ type: 'link', label: 'xx', href: 'dd' }],
-        },
-        {
-          type: 'category',
-          label: 'Sécurité',
-          items: [{ type: 'link', label: 'xx', href: 'dd' }],
-        },
-        {
-          type: 'category',
-          label: 'Legal',
-          items: [{ type: 'link', label: 'xx', href: 'dd' }],
-        },
-      ],
-    },
   ],
 };
 

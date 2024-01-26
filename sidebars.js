@@ -215,6 +215,39 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Recommandations par outil',
+      link: {
+        type: 'generated-index',
+        slug: 'tools-recos',
+        description: `Nos recommandations pour différents produits fréquemment utilisés dans notre écosystème`,
+      },
+      items: [
+        'tools-recos/crisp',
+        'tools-recos/matomo',
+        {
+          type: 'category',
+          label: 'Metabase',
+          items: [
+            { type: 'doc', label: 'Recommandations', id: 'tools-recos/metabase' },
+            { type: 'doc', label: 'Déploiement scalingo', id: 'tools-recos/metabase-scalingo' },
+          ],
+        },
+
+        'tools-recos/sentry',
+        {
+          type: 'category',
+          label: 'Outillage de dev',
+          link: {
+            type: 'generated-index',
+            slug: 'tools-recos-tooling',
+            description: `Nous regroupons aussi nos recommandations pour différents produits fréquemment utilisés dans notre écosystème`,
+          },
+          items: ['tools-recos/semantic-release'],
+        },
+      ],
+    },
+    {
+      type: 'category',
       label: 'Sécurité primaire',
       link: {
         type: 'generated-index',
@@ -284,6 +317,52 @@ const sidebars = {
         'go-further/contribute-this-knowledge-base',
         'go-further/decline-this-knowledge-base',
         'go-further/work-in-progress',
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Standards',
+      link: {
+        type: 'generated-index',
+        slug: 'go-further',
+      },
+      items: [
+        {
+          type: 'category',
+          label: 'Accessibilité',
+          items: [{ type: 'link', label: 'xx', href: 'dd' }],
+        },
+        {
+          type: 'category',
+          label: 'Open-source',
+          items: [{ type: 'link', label: 'xx', href: 'dd' }],
+        },
+        {
+          type: 'category',
+          label: "Système de design de l'état",
+          items: [{ type: 'link', label: 'xx', href: 'dd' }],
+        },
+        {
+          type: 'category',
+          label: 'Documentation',
+          items: [{ type: 'link', label: 'xx', href: 'dd' }],
+        },
+        {
+          type: 'category',
+          label: 'Qualité et testing',
+          items: [{ type: 'link', label: 'xx', href: 'dd' }],
+        },
+        {
+          type: 'category',
+          label: 'Sécurité',
+          items: [{ type: 'link', label: 'xx', href: 'dd' }],
+        },
+        {
+          type: 'category',
+          label: 'Legal',
+          items: [{ type: 'link', label: 'xx', href: 'dd' }],
+        },
       ],
     },
   ],

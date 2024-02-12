@@ -219,7 +219,7 @@ const sidebars = {
       link: {
         type: 'generated-index',
         slug: 'tools-recos',
-        description: `Nos recommandations pour différents produits fréquemment utilisés dans notre écosystème`,
+        description: `Nos recommandations pour différents produits fréquemment utilisés dans notre écosystème.`,
       },
       items: [
         'tools-recos/crisp',
@@ -240,7 +240,7 @@ const sidebars = {
           link: {
             type: 'generated-index',
             slug: 'tools-recos-tooling',
-            description: `Nous regroupons aussi nos recommandations pour différents produits fréquemment utilisés dans notre écosystème`,
+            description: `Nous regroupons aussi nos recommandations pour différents produits fréquemment utilisés dans notre écosystème.`,
           },
           items: ['tools-recos/semantic-release'],
         },

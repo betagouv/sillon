@@ -218,31 +218,31 @@ const sidebars = {
       label: 'Recommandations par outil',
       link: {
         type: 'generated-index',
-        slug: 'tools-recos',
+        slug: 'tool-recommandations',
         description: `Nos recommandations pour différents produits fréquemment utilisés dans notre écosystème.`,
       },
       items: [
-        'tools-recos/crisp',
-        'tools-recos/matomo',
+        'tool-recommandations/crisp',
+        'tool-recommandations/matomo',
         {
           type: 'category',
           label: 'Metabase',
           items: [
-            { type: 'doc', label: 'Recommandations', id: 'tools-recos/metabase' },
-            { type: 'doc', label: 'Déploiement scalingo', id: 'tools-recos/metabase-scalingo' },
+            { type: 'doc', label: 'Recommandations', id: 'tool-recommandations/metabase' },
+            { type: 'doc', label: 'Déploiement Scalingo', id: 'tool-recommandations/metabase-scalingo' },
           ],
         },
 
-        'tools-recos/sentry',
+        'tool-recommandations/sentry',
         {
           type: 'category',
           label: 'Outillage de dev',
           link: {
             type: 'generated-index',
-            slug: 'tools-recos-tooling',
+            slug: 'tool-recommandations-tooling',
             description: `Nous regroupons aussi nos recommandations pour différents produits fréquemment utilisés dans notre écosystème.`,
           },
-          items: ['tools-recos/semantic-release'],
+          items: ['tool-recommandations/semantic-release'],
         },
       ],
     },

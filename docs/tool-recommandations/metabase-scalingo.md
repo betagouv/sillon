@@ -1,4 +1,4 @@
-# Déploiement metabase sur Scalingo
+# Déploiement Metabase sur Scalingo
 
 Scalingo permet de déployer une instance de Metabase en un clic. L'instance sera fonctionnelle, configurable et relativement sécurisée.
 

@@ -9,9 +9,10 @@ Ce composant peut-être intégré dans votre infrastructure et se doit d'être c
 ## Recommandations
 
 :::caution Sécurité
-Ne connectez pas directement votre base de données de prod à Metabase
 
-Ajoutez la variable d’environnement `MB_ENCRYPTION_SECRET_KEY` à l’app metabase
+- Ne connectez pas directement votre base de données de production à Metabase
+- Ajoutez la variable d’environnement `MB_ENCRYPTION_SECRET_KEY` à l’instance Metabase
+
 :::
 
 :::info Sécurité
@@ -36,26 +37,24 @@ GRANT readonly TO read;
 ### Déploiement
 
 :::caution Sécurité
-Utilisez la dernière version de metabase et mettez-la à jour régulièrement.
+Utilisez la dernière version de Metabase et mettez-la à jour régulièrement.
 :::
 
 :::info Scalingo
-Si vous utilisez Scalingo, consultez la [doc de déploiement scalingo avec anonymisation](./metabase-scalingo)
+Si vous utilisez Scalingo, consultez la [documentation de déploiement Scalingo avec anonymisation](./metabase-scalingo)
 :::
 
 #### Protection contre les failles Metabase
 
-Pour se prémunir d'éventuelles failles sur Metabase ou de vol d'accès, protégez-le derrière un proxy d'authentification.
+Pour se prémunir d'éventuelles failles sur Metabase ou de vol d'accès, protégez-le derrière un proxy d'authentification. [oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/) en est un exemple, il permet de limiter l'accès en réutilisant un système d'authentification connu (tel que GitHub...).
 
-Ex : [oauth2-proxy](https://oauth2-proxy.github.io/oauth2-proxy/) qui permet de limiter l'accès à une orga/team GitHub ou autre provider.
-
-Si vous souhaitez tout de même exposer les pages publiques, vous aurez besoin d'allow-lister les endpoints suivants avec `--skip-auth-route` :
+Si vous souhaitez tout de même exposer les pages publiques, vous aurez besoin de mettre en "whitelist" les endpoints suivants avec le paramètre `--skip-auth-route` :
 
 `^/public/.*,^/app/dist/.*,^/api/public/.*,^/api/session/.*,^/app/assets/.*`
 
 ## Ressources
 
-- Une [présentation vidéo Metabase en Français](https://youtu.be/3sEmPG3Ydrg?si=l3emB4_dC253R2JP&t=193)
-- Exemples d'outils d'anonymisation:
+- Une [présentation vidéo Metabase en français](https://youtu.be/3sEmPG3Ydrg?si=l3emB4_dC253R2JP&t=193)
+- Exemples d'outils d'anonymisation :
   - [datanymizer](https://github.com/datanymizer/datanymizer)
   - [postgresql-anonymizer](https://postgresql-anonymizer.readthedocs.io/en/stable/)

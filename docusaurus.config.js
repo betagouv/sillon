@@ -13,6 +13,11 @@ const config = {
   url: 'https://sillon.incubateur.net/',
   baseUrl: '/',
 
+  // Since deployed on Netlify it redirects pathnames like `/path` to `/path/` so we explicitely
+  // tell to Docusaurus to write links with the trailing slash. It will also prevent warnings from
+  // search engines that don't like to see 2 kinds of URL for the exact same content
+  trailingSlash: true,
+
   customFields: {
     crispWebsiteId: process.env.CRISP_WEBSITE_ID || 'no_crisp_settings',
   },

@@ -8,7 +8,7 @@
     "build": "docusaurus build --out-dir ./dist",
     "start": "docusaurus serve --dir ./dist --no-open",
     "pdf:generate-in-ci": "start-server-and-test start http://localhost:3000 pdf:generate",
-    "pdf:generate": "docusaurus-prince-pdf -u http://localhost:3000/docs --include-index --dest ./dist-pdf --output ./dist/assets/sillon.pdf --prince-args=\"--pdf-title='Sillon - Propositions pour réaliser un produit numérique'\"",
+    "pdf:generate": "docusaurus-prince-pdf -u http://localhost:3000/docs/ --include-index --dest ./dist-pdf --output ./dist/assets/sillon.pdf --prince-args=\"--pdf-title='Sillon - Propositions pour réaliser un produit numérique'\"",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "lint": "npm run lint:es && npm run lint:ts",

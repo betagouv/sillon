@@ -35,6 +35,6 @@ Nous préconisons d'utiliser la librairie [`pg-boss`](https://github.com/timgit/
 - Next.js ne permet _pour l'instant_ pas de lancer directement des processus asynchrones (il faudrait modifier le serveur web mais on perdrait l'optimisation qu'ils ont fait). Notre approche est d'utiliser un endpoint `/init` qui sera appelé au lancement du serveur ;
 - À vous de choisir votre stratégie de rejeu en fonction de la criticité du job :
   - N'oubliez pas de spécifier un maximum de rejeux pour un job car certains ne passeront jamais et il serait dommage de flooder votre système ou vos partenaires (sans jamais traîter les jobs suivants, qui eux, peuvent peut-être passer) ;
-  - Vous pouvez vous reposer sur [Sentry](/docs/monitoring) pour être notifié d'un job qui est abandonné afin que vous puissiez investiguer et tenter de le rejouer manuellement.
+  - Vous pouvez vous reposer sur [Sentry](/docs/monitoring/) pour être notifié d'un job qui est abandonné afin que vous puissiez investiguer et tenter de le rejouer manuellement.
 
 :::

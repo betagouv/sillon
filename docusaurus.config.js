@@ -94,7 +94,7 @@ const config = {
             href: 'https://beta.gouv.fr',
           },
         ],
-        copyright: `Sauf mention contraire, tous les contenus de ce site sont sous <a href="https://raw.githubusercontent.com/inclusion-numerique/mediature/main/LICENSE">licence AGPL-3.0</a>`,
+        copyright: `Sauf mention contraire, tous les contenus de ce site sont sous <a href="https://raw.githubusercontent.com/betagouv/sillon/main/LICENSE">licence MIT</a>`,
       },
       prism: {
         theme: lightCodeTheme,

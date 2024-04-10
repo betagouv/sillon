@@ -4,14 +4,24 @@ hide_table_of_contents: true
 
 # La licence de votre produit
 
-Que le code technique de votre produit soit en libre accès ou caché dans un coffre, il est important de choisir une licence adéquate pour que l'utilisation du code de votre produit reste dans un périmètre que vous acceptez. Nous vous conseillons de lire [le tableau de correspondances de data.gouv.fr](https://www.data.gouv.fr/en/pages/legal/licences/) pour choisir la licence la plus adaptée.
+Que votre produit soit en libre accès ou caché dans un coffre, il est important de savoir qu'une licence permet de clarifier et d'imposer le périmètre que vous acceptez quant à sa réutilisation.
 
-Voici ce qu'indique la loi sur le choix de la licence :
+Dans les faits, pour un produit français, si aucune licence n'est définie c'est le droit français qui va s'appliquer par défaut. Ce qui peut convenir dans votre cas, mais adopter une licence connue internationalement permettra à des tiers de comprendre facilement les attendus établis par votre équipe.
+
+:::info
+Certaines licences sont identifiées par exemple comme des "licences de code informatique" ou des "licences de contenu". Bien qu'on les catégorise, en droit, une licence peut s'appliquer sans distinction sur du code, du contenu, un document papier...
+:::
+
+Vous pouvez vous appuyer sur [le tableau de correspondances de data.gouv.fr](https://www.data.gouv.fr/en/pages/legal/licences/) pour choisir la licence la plus adaptée. Mais attention si vous souhaitez utiliser une _licence avec obligation de réciprocité_ car la loi indique :
+
 > Ces conditions ne peuvent apporter de restrictions à la réutilisation que pour des motifs d'intérêt général et de façon proportionnée. Elles ne peuvent avoir pour objet ou pour effet de restreindre la concurrence.
-[Code des relations entre le public et l'administration - Article L323-2](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033219073)
 
-La licence permissive la plus utilisé au sein de BetaGouv est `MIT` quand il y a un besoin d'`apporter de restrictions à la réutilisation que pour des motifs d'intérêt général` (très rarement justifiable), la licence `AGPL-3.0` est utilisé.
+_[Code des relations entre le public et l'administration - Article L323-2](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033219073)_
 
-À noter que le contenu hors technique vous pouvez regarder la licence de l'État `etalab-2.0`.
+Pour utiliser une _licence avec obligation de réciprocité_ il est donc impératif d'avoir vérifié que ces 3 critères sont respectés. Nous vous conseillons dans ce cas d'écrire les arguments de votre décision dans votre documentation dans l'éventualité d'une future contestation.
 
-**Si vous avez un doute, il fortement recommandé de consulter un juriste, la DINUM dispose d'experts pouvant vous aider.**
+**Si vous avez un doute, il fortement recommandé de consulter un juriste. La [DINUM (direction interministérielle du numérique)](https://www.numerique.gouv.fr/dinum/) dispose d'experts pouvant vous aider.**
+
+:::caution Périmètre du contenu tiers
+Quand vous souhaitez utiliser des dépendances ou outils informatiques, ou réutiliser du contenu, il convient de regarder pour chacun leur périmètre défini afin de respecter leurs conditions. Il se pourrait que vous n'ayez pas le droit de vous en servir, ou alors que ça forcerait votre produit à adopter une licence plus restrictive.
+:::

@@ -239,6 +239,15 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Faire connaître son produit',
+      link: {
+        type: 'generated-index',
+        slug: 'growth',
+      },
+      items: ['growth/seo', 'growth/open-graph'],
+    },
+    {
+      type: 'category',
       label: 'Faire la vigie en étant outillé',
       link: {
         type: 'generated-index',

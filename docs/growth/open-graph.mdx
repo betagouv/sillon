@@ -1,0 +1,30 @@
+---
+hide_table_of_contents: true
+---
+
+import OpenGraphPreview from '@site/docs/growth/open-graph-preview.png';
+import { CaptionedImage } from '@site/src/components/CaptionedImage';
+
+# Enrichir les liens entrants
+
+Le [protocole Open Graph](https://ogp.me/) est utilisé par les réseaux sociaux et applications de communication afin d'enrichir visuellement un lien partagé. Ces vignettes de liens sont connues pour améliorer l'engagement d'un utilisateur.
+
+<CaptionedImage
+  src={OpenGraphPreview}
+  alt=""
+  caption="Partage d'un lien Sillon dans une application de communication"
+  style={{ maxHeight: '500px', width: '100%', objectFit: 'contain' }}
+/>
+
+Si vous regardez le code HTML de Sillon vous pourrez voir des balises `<meta>` avec des propriétés du type `og:description` et `og:image`. Celles-ci sont dédiées au protocole Open Graph et ont été utilisées pour formater l'exemple ci-dessus. Sans elles, le réseau social ou l'application de communication qui afficherait ce lien :
+
+- Soit n'ajouterait aucune métadonnée et fournirait le lien en brut ;
+- Soit chercherait à obtenir des métadonnées via les balises HTML standards (`<title>`, `<meta>`) sans certitude que cela soit exact, assez spécifique, ou dimensionné pour un affichage sur cette plateforme.
+
+Pour commencer vous pouvez très bien définir des métadonnées identiques sur toutes les pages (en décrivant votre produit). Et par la suite si vous avez une présence importante sur les réseaux sociaux, faire en sorte de les personnaliser "par page".
+
+_Dans notre exemple nous avons illustré une vignette avec image, mais il est possible d'y associer de l'audio ou de la vidéo (l'affichage dépendant forcément des capacités de la plateforme où le lien sera partagé). N'hésitez pas à lire [les spécifications Open Graph](https://ogp.me/#metadata)._
+
+:::info
+Dans [la section sur le référencement](/docs/growth/seo/) nous avons introduit le concept de schémas via JSON-LD qui semble similaire au protocole Open Graph. Pour autant, l'utilisation de JSON-LD est destiné aux moteurs de recherche, alors qu'Open Graph _(qui apporte moins de détails)_ peut être utilisé par les réseaux sociaux, les applications de communication, mais aussi être analysé par les moteurs de recherche.
+:::

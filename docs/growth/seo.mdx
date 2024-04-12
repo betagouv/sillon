@@ -1,0 +1,94 @@
+---
+hide_table_of_contents: true
+---
+
+# Le référencement
+
+Une fois que votre produit peut être mis à disposition d'utilisateurs autres que vos beta-testeurs, il est important de faire en sorte qu'il soit référencé sur internet. C'est ce que l'on appelle le [SEO](https://en.wikipedia.org/wiki/Search_engine_optimization) (search engine optimization). Dans ce chapitre nous allons nous concentrer sur ce qu'il est possible de faire avec les standards d'internet afin d'être au mieux référencé dans les moteurs de recherche.
+
+:::note
+Même si votre site est majoritairement privé, avoir la page de présentation reférencée aide à la découvrabilité de votre outil.
+:::
+
+## Être présent sur un moteur de recherche
+
+Les moteurs de recherche ont besoin d'être aidés pour connaître un nouveau site sur internet :
+
+1. Soit ils trouvent un lien vers votre site depuis un autre site qu'ils analysent déjà ;
+2. Soit vous les notifiez de l'existence de votre site.
+
+Pour la (1), a priori votre produit vient tout juste d'ouvrir au public donc il est peu probable qu'il soit listé sur des annuaires, des forums... Et même si c'était le cas il faudrait attendre qu'un moteur de recherche considère le lien (ce qui n'est pas une science exacte, les algorithmes des moteurs de recherche étant souvent privés).
+
+Le plus simple reste d'actionner la (2). Les plus gros moteurs de recherche proposent une interface complète pour déclarer son site et avoir un tableau de bord de statistiques complet. Voici un aperçu de l'écosystème :
+
+- [**Google** propose _Google Search Console_](https://search.google.com/search-console/about) ;
+- [**Bing** propose _Bing Webmaster Tools_](https://www.bing.com/webmasters/about) ;
+- [**Qwant** propose un formulaire](https://help.qwant.com/en/docs/qwant-search/survey-monkey/how-to-get-my-website-listed-on-qwant) (mais à noter qu'il se base en partie sur les données de Bing, le formulaire n'est peut-être pas requis) ;
+- [**Yahoo** utilise les données de Bing](https://en.wikipedia.org/wiki/Yahoo!_Search) ;
+- [**DuckDuckGo** utilise les données de Bing](https://duckduckgo.com/duckduckgo-help-pages/results/sources/) ;
+- [**Ecosia** utilise les données de Google et/ou Bing](https://www.ecosia.org/privacy).
+
+_Comme vous pouvez le constater, pas besoin de se déclarer sur tous les moteurs de recherche puisque souvent ils se basent sur les résultats d'autres._
+
+:::tip Rapport d'analyses
+Dans ceux avec un tableau de bord, ils sont suceptibles de vous dire ce qui ne va pas avec vos pages et vous expliquent comment les ajuster. Il est important d'en tenir compte car ne pas respecter les standards et certains critères peut d'office faire que votre produit ne sera pas bien classé dans les résultats, voire ne sera pas référencé.
+:::
+
+## Référencer toutes ses pages (ou non)
+
+Par défaut et si rien n'est fait, un site est considéré comme pouvant être indexé par les moteurs de recherche.
+
+Mais il est possible de dire aux moteurs de recherche de ne pas référencer certaines parties voire la totalité de votre site (cela peut être approprié pour un environnement de test qui ne devrait pas parasiter le classement de votre environnement de production). Plusieurs solutions rendent cela possible :
+
+- Utiliser à la racine de votre nom de domaine [un fichier `robots.txt`](https://en.wikipedia.org/wiki/Robots.txt), par exemple `myproject.fr/robots.txt` ;
+- Utiliser une balise `<meta name="robots" content="noindex" />` dans votre code HTML ;
+- Utiliser le header HTTP `X-Robots-Tag: noindex` dans la réponse serveur.
+
+## Le dilemme du contenu asynchrone
+
+Historiquement les moteurs de recherche analysaient seulement le code HTML renvoyé par le serveur. Donc si vous aviez du contenu ajouté de manière asynchrone sur votre page (après le chargement initial), ce contenu n'allait pas être indexé par le moteur de recherche.
+
+Depuis quelques années on a vu l'émergence des [SPA](https://en.wikipedia.org/wiki/Single-page_application) (Single Page Application) qui apportent certains avantages en terme d'expérience mais tombent à pic dans cette problématique (nous avons partiellement abordé ce point [dans la section technique](https://sillon.incubateur.net/docs/backend-framework/)). Les moteurs de recherche se sont donc mis, lorsqu'ils analysent les sites, à reproduire le comportement du navigateur (grâce notamment à des outils comme [Puppeteer](https://pptr.dev/)) pour que le code HTML observé puisse être le résultat d'opérations asynchrones. Mais il reste quand même quelques contraintes :
+
+1. Cela est beaucoup plus gourmand en terme de ressources ;
+2. Du coup, ils fixent une limite de temps pour l'affichage de la page (par exemple 5 secondes maximum, peu importe si le contenu dynamique a été mis à jour dans le HTML ou non).
+
+On peut donc dire que ce problème d'indexation a tendance à disparaître, mais si vous avez l'impression que du contenu asynchrone pose problème sur votre site il y a plusieurs pistes distinctes possibles :
+
+- Regarder les rapports d'analyse du moteur de recherche en question pour comprendre ce qu'il a pu trouver sur votre page, voir si c'est un problème de temps de chargement... ;
+- Votre stack technique vous offre peut-être la possibilité d'effectuer du rendu de pages calculé sur le serveur (en opposition au rendu de contenu fait dans le navigateur), c'est souvent labellisé `server-side rendering (SSR)` ;
+- Du côté du serveur, regarder le header HTTP `User-Agent` de la requête entrante et voir s'il correspond à un moteur de recherche. Si c'est le cas vous pourriez retourner une page brute avec le contenu indispensable à l'indexation, cela serait invisible pour vos utilisateurs finaux qui ont leur propre `User-Agent`. _À noter que les moteurs de recherche documentent les `User-Agent` qu'ils sont suceptibles d'utiliser. Mais le plus simple reste d'utiliser une librairie spécialisée._
+
+## Référencer ses pages dynamiques
+
+Comme vu précédemment, les moteurs de recherche ne peuvent pas deviner les pages à indexer. Habituellement chaque page "statique" est référencée par un lien présent sur votre site, mais dans le cas de pages dynamiques il est possible qu'aucun chemin ne mènent à elles. Par exemple :
+
+- Vous éditez un blog et vous souhaitez que tous les articles soient indexés (sans compter sur le fait qu'un moteur de recherche aille sur la énième page de la liste pour trouver le bon lien) ;
+- Vous souhaitez indexer tous les profils utilisateurs sans proposer une liste publique qui contiendrait les liens des profils.
+
+Heureusement vous pouvez soumettre aux moteurs de recherche une liste de pages à indexer en plus des pages qu'ils auraient pu détecter eux-mêmes. Pour cela il faut d'abord exposer [un fichier XML que l'on appelle "sitemap"](https://en.wikipedia.org/wiki/Sitemaps) :
+
+1. Soit à la racine de votre nom de domaine puisque c'est un pattern supporté par les moteurs de recherche (e.g. `https://example.com/sitemap.xml`) ;
+2. Ou alors à un endroit qui vous sied, mais il faut alors préciser dans votre fichier `robots.txt` l'URL complète du sitemap (e.g. `Sitemap: https://example.com/sitemap/index.xml`).
+
+_Si les moteurs de recherche prennent du temps à découvrir votre sitemap, sachez que certains acceptent que vous leur soumettiez l'URL du sitemap directement._
+
+:::info Contraintes du sitemap
+Les standards demandent à ce qu'un fichier XML sitemap ne fasse pas plus de 50 Mo, et ne contienne pas plus de 50 000 liens à référencer. Si vous dépassez ces critères vous pouvez toujours diviser le total en plusieurs fichiers (e.g. `sitemap-1.xml`, `sitemap-2.xml`...) et avoir un fichier XML "racine" qui listera tous les fichiers à combiner.
+:::
+
+## Donner un coup de pouce aux moteurs de recherche
+
+**Ceci est optionel** mais a le mérite d'exister pour être mentionné : il est possible de donner aux moteurs de recherche une information structurée afin qu'ils puissent s'en servir pour potentiellement améliorer la recherche et apporter des métadonnées quand les résultats sont affichés.
+
+L'exemple le plus standard est d'utiliser la balise `<meta>` pour par exemple donner un résumé de la page :
+
+```html
+<meta name="description" content="this is an exemple" />
+```
+
+Mais pour aller beaucoup plus loin, il existe le format [JSON-LD](https://json-ld.org/) qui peut directement être intégré dans votre HTML via une balise `<script>`. L'idée derrière est qu'il existe [des dizaines de structures possibles (article, événement, personne, site internet...)](https://schema.org/docs/full.html) et que vous pouvez, pour chaque page, lister en JSON-LD celles présentes sur ladite page afin que les moteurs de recherche qui supportent ce format puissent s'en servir pour mieux proposer votre contenu.
+
+:::caution Il faut relativiser...
+Un affichage enrichi dans les résultats peut potentiellement influencer positivement les utilisateurs (et donc améliorer votre SEO). Pour autant, il n'y a aucune preuve que le JSON-LD améliore le classement dans les résultats de recherche. Ce n'est donc pas quelque chose à explorer aux balbutiements de votre projet.
+:::

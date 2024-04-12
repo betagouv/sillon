@@ -4,6 +4,10 @@ hide_table_of_contents: true
 
 # Pour les besoins techniques
 
-Techniquement nous recommandons d'utiliser [Sentry](https://github.com/getsentry/sentry) (mentionné dans [le chapitre sur les outils tiers](simple-and-sovereign-cloud-provider/offload-non-sensitive-tools.mdx)) pour centraliser vos erreurs frontend et vos erreurs backend. Vous pouvez par défaut activer le "catch all" afin que le client Sentry remonte toute erreur qui n'est pas "catchée". Cela vous donnera la "[stack trace](https://en.wikipedia.org/wiki/Stack_trace)" pour investiguer plus en détails. Mais vous pouvez aussi explicitement formater les erreurs à remonter afin de mettre des règles d'alertes depuis l'interface.
+Techniquement nous recommandons d'utiliser [Sentry](https://github.com/getsentry/sentry) (mentionné dans [le chapitre sur les outils tiers](simple-and-sovereign-cloud-provider/offload-non-sensitive-tools.mdx)) ou un outil similaire pour centraliser vos erreurs frontend et vos erreurs backend. Cela vous donnera des métadonnées comme la "[stack trace](https://en.wikipedia.org/wiki/Stack_trace)" pour investiguer plus en détails quelle est erreur, où a-t-elle été émise, quand...
 
-Par exemple durant la consommation d'une "job queue", au lieu de laisser partir des erreurs lambda vous pourriez formater des `JobQueueError` et dans l'interface dire que si vous avez plus de 3 `JobQueueError` sous 1 minute, alors vous envoyez un email à l'équipe pour investigation.
+Nous vous conseillons de configurer le client Sentry afin de remonter toute erreur qui n'est pas qui n'est pas stoppée par un `try/catch`. La section sur [la gestion d'erreurs](error-handling/index.mdx) apporte quelques recommandations sur comment définir ses erreurs, ce qui vous permettra d'affiner la remontée d'erreurs.
+
+:::info Exemple
+Durant la consommation d'une "job queue", au lieu de laisser partir des erreurs lambda vous pourriez formater des `JobQueueError`, et dans l'interface Sentry dire que si vous avez plus de 3 `JobQueueError` sous 1 minute, alors vous envoyez un email à l'équipe pour investigation.
+:::

@@ -201,6 +201,7 @@ const sidebars = {
         'continuous-integration-and-continuous-deployment/index',
         'environments/index',
         'tests-and-the-mock-limit/index',
+        'error-handling/index',
         {
           type: 'category',
           label: 'Backups',

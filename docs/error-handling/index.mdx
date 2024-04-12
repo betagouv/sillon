@@ -1,0 +1,145 @@
+---
+hide_table_of_contents: true
+---
+
+# La gestion d'erreurs
+
+## Les différencier
+
+Pour vous simplifier la tâche au cours du développement et pour la maintenance de votre applicatif il est intéressant de différencier :
+
+1. Les erreurs qui sont inattendues dans votre applicatif et qui doivent être investiguées (ci-après la famille des `UnexpectedError`), par exemple :
+
+   - La connexion à la base de données ne marche pas ;
+   - Une librairie renvoie une erreur inattendue ;
+
+2. Les erreurs qui peuvent être considérées comme "normales" (ci-après la famille des `BusinessError`), par exemple :
+
+   - Un utilisateur a rentré dans son formulaire des données invalides ;
+   - Un utilisateur a dépassé son nombre de requêtes autorisées par minute.
+
+Il est préférable de tenir informé l'utilisateur de l'erreur à laquelle il fait face afin qu'il sache s'il peut retenter plus tard, s'il doit changer sa saisie, ou s'il doit contacter le support. Pour autant il est très difficile de savoir si les erreurs remontées par vos dépendences ne vont pas laisser fuiter des informations sensibles (imaginons l'exemple exagéré d'une librairie pour comparer des hashs de mots de passe qui aurait une erreur et mentionnerait les deux entrées pour aider à débugguer). De plus, ces dernières sont souvent formattées avec du contenu technique **et** en anglais, ce qui réduit son intérêt pour les utilisateurs finaux.
+
+En différenciant les 2 types d'erreurs, vous pourriez positionner à chaque entrée de votre applicatif (endpoints...) un middleware pour garantir que toute erreur qui ne serait pas préformattée explicitement par votre projet (les fameuses `BusinessError`) ne sera jamais transmise à l'utilisateur (que ce soit sur le réseau si l'erreur vient du backend, ou affichée à l'utilisateur si l'erreur vient du frontend). L'applicatif renverra juste une `UnexpectedError` appropriée au contexte.
+
+:::info
+Le bénéfice de cette différenciation va aussi être dans [la remontée d'erreurs à des outils de monitoring](docs/monitoring/for-technical-needs.mdx). Vous n'aurez plus qu'à seulement remonter les erreurs inattendues afin de recevoir des notifications pertinentes.
+
+_Il se peut que l'erreur remontée soit finalement une erreur acceptable que vous n'aviez pas prise en compte auparavant, il ne vous reste plus qu'à lui créer `try/catch` proprement ou à la transformer `BusinessError` si approprié._
+:::
+
+## L'implémentation
+
+Que ce soit pour les `BusinessError` ou les `UnexpectedError` nous allons vous montrer des structures simples qui répondent à la majorité des cas d'utilisation. Normalement la minorité non-comprise devrait juste être liée à la validation des données entrantes (nous détaillons ce point un peu plus bas).
+
+L'idée est :
+
+1. D'avoir une propriété `code` unique qui représente l'erreur afin de pouvoir faire des conditions dessus si nécessaire, et qui servira aussi d'identifiant de clé de traduction si vous traduisez les erreurs ;
+2. D'avoir une propriété `message` pour que dans n'importe quel contexte de lecture (logs...) on puisse humainement comprendre ce qu'il s'est passé ;
+3. De pouvoir encoder/décoder l'erreur afin de la transmettre sur le réseau (une erreur backend peut ainsi être proprement affiché sur le frontend).
+
+Afin de garder une logique de réutilisation et d'extensibilité, nous utilisons des classes. Ainsi, vous pourriez implémenter des structures d'erreurs avec plus de propriétés en repartant des existantes.
+
+```ts
+export class CustomError extends Error {
+  public constructor(public readonly code: string, message: string = '') {
+    super(message);
+  }
+
+  public json(): object {
+    return {
+      code: this.code,
+      message: this.message,
+    };
+  }
+}
+
+export class UnexpectedError extends CustomError {}
+
+export class BusinessError extends CustomError {}
+```
+
+Ainsi vous pouvez définir dans votre applicatif des singletons d'erreurs tels que :
+
+```ts
+export const internalServerErrorError = new UnexpectedError('internalServerError', 'internal server error');
+export const userNotFoundError = new BusinessError('userNotFound', 'user not found');
+```
+
+Au moment d'utiliser une erreur il suffirait d'utiliser `throw userNotFoundError;`, et si vous utilisez des `try/catch` pour avoir des cas spécifiques à des niveaux supérieures vous seriez en mesure de faire :
+
+```ts
+try {
+  // ...
+} catch (error) {
+  if (error === userNotFoundError) {
+    // Specific handling
+  } else {
+    throw error;
+  }
+}
+```
+
+Pour ce qui est des middlewares au niveau des endpoints de votre applicatif vous pourriez avoir :
+
+```ts
+try {
+  myEndpointController();
+} catch (error) {
+  // Formatting so frontend can handle it properly
+  // Note that errors not being business ones are masked to the frontend
+  res.json({
+    customError: error instanceof CustomError ? error.json() : internalServerErrorError.json(),
+  });
+}
+```
+
+Pour ce qui est du frontend :
+
+1. Soit votre erreur a été émise par le frontend lui-même et c'est donc une instance de `CustomError`, que vous pouvez facilement l'analyser avec un `try/catch` ;
+2. Soit l'erreur vient du backend, et a été encodée pour être transportée sur le réseau (vous devez donc la décoder pour la manipuler).
+
+Par exemple pour la (2) vous pourriez faire :
+
+```ts
+const response = await fetch('https://...');
+
+if (response.status !== 200) {
+  const errorResponse = await response.json();
+
+  if (!!errorResponse.customError) {
+    throw new CustomError(errorResponse.customError.code, errorResponse.customError.message);
+  } else {
+    console.error(errorResponse);
+
+    throw internalServerErrorError;
+  }
+}
+```
+
+Dans l'idée, pour chaque appel de votre client API vous essayez d'intercepter une erreur au niveau de l'instruction. S'il en existe une vous affichez un composant qui affiche l'erreur à l'utilisateur (par exemple `<ErrorAlert error={error}>`). Cela vous permet d'ajuster l'affichage de l'erreur en fonction de la structure de la page.
+
+## Particularité des validations de données entrantes
+
+Dans les précédents chapitres nous vous avons présenté `zod` pour valider les entrées utilisateurs. Du fait de sa complexité, les métadonnées de ces erreurs (les `ZodError`) ne peuvent pas tenir dans une structure avec juste un `code` et un `message` car elles peuvent indiquer qu'il y a plusieurs erreurs, quels champs sont impliqués, et y apposer des paramètres informatifs (longueur maximale d'une chaîne de caractères...). Il ne sert à rien d'essayer de retrouver une structure générique à toutes les librairies de validation car chacune est trop spécifique. Nous vous conseillons d'adopter pleinement la structure de votre librairie et d'utiliser la même sur le frontend et backend _(possible si vous utilisez le même langage)_.
+
+Pour reprendre notre exemple des `CustomError` qui sont formattées au moment d'être renvoyées sur le réseau, nous aurions juste à ajouter une condition :
+
+```ts
+import { ZodError } from 'zod';
+
+try {
+  myEndpointController();
+} catch (error) {
+  const isZodError = error instanceof ZodError;
+
+  res.json({
+    zodError: isZodError ? error.issues : null, // zod `issues` property is the only thing helpful for any client to handle the error
+    customError: !isZodError ? (error instanceof CustomError ? error.json() : internalServerErrorError.json()) : null,
+  });
+}
+```
+
+:::tip
+Pour simplifier la phase de "parsing" sur le frontend, nous dissocions la propriété `zodError` et `customError`. Car votre librairie de validation pourrait très bien avoir une structure d'erreur qui soit similaire à celle de notre `CustomError`, complexifiant la différenciation des deux.
+:::

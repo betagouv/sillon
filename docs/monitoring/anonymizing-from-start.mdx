@@ -1,0 +1,37 @@
+---
+hide_table_of_contents: true
+---
+
+# Anticiper l'anonymisation
+
+À chaque fois que vous vous équipez d'un nouvel outil vous prenez le risque d'y éparpiller des données utilisateurs. Cela peut poser plusieurs problèmes quant à [la protection des données](legal/data-protection.mdx), par exemple :
+
+- Un outil d'analytics enregistre [les sessions heatmap](https://en.wikipedia.org/wiki/Heat_map) et capture dans le visuel l'IBAN de l'utilisateur ;
+- Un outil d'analytics capture les pages visitées avec leur titre, alors que le site indique dans le titre de page le prénom et nom de l'utilisateur ;
+- Un outil de monitoring technique joint les données du formulaire de connexion lorsqu'une erreur inattendue apparaît.
+
+Ce n'est vraiment pas évident car il faut bien comprendre comment chaque outil va faire son processus d'ingestion de données. Aussi, plus votre projet va être avancé, plus la mise en place de l'anonymisation devra être méticuleuse pour ne pas oublier un texte sur la énième page dans l'encart du bas à droite...
+
+---
+
+**Quelles conséquences sans anonymisation ?**
+
+1. Votre utilisateur peut demander la suppression de ses données, il est donc plus facile d'avoir tout anonymisé dans les outils tiers car un nettoyage complet peut s'avérer très compliqué ;
+2. Quelqu'un pourrait accéder à l'outil pour son besoin quotidien sans être abilité à voir et identifier les données personnelles d'un utilisateur ;
+3. Si votre outil est géré par une tierce entité à l'étranger, vous limitez le risque d'usage des données en fonction des lois appliquées ;
+4. En cas d'intrusion vous réduisez la surface d'exposition de vos données utilisateurs.
+
+---
+
+Voici quelques recommandations en lien avec les exemples présentés :
+
+- Ne pas afficher de données personnelles dans les titres des pages ;
+- Ne pas avoir de données personnelles dans les URL des pages (risque si la requête d'une recherche est mise dans les paramètres, ou alors être sûr que vos outils l'excluent de leur ingestion) ;
+- Lors d'une remontée d'un rapport d'analytics ou d'erreur, filtrer toute donnée liée à une entrée utilisateur (pour être précautionneux il est possible d'acter que toute donnée via du `HTTP POST` doit être filtrée) ;
+- Si vous faites des enregistrements visuels (heatmap, session replay) :
+  1. Vérifier que l'outil va remplacer toute saisie dans un `<input>` avec des astérisques (cela devrait être activé par défaut) ;
+  2. Repérer tous les éléments HTML qui contiennent de la donnée sensible, puis :
+     - Mettre sur ceux de type "inline" un attribut type `data-sensitive-text` et configurer l'outil pour que les balises avec cet attribut soient masquées durant l'enregistrement ;
+     - Mettre sur ceux de type "block" un attribut type `data-sensitive-block` et configurer l'outil pour que les balises avec cet attribut soient masquées durant l'enregistrement (cela peut par exemple s'appliquer à toute image ou document à afficher) ;
+  3. Faire une session de test en passant sur toutes les pages et visionner le résultat pour être sûr de n'avoir rien oublié ;
+- Avoir une durée de conservation appropriée pour les données non-anonymisées.

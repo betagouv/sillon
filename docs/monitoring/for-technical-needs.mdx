@@ -11,3 +11,7 @@ Nous vous conseillons de configurer le client Sentry afin de remonter toute erre
 :::info Exemple
 Durant la consommation d'une "job queue", au lieu de laisser partir des erreurs lambda vous pourriez formater des `JobQueueError`, et dans l'interface Sentry dire que si vous avez plus de 3 `JobQueueError` sous 1 minute, alors vous envoyez un email à l'équipe pour investigation.
 :::
+
+:::tip Aller plus loin
+L'outil dispose aussi d'une fonctionnalité de "session replay" activable. Depuis le frontend, cela va enregistrer les dernières modifications du [DOM HTML](https://en.wikipedia.org/wiki/Document_Object_Model), et en cas d'erreur va envoyer cette "enregistrement" à l'outil afin que vous ayez à disposition une pseudo-vidéo qui aidera à contextualiser pour mieux reproduire l'erreur. Bien entendu, il est impératif d'[obfusquer toute donnée sensible avant](monitoring/anonymizing-from-start.mdx).
+:::

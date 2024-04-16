@@ -254,7 +254,7 @@ const sidebars = {
         slug: 'monitoring',
         description: `Pour maintenir un service de qualité dans la bonne direction il faut avoir des capteurs qui vous signalent quand quelque chose se passe mal. Mais rappelez-vous de ne pas fournir d'informations sensibles à ces outils.`,
       },
-      items: ['monitoring/for-technical-needs', 'monitoring/for-business-needs'],
+      items: ['monitoring/anonymizing-from-start', 'monitoring/for-technical-needs', 'monitoring/for-business-needs'],
     },
     'accessibility-is-mandatory/index',
     {

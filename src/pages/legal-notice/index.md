@@ -4,10 +4,15 @@
 
 La plateforme “Sillon” est éditée par :
 
-La communauté beta.gouv  
+L’incubateur de services numériques  
+DINUM  
 20, avenue de Ségur  
 75007 Paris  
 France
+
+## Directeur de la publication 
+
+Monsieur Ishan BHOJWANI, chef du département incubateur de services numériques de la DINUM.
 
 ## Hébergement de la plateforme 
 

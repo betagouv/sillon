@@ -282,6 +282,7 @@ const sidebars = {
         'legal/secure-the-product-brand',
       ],
     },
+    'product-evaluation/index',
     {
       type: 'category',
       label: 'Aller plus loin',

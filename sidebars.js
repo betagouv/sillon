@@ -290,6 +290,7 @@ const sidebars = {
         slug: 'go-further',
       },
       items: [
+        'go-further/identify-service-providers',
         'go-further/multiple-products-stategy',
         'go-further/contribute-this-knowledge-base',
         'go-further/decline-this-knowledge-base',

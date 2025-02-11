@@ -63,3 +63,441 @@ La marque la plus connue et très appréciée historiquement est [Yubico](https:
 **Activer le 2FA est bénéfique tout autant dans le cadre privé que dans le cadre professionnel. Nous recommandons que votre équipe utilise le 2FA dans tous vos outils.** Et quand c'est possible, de forcer dans l'outil le 2FA à tous les membres.
 
 _Notez qu'il est difficile de résumer tous les cas d'utilisation de ces méthodes par écrit, nous essayons ici de poser des bases afin de vous aider à vous lancer._
+
+# Cas des Yubikeys
+
+Comme indiqué plus haut les Yubikey sont des clefs USB/dongles utilisés principalement pour sécuriser l'authentification des utilisateurs à leur compte, mais pas seulement.
+Elles peuvent aussi servir à authentifier les commits git.
+
+Pour la suite de cette documentation Le type de Yubikey (USB-C, USB-A, etc.) n'est pas important. En revanche, nous travaillerons avec la série 5.
+
+## **Installation**
+
+La Yubikey vient avec plusieurs applications fournies par Yubico.
+Celle qui nous intéresse dans notre cas est le Yubikey-manager.
+
+La documentation pour l'installer : [https://docs.yubico.com/software/yubikey/tools/ykman/Install_ykman.html](https://docs.yubico.com/software/yubikey/tools/ykman/Install_ykman.html)
+
+## **Authentification par passkeys**
+
+
+## **Gestion des clefs SSH**
+
+La suite de cette documentation est inspirée de celle fournie par Yubico : [https://developers.yubico.com/SSH/Securing_SSH_with_FIDO2.html](Securing SSH Authentication with FIDO2)
+FIDO2 est un standard d'authentification sans mot de passe qui utilise la cryptographie à clé publique pour sécuriser les connexions en ligne.
+Fido2 fonctionne avec SSH de la manière suivante :
+- la clef publique est partagée avec l'hôte distant
+- la clef privée n'est pas réellement stockée sur la machine locale : le fichier de clef privé contient un ID qui référence la clef privée stockée sur la yubikey
+
+### **Création**
+La création d'une clef se fait via l'utilitaire ssh-keygen :
+```bash
+ssh-keygen -t ed25519-sk -O resident -O application=ssh:github -C "clé pour accès à Github"
+  ```
+L'option "-O resident" spécifie que la clef privée est stockée dans la yubikey.
+L'option "-O application=ssh:github" indique que la clef ssh générée aura pour ID "ssh:github" dans la yubikey.
+Au moment où cette commande est validée, le code PIN de la yubikey sera demandé.
+Ensuite, on retrouvera dans le répertoire courant les fichiers publiques et privés des clefs :
+- id_ed25519_sk_rk_github
+- id_ed25519_sk_rk_github.pub
+Ces fichiers peuvent être effacés, car nous les récupèrerons à partir de la yubikey dans une étape suivante.
+
+Dans le cas où on doit générer une autre clef SSH, on lui spécifiera un autre nom.
+Dans la commande suivante, elle aura pour ID "ssh:nubo"
+```bash
+ssh-keygen -t ed25519-sk -O resident -O application=ssh:nubo -C "clé pour accès au cloud Nubo"
+  ```
+
+### **Visualisation dans Yubikey-manager**
+Pour visualiser les clés précédemment créées saisir la commande suivante :
+```bash
+ykman fido credentials list
+  ```
+Après la saisie du code PIN, le résultat pourra ressembler à ceci :
+```bash
+Credential ID  RP ID       Username           Display name
+a8f896e6...    ssh:github  openssh            openssh
+e929dde6...    ssh:nubo    openssh            openssh
+  ```
+On a bien deux clefs ssh référencées sous 2 ID différents.
+
+### **Import sur une machine**
+Suite aux étapes précédentes, nous avons un couple de clefs privée/publique  installés sur la yubikey.
+Voici comment faire pour importer ces clefs sur une machine :
+```bash
+cd ~/.ssh
+ssh-keygen -K
+  ```
+Les clefs sont maintenant stockées dans le répertoire ~/.ssh et peuvent être listées via :
+```bash
+~/.ssh$ ls
+id_ed25519_sk_rk_github
+id_ed25519_sk_rk_github.pub
+id_ed25519_sk_rk_nubo
+id_ed25519_sk_rk_nubo.pub
+  ```
+
+### **Utilisation dans git**
+Maintenant que nos clefs sont importées sur la machine, nous allons nous en servir pour nous connecter à un dépôt github.
+Pour cela, nous allons configurer le fichier .ssh/config
+
+```bash
+cd ~/.ssh/
+nano config
+  ```
+Saisir dans l'éditeur de texte (nano ou vim ou autre) le texte suivant :
+```
+Host github.com
+  IdentityFile /home/<USER>/.ssh/id_ed25519_sk_rk_github
+  ```
+En remplaçant <USER> par le nom de l'utilisateur linux qui utilisera la clef.
+Remplacer "id_ed25519_sk_rk_github" par le nom du fichier de clef privée qui devra être présenté.
+
+À noter que dans le cas où l'on a plusieurs clefs ssh pour se connecter à plusieurs comptes github, on peut le spécifier de manière un peu différente :
+- créer le fichier /home/<USER>/config.d/config-github et saisir ce qui a été préciser au dessus
+- au moment de la connexion, préciser dans la variable d'environnement GIT_SSH_COMMAND le fichier de config ssh à utiliser :
+```bash
+GIT_SSH_COMMAND="ssh -F /home/<USER>/.ssh/config.d/config-github" git clone git@github.com:cloud-gouv/infra.git
+  ```
+Vous voilà prêt à travailler avec votre dépôt git !
+
+## **Signer ses commits avec la Yubikey**
+
+Documentation de référence : [https://github.com/YubicoLabs/sign-git-commits-yubikey](https://github.com/YubicoLabs/sign-git-commits-yubikey)
+
+### **Installer et configurer GnuPG**
+
+OpenPGP est un standard utilisé pour la manipulation des clés cryptographiques. Son implémentation principale est GNU Privacy Guard (gnupg).
+
+Voici les procédures d'installation en fonction de l'OS:
+
+- **Linux** :
+
+Installer les paquets suivant avec le package-manager (apt) : GPG, pcscd, scdaemon
+
+```bash
+$ sudo apt install pcscd gnupg2 scdaemon
+```
+
+- **macOS** :
+
+Installation via homebrew
+
+```bash
+$ brew install gnupg
+  ```
+
+Puis installation de Pinentry
+
+```bash
+$ brew install pinentry-mac
+  ```
+
+Ajouter au fichier ~/.gnupg/gpg-agent.conf:
+
+```bash
+pinentry-program /usr/local/bin/pinentry-mac
+  ```
+
+Ajouter au fichier  ~/.gnupg/scdaemon.conf :
+
+```bash
+disable-ccid
+  ```
+
+### **Test de l'installation**
+
+Une fois cette installation terminée, on peut tester le bon fonctionnement de gpg en insérant la Yubikey dans un port USB et en tapant :
+
+```bash
+$ gpg --card-status
+```
+
+Si ma carte est vierge alors devrait apparaître le résultat suivant :
+
+```bash
+Reader ...........: Yubico YubiKey OTP FIDO CCID 0
+Application ID ...: D2760001240102010006078005150000
+Version ..........: 2.1
+Manufacturer .....: Yubico
+Serial number ....: 07800515
+Name of cardholder: [not set]
+Language prefs ...: [not set]
+Sex ..............: unspecified
+URL of public key : [not set]
+Login data .......: [not set]
+Signature PIN ....: not forced
+Key attributes ...: rsa2048 rsa2048 rsa2048
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 0 3
+Signature counter : 0
+Signature key ....: [none]
+Encryption key....: [none]
+Authentication key: [none]
+General key info..: [none]
+```
+
+### **Modifier les codes PIN et admin PIN**
+
+Saisir dans un shell :
+
+```bash
+$ gpg --card-edit
+```
+
+→ on se retrouve dans un prompt gpg/card
+
+Saisir :
+
+```bash
+gpg/carte> admin
+Les commandes d'administration sont permises
+```
+
+Les codes par défaut fournis avec les yubikeys sont :
+
+- code PIN : 123456
+- code admin PIN : 12345678
+
+Nous allons changer ces codes par défaut :
+
+```bash
+gpg/carte> passwd
+gpg: carte OpenPGP nº D2760001240103040006181585420000 détectée
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Quel est votre choix ?
+```
+
+Saisir 1 pour modifier le code PIN, puis saisir le nouveau code choisi dans les 2 fenêtres qui s'affichent.
+
+L'affichage revient au menu :
+
+```bash
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Quel est votre choix ?
+```
+
+Saisir 3 pour modifier le code admin PIN, puis saisir le nouveau code choisi dans les 2 fenêtres qui s'affichent.
+
+L'affichage revient au menu :
+
+```bash
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Quel est votre choix ?
+```
+
+Saisir q pour sortir du menu.
+
+### **Modifier les attributs de clé**
+
+On va modifier les attributs de la Yubikey pour s'assurer d'utiliser les types de clés les plus robustes disponibles : type RSA de taille 4096 bits.
+
+```bash
+gpg/card> key-attr
+Changing card key attribute for: Signature key
+Please select what kind of key you want:
+   (1) RSA
+   (2) ECC
+Your selection? 1
+What keysize do you want? (2048) 4096
+The card will now be re-configured to generate a key of 4096 bits
+Changing card key attribute for: Encryption key
+Please select what kind of key you want:
+   (1) RSA
+   (2) ECC
+Your selection? 1
+What keysize do you want? (2048) 4096
+The card will now be re-configured to generate a key of 4096 bits
+Changing card key attribute for: Authentication key
+Please select what kind of key you want:
+   (1) RSA
+   (2) ECC
+Your selection? 1
+What keysize do you want? (2048) 4096
+The card will now be re-configured to generate a key of 4096 bits
+```
+
+### **Créer sa clé pgp**
+
+On peut maintenant générer notre clé PGP. Lorsque le prompt le demandera, on saisira les options suivantes :
+
+- Durée de validité de la clé : 0 (pas d'expiration)
+- identité : saisir son nom, prénom, adresse mail (sera utilisé pour identifier la clé)
+
+⚠️ une fois saisi 'O' pour Okay, la Yubikey peut mettre un certain temps à générer la clé PGP, sans que le prompt réagisse. Il faut bien lui laisser le temps (quelques minutes) de terminer ⚠️
+
+```bash
+gpg/card> generate
+Make off-card backup of encryption key? (Y/n) n
+
+Please note that the factory settings of the PINs are
+   PIN = '123456'     Admin PIN = '12345678'
+You should change them using the command --change-pin
+
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0)
+Key does not expire at all
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: Pipo Bimbo
+Email address: heroinedor@gmail.com
+Comment:
+You selected this USER-ID:
+    "Pipo Bimbo <heroinedor@gmail.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+gpg: key 109F2428DD97A597 marked as ultimately trusted
+gpg: revocation certificate stored as 'C:/Users/you/AppData/Roaming/gnupg/openpgp-revocs.d\2F28DCB202028A5A2FE5A45D109F2428DD97A597.rev'
+public and secret key created and signed.
+```
+
+Normalement quand on a plusieurs Yubikey, on en utilise une pour stocker sa clé primaire et une autre pour stocker les sous-clés.
+Dans notre cas en l'absence (temporaire) de Yubikey supplémentaire, on se contentera de ne générer qu'une seule clé PGP et de l'utiliser pour la suite du processus.
+
+### **Vérifier sa clé pgp**
+
+Une fois la création terminée, quitter le programme et le relancer. On peut ainsi vérifier la présence de la clé sur la yubikey
+
+```bash
+gpg/carte> list
+
+Reader ...........: Yubico YubiKey OTP FIDO CCID 00 00
+Application ID ...: D2760001240103040006181585420000
+Application type .: OpenPGP
+Version ..........: 3.4
+Manufacturer .....: Yubico
+Serial number ....: 18158542
+Name of cardholder: [non positionné]
+Language prefs ...: [non positionné]
+Salutation .......:
+URL of public key : [non positionné]
+Login data .......: [non positionné]
+Signature PIN ....: non forcé
+Key attributes ...: rsa4096 rsa4096 rsa4096
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 0 3
+Signature counter : 7
+KDF setting ......: off
+Signature key ....: 35FC 4FCA 4887 7127 E7F0  B29D 2FA2 7903 9EFA 1679
+      created ....: 2024-09-18 14:19:38
+Encryption key....: EE57 8EB2 6193 F607 A841  125A 220B 2314 5967 916F
+      created ....: 2024-09-18 14:19:38
+Authentication key: A248 2E3B 8E7A 1722 A310  6B39 5FCA 9BBB CAC3 ABE5
+      created ....: 2024-09-18 14:19:38
+General key info..:
+pub  rsa4096/2FA279039EFA1679 2024-09-18 Pipo Bimbo <heroinedor@gmail.com>
+sec>  rsa4096/2FA279039EFA1679  créé : 2024-09-18  expire : jamais
+                                nº de carte : 0006 18158542
+```
+
+Noter l'indicatif de clé (key handle), ici le : 2FA279039EFA1679
+Il servira dans la suite du processus
+
+### **Exporter sa clé pgp**
+
+Afin de pouvoir uploader la clé publique chez Github, il faut d'abord l'exporter :
+
+```bash
+$ gpg --armor --output yubikey_gpg_public.asc --export heroinedor@gmail.com
+```
+
+On peut retrouver la clé publique dans le fichier ainsi exporté
+
+```bash
+$ cat yubikey_gpg_public.asc
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+### **Importer sa clé pgp dans Github**
+
+Le contenu de cette clé (y compris les lignes ----BEGIN/END----) sont à importer dans le compte Github via le menu "settings"/"SSH and GPG Keys"
+
+Suivre cette documentation pour y parvenir : [https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
+
+### **Configurer Git pour la signature électronique**
+
+À noter que comme pour toute configuration Git, elle peut être effectuée :
+
+- au niveau de l'installation globale sur la machine en rajoutant à la ligne de commande `-global`
+- ou au niveau du dépôt en rajoutant à la ligne de commande `-local`
+
+Indiquer à Git l'indicatif de clé (key handle récupéré au chapitre vérifier sa clé pgp) à utiliser :
+
+```bash
+$ git config --global user.signingKey 2FA279039EFA1679
+```
+
+Indiquer aussi à Git d'utiliser la signature automatique afin de n'avoir pas à le spécifier à chaque commit
+
+```bash
+$ git config --global commit.gpgsign true
+```
+
+Et enfin, indiquer à Git quel programme PGP utiliser
+
+- Linux
+
+```bash
+$ git config --global gpg.program gpg2
+```
+
+- macOS
+
+```bash
+$ git config --global gpg.program gpg
+```
+
+### **Effectuer son premier commit Git Signé**
+
+Si tout s'est bien passé, il suffit maintenant d'effectuer un commit via Git pour que la signature soit automatiquement ajoutée :
+
+```bash
+$ git commit -m "signature test"
+[main 68e204c] signature test
+ 1 file changed, 2 insertions(+)
+```
+
+La présence de la signature peut être vérifiée ainsi :
+
+```bash
+$ git log --show-signature
+commit 68e204c945a95a2d8970a19552fdebcfdbb41864 (HEAD -> main)
+gpg: Signature faite le lun. 23 sept. 2024 17:14:44 CEST
+gpg:                avec la clef RSA 35FC4FCA48877127E7F0B29D2FA279039EFA1679
+gpg: Bonne signature de « Pipo Bimbo <heroinedor@gmail.com> » [ultime]
+Author: Pipo Bimbo <heroinedor@gmail.com>
+Date:   Mon Sep 23 17:14:44 2024 +0200
+
+    signature test
+```
+
+![https://media1.tenor.com/m/O1rWEILXLFIAAAAC/yatta-hiro-heroes.gif](https://media1.tenor.com/m/O1rWEILXLFIAAAAC/yatta-hiro-heroes.gif)
+
+🎉 🎉 🎉 🎉

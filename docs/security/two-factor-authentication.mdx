@@ -150,16 +150,16 @@ nano config
 Saisir dans l'éditeur de texte (nano ou vim ou autre) le texte suivant :
 ```
 Host github.com
-  IdentityFile /home/<USER>/.ssh/id_ed25519_sk_rk_github
+  IdentityFile /home/ {{USER}}/.ssh/id_ed25519_sk_rk_github
   ```
-En remplaçant <USER> par le nom de l'utilisateur linux qui utilisera la clef.
+En remplaçant  {{USER}} par le nom de l'utilisateur linux qui utilisera la clef.
 Remplacer "id_ed25519_sk_rk_github" par le nom du fichier de clef privée qui devra être présenté.
 
 À noter que dans le cas où l'on a plusieurs clefs ssh pour se connecter à plusieurs comptes github, on peut le spécifier de manière un peu différente :
-- créer le fichier /home/<USER>/config.d/config-github et saisir ce qui a été préciser au dessus
+- créer le fichier /home/ {{USER}}/config.d/config-github et saisir ce qui a été préciser au dessus
 - au moment de la connexion, préciser dans la variable d'environnement GIT_SSH_COMMAND le fichier de config ssh à utiliser :
 ```bash
-GIT_SSH_COMMAND="ssh -F /home/<USER>/.ssh/config.d/config-github" git clone git@github.com:cloud-gouv/infra.git
+GIT_SSH_COMMAND="ssh -F /home/ {{USER}}/.ssh/config.d/config-github" git clone git@github.com:cloud-gouv/infra.git
   ```
 Vous voilà prêt à travailler avec votre dépôt git !
 

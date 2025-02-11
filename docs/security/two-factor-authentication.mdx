@@ -70,6 +70,7 @@ Comme indiqué plus haut les Yubikey sont des clefs USB/dongles utilisés princi
 Elles peuvent aussi servir à authentifier les commits git.
 
 Pour la suite de cette documentation Le type de Yubikey (USB-C, USB-A, etc.) n'est pas important. En revanche, nous travaillerons avec la série 5.
+Normalement (à par l'utilitaire ykman), ces commandes fonctionnent pour toutes les clés compatibles FIDO2 (pour les accès SSH/Passkeys) et carte à puce (pour la partie PGP)
 
 ## **Installation**
 
@@ -78,12 +79,13 @@ Celle qui nous intéresse dans notre cas est le Yubikey-manager.
 
 La documentation pour l'installer : [https://docs.yubico.com/software/yubikey/tools/ykman/Install_ykman.html](https://docs.yubico.com/software/yubikey/tools/ykman/Install_ykman.html)
 
+Pour les clefs d'autres marques il existe fido-manager.
+
 ## **Authentification par passkeys**
 
 
 ## **Gestion des clefs SSH**
 
-La suite de cette documentation est inspirée de celle fournie par Yubico : [https://developers.yubico.com/SSH/Securing_SSH_with_FIDO2.html](Securing SSH Authentication with FIDO2)
 FIDO2 est un standard d'authentification sans mot de passe qui utilise la cryptographie à clé publique pour sécuriser les connexions en ligne.
 Fido2 fonctionne avec SSH de la manière suivante :
 - la clef publique est partagée avec l'hôte distant
@@ -103,9 +105,9 @@ Ensuite, on retrouvera dans le répertoire courant les fichiers publiques et pri
 Ces fichiers peuvent être effacés, car nous les récupèrerons à partir de la yubikey dans une étape suivante.
 
 Dans le cas où on doit générer une autre clef SSH, on lui spécifiera un autre nom.
-Dans la commande suivante, elle aura pour ID "ssh:nubo"
+Dans la commande suivante, elle aura pour ID "ssh:infra-prod"
 ```bash
-ssh-keygen -t ed25519-sk -O resident -O application=ssh:nubo -C "clé pour accès au cloud Nubo"
+ssh-keygen -t ed25519-sk -O resident -O application=ssh:infra-prod -C "clé pour accès à l'infra de prod"
   ```
 
 ### **Visualisation dans Yubikey-manager**
@@ -117,7 +119,7 @@ Après la saisie du code PIN, le résultat pourra ressembler à ceci :
 ```bash
 Credential ID  RP ID       Username           Display name
 a8f896e6...    ssh:github  openssh            openssh
-e929dde6...    ssh:nubo    openssh            openssh
+e929dde6...    ssh:infra-prod    openssh            openssh
   ```
 On a bien deux clefs ssh référencées sous 2 ID différents.
 
@@ -162,8 +164,6 @@ GIT_SSH_COMMAND="ssh -F /home/<USER>/.ssh/config.d/config-github" git clone git@
 Vous voilà prêt à travailler avec votre dépôt git !
 
 ## **Signer ses commits avec la Yubikey**
-
-Documentation de référence : [https://github.com/YubicoLabs/sign-git-commits-yubikey](https://github.com/YubicoLabs/sign-git-commits-yubikey)
 
 ### **Installer et configurer GnuPG**
 
@@ -416,7 +416,7 @@ sec>  rsa4096/2FA279039EFA1679  créé : 2024-09-18  expire : jamais
 Noter l'indicatif de clé (key handle), ici le : 2FA279039EFA1679
 Il servira dans la suite du processus
 
-### **Exporter sa clé pgp**
+### **Exporter sa clé publique pgp**
 
 Afin de pouvoir uploader la clé publique chez Github, il faut d'abord l'exporter :
 
@@ -435,7 +435,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
-### **Importer sa clé pgp dans Github**
+### **Importer sa clé publique pgp dans Github**
 
 Le contenu de cette clé (y compris les lignes ----BEGIN/END----) sont à importer dans le compte Github via le menu "settings"/"SSH and GPG Keys"
 
@@ -498,6 +498,9 @@ Date:   Mon Sep 23 17:14:44 2024 +0200
     signature test
 ```
 
-![https://media1.tenor.com/m/O1rWEILXLFIAAAAC/yatta-hiro-heroes.gif](https://media1.tenor.com/m/O1rWEILXLFIAAAAC/yatta-hiro-heroes.gif)
-
 🎉 🎉 🎉 🎉
+
+## **Aller plus loin**
+
+Gestion des clefs SSH avec FIDO2 et la yubikey : [https://developers.yubico.com/SSH/Securing_SSH_with_FIDO2.html](Securing SSH Authentication with FIDO2)
+Signer ses commits git avec la yubikey : [https://github.com/YubicoLabs/sign-git-commits-yubikey](https://github.com/YubicoLabs/sign-git-commits-yubikey)

@@ -56,6 +56,16 @@ jobs:
           CRISP_WEBSITE_ID: ${{ secrets.CRISP_WEBSITE_ID }}
         run: make build
 
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/.docusaurus
+            ${{ github.workspace }}/**/.cache
+          key: |
+            ${{ runner.os }}-docusaurus-${{ hashFiles('**/package-lock.json', '**/npm-shrinkwrap.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-docusaurus-${{ hashFiles('**/package-lock.json', '**/npm-shrinkwrap.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
+
       - name: Install PDF tool
         # [WORKAROUND] It should have worked by using it inside a Docker container but something is broken
         # Ref: https://github.com/signcl/docusaurus-prince-pdf/issues/34

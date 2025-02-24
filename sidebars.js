@@ -292,6 +292,7 @@ const sidebars = {
       items: [
         'go-further/identify-service-providers',
         'go-further/multiple-products-stategy',
+        'go-further/setup-security-key',
         'go-further/contribute-this-knowledge-base',
         'go-further/decline-this-knowledge-base',
         'go-further/work-in-progress',

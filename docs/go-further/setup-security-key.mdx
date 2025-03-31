@@ -20,12 +20,23 @@ Il existe aussi fido-manager.
 
 ### Initialiser le code pin
 
-La premiére chose à faire, quand vous avez une nouvelle clé, est definir à code PIN.
-
+La première chose à faire, quand vous avez une nouvelle clé, est definir à code PIN.
+Voici comment faire avec la libfido2 :
 ```
 # fido2-token -L
 DevSrvsID:876876876: vendor=0x1050, product=0x0407 (Yubico YubiKey OTP+FIDO+CCID)
 # fido2-token -S DevSrvsID:876876876
+Enter new PIN for DevSrvsID:876876876:
+Enter same PIN again:
+```
+
+Suivant votre système, le nommage de la clé peut varier
+```
+# fido2-token -L
+/dev/hidraw2: vendor=0x1050, product=0x0407 (Yubico YubiKey OTP+FIDO+CCID)
+# fido2-token -S /dev/hidraw2
+Enter new PIN for /dev/hidraw2:
+Enter same PIN again:
 ```
 
 ## **Authentification par passkeys**

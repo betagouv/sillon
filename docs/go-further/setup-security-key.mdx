@@ -18,6 +18,16 @@ Si vous avez une Yubikey vous pouvez installer le Yubikey-manager : la documenta
 
 Il existe aussi fido-manager.
 
+### Initialiser le code pin
+
+La premiére chose à faire, quand vous avez une nouvelle clé, est definir à code PIN.
+
+```
+# fido2-token -L
+DevSrvsID:876876876: vendor=0x1050, product=0x0407 (Yubico YubiKey OTP+FIDO+CCID)
+# fido2-token -S DevSrvsID:876876876
+```
+
 ## **Authentification par passkeys**
 
 ## **Gestion des clefs SSH**

@@ -120,8 +120,8 @@ Les clefs sont maintenant stockées dans le répertoire ~/.ssh et peuvent être 
 ~/.ssh$ ls
 id_ed25519_sk_rk_github
 id_ed25519_sk_rk_github.pub
-id_ed25519_sk_rk_nubo
-id_ed25519_sk_rk_nubo.pub
+id_ed25519_sk_rk_infra-prod
+id_ed25519_sk_rk_infra-prod.pub
 ```
 
 ### **Utilisation dans git**
@@ -150,12 +150,12 @@ Remplacer "id_ed25519_sk_rk_github" par le nom du fichier de clef privée qui de
 - au moment de la connexion, préciser dans la variable d'environnement GIT_SSH_COMMAND le fichier de config ssh à utiliser :
 
 ```bash
-GIT_SSH_COMMAND="ssh -F /home/`USER` /.ssh/config.d/config-github" git clone git@github.com:cloud-gouv/infra.git
+GIT_SSH_COMMAND="ssh -F /home/`USER` /.ssh/config.d/config-github" git clone git@github.com:mon-orga/mon-repo.git
 ```
 
 Vous voilà prêt à travailler avec votre dépôt git !
 
-## **Signer ses commits avec une clé de sécurité**
+## **Signer ses commits avec une clé de sécurité (Version PGP)**
 
 ### **Installer et configurer GnuPG**
 

@@ -22,16 +22,20 @@ Pour ce tutoriel, nous allons utilisez la bibiliotheque fido2 : [https://github.
 La première chose à faire, après avoir branché votre clé, est definir de définir un code PIN.
 
 Voici comment faire avec la libfido2 :
+
 ```
 # fido2-token -L
 DevSrvsID:876876876: vendor=0x1050, product=0x0407 (Yubico YubiKey OTP+FIDO+CCID)
 ```
+
 Copier la partie `DevSrvsID:876876876` (cela peut être `/dev/hidraw*` sous linux ou `DevSrvsID:******` sous max).
+
 ```
 # fido2-token -S DevSrvsID:876876876
 Enter new PIN for DevSrvsID:876876876:
 Enter same PIN again:
 ```
+
 > Mettez un code PIN à 6 chiffres (ou plus si vous le souhaitez)
 
 ## **Authentification par passkeys**
@@ -51,6 +55,7 @@ La création d'une clef se fait via l'utilitaire ssh-keygen :
 ```bash
 ssh-keygen -t ed25519-sk -O resident -O application=ssh:github
 ```
+
 Au moment où cette commande est validée, le code PIN de la yubikey sera demandé.
 On vous demande où stocker la clé, choisissez le répertoire `~/.ssh/id_ed25519_sk_rk_github`.
 Vous n'avez pas besoin de mettre une passphrase.
@@ -60,6 +65,7 @@ Vous n'avez pas besoin de mettre une passphrase.
 > Dans le cas où on doit générer une autre clef SSH, on lui spécifiera un autre nom.
 
 Dans la commande suivante, elle aura pour ID "ssh:infra-prod" pour se connecter à votre infra (si vous avez besoin).
+
 ```bash
 ssh-keygen -t ed25519-sk -O resident -O application=ssh:infra-prod
 ```
@@ -115,7 +121,7 @@ id_ed25519_sk_rk_infra-prod.pub
 
 ### Ajout de la clé sur Github
 
-Ajouter la clé publique (`~/.ssh/id_ed25519_sk_rk_github.pub`) sur Github : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account 
+Ajouter la clé publique (`~/.ssh/id_ed25519_sk_rk_github.pub`) sur Github : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 Vous devez l'ajouter comme une "authentication key".
 
 ### **Utilisation dans git**
@@ -139,10 +145,13 @@ En remplaçant `USER` par le nom de l'utilisateur linux qui utilisera la clef.
 Remplacer "id_ed25519_sk_rk_github" par le nom du fichier de clef privée qui devra être présenté.
 
 Vous pouvez tester que cela fonctionne avec la commande suivante :
+
 ```
 # ssh git@github.com
 ```
+
 Vous devez avoir le résultat suivant :
+
 ```
 Confirm user presence for key ED25519-SK SHA256:89798798798798797
 User presence confirmed
@@ -171,9 +180,9 @@ Création d'une clef SSH de signature se fait via l'utilitaire ssh-keygen :
 ```bash
 ssh-keygen -t ed25519-sk -O resident -O application=ssh:git-sign
 ```
+
 (Vous n'avez pas besoin de passphrase)
 Vous pouvez sauvegarder ici : /home/USER/.ssh/id_ed25519_sk_rk_git-sign
-
 
 #### Ajout de la clé sur Github
 
@@ -181,6 +190,7 @@ Ajouter la clé publique (`~/.ssh/id_ed25519_sk_rk_github.pub`) sur Github : htt
 Vous devez l'ajouter comme une "signing key".
 
 #### Indiquer la clé SSH de signature à Git
+
 https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key#telling-git-about-your-ssh-key
 
 ```
@@ -189,12 +199,15 @@ git config --global user.signingkey /home/USER/.ssh/id_ed25519_sk_rk_git-sign
 ```
 
 Signer un premier commit
+
 ```
 $ git commit -S -m "signature test"
 ```
+
 La yubikey va clignoter, il faut la toucher.
 
-Vous pouvez vérifier votre signature avec la commande suivante : 
+Vous pouvez vérifier votre signature avec la commande suivante :
+
 ```bash
 $ git log --show-signature
 commit 68e204c945a95a2d8970a19552fdebcfdbb41864 (HEAD -> main)
@@ -208,10 +221,13 @@ Date:   Mon Sep 23 17:14:44 2024 +0200
 ```
 
 Activer la signature de tous les commits automatiquement dans tous les repos :
+
 ```
 $ git config --global commit.gpgsign true
 ```
-Si pour le faire dans un 
+
+Si pour le faire dans un
+
 ```
 $ git config commit.gpgsign true
 ```

@@ -63,7 +63,7 @@ const config = {
         title: 'Sillon',
         logo: {
           alt: '',
-          src: 'assets/logo/marianne.svg',
+          src: 'assets/logo/betagouv.png',
         },
         items: [
           {
@@ -78,7 +78,7 @@ const config = {
       },
       footer: {
         logo: {
-          src: 'assets/logo/marianne.svg',
+          src: 'assets/logo/betagouv.png',
         },
         links: [
           {

@@ -7,7 +7,7 @@ on:
 env:
   NODE_OPTIONS: --max_old_space_size=4096
   NODE_VERSION: 20.14.0
-  NPM_VERSION: 9.5.1
+  NPM_VERSION: 10.7.0
 concurrency:
   # Prevent parallel builds of the same branch
   group: cicd-${{ github.ref }}
@@ -68,11 +68,8 @@ jobs:
       - name: Generate PDF
         run: make generate-pdf-in-ci
 
-      - name: Deploy to Netlify
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        uses: netlify/actions/cli@master
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.4
         with:
-          args: deploy --dir=dist --prod
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          branch: gh-pages
+          folder: dist

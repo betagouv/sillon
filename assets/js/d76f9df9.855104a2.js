@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksillon=self.webpackChunksillon||[]).push([[4424],{2791:e=>{e.exports=JSON.parse('{"title":"S\xe9curit\xe9 primaire","slug":"security","permalink":"/docs/security","navigation":{"previous":{"title":"Design patterns","permalink":"/docs/design-patterns/"},"next":{"title":"Sensibiliser","permalink":"/docs/security/raise-awareness"}}}')}}]);

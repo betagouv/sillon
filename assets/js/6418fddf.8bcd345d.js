@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksillon=self.webpackChunksillon||[]).push([[9850],{4198:e=>{e.exports=JSON.parse('{"title":"Pr\xe9ambule","slug":"preamble","permalink":"/docs/preamble","navigation":{"previous":{"title":"Pr\xe9sentation","permalink":"/docs/"},"next":{"title":"Validit\xe9 de ce guide","permalink":"/docs/preamble/validity"}}}')}}]);

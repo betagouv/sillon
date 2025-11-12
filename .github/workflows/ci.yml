@@ -6,7 +6,7 @@ on:
   pull_request:
 env:
   NODE_OPTIONS: --max_old_space_size=4096
-  NODE_VERSION: 18.16.0
+  NODE_VERSION: 20.14.0
   NPM_VERSION: 9.5.1
 concurrency:
   # Prevent parallel builds of the same branch

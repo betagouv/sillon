@@ -32,15 +32,11 @@ Then a few hacks to apply in the `.mdx` output:
 
 The following ones must be repository secrets (not environment ones) to be used during the CI/CD:
 
-- `NETLIFY_AUTH_TOKEN`: [SECRET]
-- `NETLIFY_SITE_ID`: [SECRET]
 - `CRISP_WEBSITE_ID`: [SECRET]
 
 ### Hosting & domain
 
-The "documentation" build is static and we chose Netlify to host it. Just configure the 2 environments variables you can find from the Netlify interface and you're good to go!
-
-_Note: you can add a custom domain easily_
+The "documentation" build is static and we chose Scalingo to host it.
 
 ### Crisp
 

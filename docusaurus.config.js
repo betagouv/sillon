@@ -61,10 +61,6 @@ const config = {
       image: 'img/social-card.png',
       navbar: {
         title: 'Sillon',
-        logo: {
-          alt: '',
-          src: 'assets/logo/betagouv.png',
-        },
         items: [
           {
             type: 'custom-pdfVersion',
@@ -77,9 +73,6 @@ const config = {
         ],
       },
       footer: {
-        logo: {
-          src: 'assets/logo/betagouv.png',
-        },
         links: [
           {
             label: 'Mentions légales',

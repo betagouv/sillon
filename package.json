@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "dev": "docusaurus start --no-open",
+    "dev": "docusaurus start --host 0.0.0.0 --no-open",
     "build": "docusaurus build --out-dir ./dist",
     "start": "docusaurus serve --dir ./dist --no-open --host 0.0.0.0  --port \"${PORT:-3000}\"",
     "pdf:generate-in-ci": "start-server-and-test start http://localhost:3000 pdf:generate",
@@ -69,6 +69,6 @@
   },
   "packageManager": "npm@10.7.0",
   "engines": {
-    "node": "^20"
+    "node": "^24"
   }
 }

@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    volumes:
+      - "./:/app"
+      - "/app/node_modules" # don't mirror node_modules, we want the container ones
+    ports:
+      - "3000:3000"
